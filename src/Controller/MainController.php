@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * page par défaut
+     * page par défaut/homepage affiche la liste de tous les films
      *
      * @Route("/", name="default", methods={"GET"})
      *
@@ -22,43 +22,32 @@ class MainController extends AbstractController
         // le chemin du fichier tiwg commence dans le dossier templates
         // * un tableau de donnée à afficher (optionnel)
         // cette méthode renvoit un objet Reponse, on va pouvoir le renvoyer
-        dump($_SERVER);
+        // dump($_SERVER);
+        
         return $this->render("main/home.html.twig"/** pas de donnée pour l'instant */);
     }
 
     /**
-     * page favorites
+     * page list affiche le résultat de la recherche
      *
-     * @Route("/favorites", name="movie_favorites", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function favorites(): Response
-    {
-        return $this->render("favorites.html.twig");
-    }
-
-    /**
-     * page list
-     *
-     * @Route("/movies", name="movie_list", methods={"GET"})
+     * @Route("/films", name="movie_list", methods={"GET"})
      *
      * @return Response
      */
     public function list(): Response
     {
-        return $this->render("list.html.twig");
+        return $this->render("main/list.html.twig");
     }
 
     /**
-     * page show
+     * page show affiche le détail d'un film 
      *
-     * @Route("/movie/{id}", name="show_movie", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/films/{id}", name="show_movie", methods={"GET"}, requirements={"id"="\d+"})
      *
      * @return Response
      */
-    public function show(): Response
+    public function show($id): Response
     {
-        return $this->render("show.html.twig");
+        return $this->render("main/show.html.twig", ['id' => $id]);
     }
 }
