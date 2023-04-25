@@ -1,59 +1,80 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    {# movieForTwig #}
+        {% dump(movieForTwig) %}
+        {#
+        array:8 [▼
+            "type" => "Série"
+            "title" => "Game of Thrones"
+            "release_date" => 2011
+            "duration" => 52
+            "summary" => "Neuf familles nobles se battent pour le contrôle des terres de Westeros, tandis qu'un ancien ennemi revient..."
+            "synopsis" => "Il y a très longtemps, à une époque oubliée, une force a détruit l'équilibre des saisons. Dans un pays où l'été peut durer plusieurs années et l'hiver toute une ▶"
+            "poster" => "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg"
+            "rating" => 4.7
+            ]
+        #}
     <!-- main -->
 
-    <div class="container bg-lighttt pt-5">
+    <div class="container bg-light pt-5">
 
         <div class="row mb-2">
 
             <div class="col">
 
                 <div
-                    class="row g-0 borderrr rrrounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
+                    class="row g-0 border rounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
                     <div class="col-4 movie__poster img-thumbnail"
-                        style="background-image: url(https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg);">
+                        style="background-image: url({{ movieForTwig.poster }})">
                         <img src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
                         <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
 
                     <div class="col-8 p-4 d-flex flex-column position-static bg-light">
-                        <a href="" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">Film</strong>
-                        <h3 class="mb-1">A Bug's Life</h3>
-                        <div class="mb-1 text-muted">93 min</div>
+                        <a href="{{ path('movie_favorites', {'request': movieForTwig}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <strong class="d-inline-block mb-2 text-primary">{{ movieForTwig.type }}</strong>
+                        <h3 class="mb-1">{{ movieForTwig.title }}</h3>
+                        <div class="mb-1 text-muted">{{ movieForTwig.duration }} min</div>
                         <p>
                             <span class="badge bg-warning text-dark">Animation</span>
                             <span class="badge bg-warning text-dark">Aventure</span>
                             <span class="badge bg-warning text-dark">Comédie</span>
                             <span class="badge bg-warning text-dark">Famille</span>
                         </p>
-                        <p>Tilt, fourmi quelque peu tête en l'air, détruit par
-                            inadvertance la
-                            récolte de la saison. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum
-                            molestias eaque consequuntur quia enim numquam, sint, cumque incidunt facilis suscipit
-                            fugiat ut beatae amet debitis? Delectus quos omnis dolor facere?
-                        </p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dignissimos recusandae
-                            hic reprehenderit. Ipsum, laborum nostrum temporibus aperiam itaque perferendis neque hic
-                            libero natus! Cupiditate iste hic nemo ea pariatur?
+                        <p>{{ movieForTwig.synopsis }}
                         </p>
                         <div class="d-flex mb-4" style="color: orange;">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <span class="ps-1">4.8</span>
+
+                        {# condition pour l'affichage des étoiles/notes #}
+                        {# on a 5 étoiles (index 0-4) #}
+                        {% for i in 0..4 %}
+                            {# si la note - le nombre total d'étoiles(5) est > ou égal 0.9 #}
+                            {% if movieForTwig.rating - i >= 0.9 %}
+                                {# alors affiche une étoile pleine avec la class bi-star-fill #}
+                                <i class="bi bi-star-fill"></i>
+                            {# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
+                            {% elseif movieForTwig.rating - i <= 0.1 %}
+                                {# alors affiche une étoile vide avec la class bi-star #}
+                                <i class="bi bi-star"></i>
+                            {% else %}
+                                {# sinon reste = décimal entre 0.1 et 0.9 alors on affiche une étoile avec la class bi-star-half #}
+                                <i class="bi bi-star-half"></i>
+                            {% endif %}  
+                        {% endfor %}
+
+                            <span class="ps-1">{{ movieForTwig.rating }}</span>
                         </div>
 
-                        <h2>3 Saisons</h2>
-                        <ul class="list-unstyled">
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 1</span><small class="ms-1">(10 épisodes)</small></li>
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 2</span><small class="ms-1">(11 épisodes)</small></li>
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 3</span><small class="ms-1">(12 épisodes)</small></li>
-                        </ul>
+                        {# on conditionne la partie saison que pour les série #}
+                        {% if movieForTwig.type == 'Série' %}
+                            <h2>3 Saisons</h2>
+                            <ul class="list-unstyled">
+                                <li><span class="badge bg-danger fs-6 mb-2">Saison 1</span><small class="ms-1">(10 épisodes)</small></li>
+                                <li><span class="badge bg-danger fs-6 mb-2">Saison 2</span><small class="ms-1">(11 épisodes)</small></li>
+                                <li><span class="badge bg-danger fs-6 mb-2">Saison 3</span><small class="ms-1">(12 épisodes)</small></li>
+                            </ul>
+                        {% endif %}
 
                         <dl class="row">
                             <dt class="col-sm-12">Avec</dt>
@@ -65,7 +86,7 @@
                             <dt class="col-sm-12">Pays</dt>
                             <dd class="col-sm-12">USA</dd>
                             <dt class="col-sm-12">Année</dt>
-                            <dd class="col-sm-12">1998</dd>
+                            <dd class="col-sm-12">{{ movieForTwig.release_date }}</dd>
                         </dl>
 
                     </div>
