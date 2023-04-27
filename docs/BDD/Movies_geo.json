@@ -1,0 +1,37 @@
+{
+    "width": 364,
+    "height": 489,
+    "cx": [
+      [ "SEASON", 182 ],
+      [ "GENRE", 57 ],
+      [ "BELONGS TO", 182 ],
+      [ "TYPE", 307 ],
+      [ "BELONGS TO2", 57 ],
+      [ "MOVIE", 182 ],
+      [ "BELONGS TO3", 307 ],
+      [ "PLAY", 182 ],
+      [ "ACTOR", 307 ]
+    ],
+    "cy": [
+      [ "SEASON", 51 ],
+      [ "GENRE", 143 ],
+      [ "BELONGS TO", 143 ],
+      [ "TYPE", 143 ],
+      [ "BELONGS TO2", 286 ],
+      [ "MOVIE", 286 ],
+      [ "BELONGS TO3", 286 ],
+      [ "PLAY", 438 ],
+      [ "ACTOR", 438 ]
+    ],
+    "shift": [
+      [ "BELONGS TO,MOVIE,0", 0 ],
+      [ "BELONGS TO,SEASON,0", 0 ],
+      [ "BELONGS TO2,MOVIE,0", 0 ],
+      [ "BELONGS TO2,GENRE,0", 0 ],
+      [ "BELONGS TO3,MOVIE,0", 0 ],
+      [ "BELONGS TO3,TYPE,0", 0 ],
+      [ "PLAY,MOVIE,0", 0 ],
+      [ "PLAY,ACTOR,0", 0 ]
+    ],
+    "ratio": []
+  }

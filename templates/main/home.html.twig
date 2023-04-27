@@ -2,121 +2,128 @@
 
 {% block body %}
 
-    <!-- main -->
-    <div class="my-5 py-5 text-center">
-        <img src="{{ asset('favicon.png') }}" height="100" alt="Logo O'flix" class="mb-3">
-        <h1 class="display-6 fw-bold">Films, séries TV et popcorn en illimité.</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4 text-muted">Où que vous soyez. Gratuit pour toujours.</p>
-        </div>
-    </div>
+	<!-- main -->
+	<div class="my-5 py-5 text-center">
+		<img src="{{ asset('favicon.png') }}" height="100" alt="Logo O'flix" class="mb-3">
+		<h1 class="display-6 fw-bold">Films, séries TV et popcorn en illimité.</h1>
+		<div class="col-lg-6 mx-auto">
+			<p class="lead mb-4 text-muted">Où que vous soyez. Gratuit pour toujours.</p>
+		</div>
+	</div>
 
-    <div class="container-xl bg-light p-5 border-top">
+	<div class="container-xl bg-light p-5 border-top">
 
-        <div class="row mb-2">
+		<div class="row mb-2">
 
-            <div class="col-12 col-lg-3">
-                <h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
-                <ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Action</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Animation</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Aventure</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Comédie</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Dessin animé</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Documentaire</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Drame</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Espionnage</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Famille</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Fantastique</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Historique</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Policier</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Romance</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Science-fiction</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Thriller</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Western</li>
-                </ul>
-            </div>
+			<div class="col-12 col-lg-3">
+				<h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
+				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Action</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Animation</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Aventure</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Comédie</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Dessin animé</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Documentaire</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Drame</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Espionnage</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Famille</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Fantastique</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Historique</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Policier</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Romance</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Science-fiction</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Thriller</li>
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">Western</li>
+				</ul>
+			</div>
 
-            <div class="col-12 col-lg-9">
+			<div class="col-12 col-lg-9">
 
-                <h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
+				<h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
 
-                {# 
-                movieList 
-                  0 => array:8 [▼
-                    "type" => "Film"
-                    "title" => "A Bug's Life"
-                    "release_date" => 1998
-                    "duration" => 93
-                    "summary" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison."
-                    "synopsis" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison. La fourmilière est dans tous ses états. En effet cette bévue va rendre ▶"
-                    "poster" => "https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-                    "rating" => 3.8
-                    ]
-                #}
+				{# 
+				                movieList 
+				                  0 => array:8 [▼
+				                    "type" => "Film"
+				                    "title" => "A Bug's Life"
+				                    "release_date" => 1998
+				                    "duration" => 93
+				                    "summary" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison."
+				                    "synopsis" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison. La fourmilière est dans tous ses états. En effet cette bévue va rendre ▶"
+				                    "poster" => "https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+				                    "rating" => 3.8
+				                    ]
+				                #}
 
-                {% for key, movie in movieList %}
+				{% for key, movie in movieList %}
 
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
-                    <div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});;">
-                        <img src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
-                        <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
-                    </div>
-                    <div class="col-8 p-4 d-flex flex-column position-static">
-                        <a href="{{ path('movie_favorites', {'request': movie}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type }}</strong>
-                        <h3 class="mb-1">{{ movie.title }}</h3>
-                        <div class="mb-1 text-muted">{{ movie.duration }}</div>
-                        <p><small>{{ movie.summary }}</small>
-                        </p>
-                        <div class="d-flex" style="color: orange;">
+					<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+						<div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});;">
+							<img
+							src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
+						<!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
+						</div>
+						<div class="col-8 p-4 d-flex flex-column position-static">
+							<a href="{{ path('add_favorites', {'id': key}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger">
+								<i class="bi bi-bookmark-plus"></i>
+							</a>
+							<strong class="d-inline-block mb-2 text-primary">{{ movie.type }}</strong>
+							<h3 class="mb-1">{{ movie.title }}</h3>
+							<div class="mb-1 text-muted">{{ movie.duration }}</div>
+							<p>
+								<small>{{ movie.summary }}</small>
+							</p>
+							<div class="d-flex" style="color: orange;">
 
-                        {# condition pour l'affichage des étoiles/notes #}
-                        {# on a 5 étoiles (index 0-4) #}
-                        {% for i in 0..4 %}
-                            {# si la note - le nombre total d'étoiles(5) est > ou égal 0.9 #}
-                            {% if movie.rating - i >= 0.9 %}
-                                {# alors affiche une étoile pleine avec la class bi-star-fill #}
-                                <i class="bi bi-star-fill"></i>
-                            {# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
-                            {% elseif movie.rating - i <= 0.1 %}
-                                {# alors affiche une étoile vide avec la class bi-star #}
-                                <i class="bi bi-star"></i>
-                            {% else %}
-                                {# sinon reste = décimal entre 0.1 et 0.9 alors on affiche une étoile avec la class bi-star-half #}
-                                <i class="bi bi-star-half"></i>
-                            {% endif %}  
-                        {% endfor %}
+								{# condition pour l'affichage des étoiles/notes #}
+								{# on a 5 étoiles (index 0-4) #}
+								{% for i in 0..4 %}
+									{# si la note - le nombre total d'étoiles(5) est > ou égal 0.8 #}
+										{% if movie.rating - i >= 0.8 %}
+										{# alors affiche une étoile pleine avec la class bi-star-fill #}<i class="bi bi-star-fill"> </i>
+										{# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
+									{% elseif movie.rating - i <= 0.1 %}
+										{# alors affiche une étoile vide avec la class bi-star #}
+										<i class="bi bi-star"></i>
+									{% else %}
+										{# sinon reste = décimal entre 0.1 et 0.8 alors on affiche une étoile avec la class bi-star-half #}
+										<i class="bi bi-star-half"></i>
+									{% endif %}
+								{% endfor %}
 
-                            <span class="ps-1">{{ movie.rating }}</span>
-                        </div>
+								<span class="ps-1">{{ movie.rating }}</span>
+							</div>
 
-                        <a href="{{ path('movie_show', {'id': key}) }}" class="fs-1 mt-3 text-danger align-self-start">
-                            <i class="bi bi-arrow-right-square"></i>
-                        </a>
-                    </div>
-                {% endfor %}
+							<a href="{{ path('movie_show', {'id': key}) }}" class="fs-1 mt-3 text-danger align-self-start">
+								<i class="bi bi-arrow-right-square"></i>
+							</a>
+						</div>
+					{% endfor %}
 
-            </div>
-            
-            <nav class="col-lg-9 offset-lg-3">
-                <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link">&laquo;</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item" aria-current="page">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </nav>
+				</div>
 
-        </div>
+				<nav class="col-lg-9 offset-lg-3">
+					<ul class="pagination">
+						<li class="page-item disabled">
+							<a class="page-link">&laquo;</a>
+						</li>
+						<li class="page-item active">
+							<a class="page-link" href="#">1</a>
+						</li>
+						<li class="page-item" aria-current="page">
+							<a class="page-link" href="#">2</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">3</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">&raquo;</a>
+						</li>
+					</ul>
+				</nav>
 
-    </div>
+			</div>
 
-{% endblock %}
+		</div>
+
+	{% endblock %}

@@ -1,0 +1,15 @@
+:
+SEASON: code_season, number, nb_episodes
+:
+
+GENRE: code_genre, name
+BELONGS TO,0N MOVIE,11 SEASON
+TYPE: code_type, name
+
+BELONGS TO2,0N MOVIE,0N GENRE
+MOVIE: code_movie, title, duration, rating, summary, synopsis, release_date, country, poster
+BELONGS TO3,11 MOVIE,0N TYPE
+
+:
+PLAY,0N MOVIE,0N ACTOR: role, credit_order
+ACTOR: code_actor, firstname, lastname
