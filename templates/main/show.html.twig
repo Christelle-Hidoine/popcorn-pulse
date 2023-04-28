@@ -33,7 +33,7 @@
 
                     <div class="col-8 p-4 d-flex flex-column position-static bg-light">
                         <a href="{{ path('add_favorites', {'id': movieId }) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">{{ movieForTwig.type }}</strong>
+                        <strong class="d-inline-block mb-2 text-primary">{{ movieForTwig.type.name }}</strong>
                         <h3 class="mb-1">{{ movieForTwig.title }}</h3>
                         <div class="mb-1 text-muted">{{ movieForTwig.duration }} min</div>
                         <p>
@@ -86,7 +86,7 @@
                             <dt class="col-sm-12">Pays</dt>
                             <dd class="col-sm-12">USA</dd>
                             <dt class="col-sm-12">Année</dt>
-                            <dd class="col-sm-12">{{ movieForTwig.release_date }}</dd>
+                            <dd class="col-sm-12">{{ movieForTwig.releaseDate|date("Y") }}</dd>
                         </dl>
 
                     </div>
