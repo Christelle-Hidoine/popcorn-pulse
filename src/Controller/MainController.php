@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Models\MovieModel;
+use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,11 +74,15 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function show($id): Response
+    public function show($id, MovieRepository $movieRepository): Response
     {
         // TODO : récuperer le film avec son id
-        $movieById = MovieModel::getMovie($id);
+        // $movieById = MovieModel::getMovie($id);
+        // récupération des données sur la BDD
 
+        $movieById = $movieRepository->find($id);
+        // dd($movieById);
+        
         $twigResponse = $this->render("main/show.html.twig",
         [
             "movieId" => $id,
