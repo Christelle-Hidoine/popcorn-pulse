@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Models\MovieModel;
+use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +56,7 @@ class FavoritesController extends AbstractController
      *
      * @return Response
      */
-    public function add($id, Request $request): Response
+    public function add($id, MovieRepository $movieRepository, Request $request): Response
     {
         // TODO : j'ai besoin de l'identifiant du film à mettre en favoris
         // ? comment l'utilisateur me fournit l'ID ?
@@ -64,7 +65,8 @@ class FavoritesController extends AbstractController
 
         // TODO : j'ai besoin des informations du film en question
         // je vais demander à la classe MovieModel de me donner les informations de ce film
-        $movie = MovieModel::getMovie($id);
+        // $movie = MovieModel::getMovie($id);
+        $movie = $movieRepository->find($id);
 
         // TODO : je veux mettre en session le film pour le garder en favoris
         // pour accéder à la session, il me faut la requete
