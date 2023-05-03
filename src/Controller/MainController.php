@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Models\MovieModel;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

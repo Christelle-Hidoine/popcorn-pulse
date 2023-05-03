@@ -3,6 +3,7 @@
 {% block body %}
     {# movieForTwig #}
         {% dump(movieForTwig) %}
+        
         {#
         array:8 [▼
             "type" => "Série"
@@ -67,16 +68,25 @@
 
                             <span class="ps-1">{{ movieForTwig.rating }}</span>
                         </div>
-
+                        
                         {# on conditionne la partie saison que pour les série #}
-                        {% if movieForTwig.type == 'Série' %}
-                            <h2>3 Saisons</h2>
+                        {% if movieForTwig.type.name == 'Série' %}
+
+                            {# on détermine le nombre de saison avec le filter |length + condition pour l'affichage au pluriel #}
+                            <h2>{{ movieForTwig.seasons|length }} {{ movieForTwig.seasons|length > 1 ? 'Saisons' : 'Saison' }}</h2>
+
                             <ul class="list-unstyled">
-                                <li><span class="badge bg-danger fs-6 mb-2">Saison 1</span><small class="ms-1">(10 épisodes)</small></li>
-                                <li><span class="badge bg-danger fs-6 mb-2">Saison 2</span><small class="ms-1">(11 épisodes)</small></li>
-                                <li><span class="badge bg-danger fs-6 mb-2">Saison 3</span><small class="ms-1">(12 épisodes)</small></li>
+
+                            {# on trie les saisons dans l'ordre croissant avec le filter |sort en comparant avec l'opérateur spaceship =
+                            An int less than, equal to, or greater than zero when $a is less than, equal to, or greater than $b, respectively.#}
+                            {% for season in movieForTwig.seasons|sort((a, b) => a.number <=> b.number) %} 
+                                {% dump(season) %}
+                                <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
+                            {% endfor %}
                             </ul>
+
                         {% endif %}
+                        
 
                         <dl class="row">
                             <dt class="col-sm-12">Avec</dt>
