@@ -32,8 +32,8 @@ class Oflix extends Fixture
             // * appeler la méthode persist() avec notre entité
             // on demande la persistance de l'objet
             $manager->persist($newGenre);
-
         }    
+        
         // TODO : créer les 2 types : films et série
         $types = ["Film", "Série"];
 

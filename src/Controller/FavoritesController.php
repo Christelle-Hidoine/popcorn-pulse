@@ -36,15 +36,18 @@ class FavoritesController extends AbstractController
         // en PHP, sans symfony : 
         // $_SESSION["favoris"] = "Vive les Radium";
         dump($session);
+        $themeSession = $session->get('theme', []);
         
         // TODO : récupérer les films favoris
         // on passe en paramètre un tableau vide au cas où on n'est aucun favoris sur la page à afficher
         $moviesFavorites = $session->get('favoris', []);
         // dd($moviesFavorites);
+        
 
         // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('favorites/index.html.twig', [
             'movie' => $moviesFavorites,
+            'theme' => $themeSession,
         ]);
     }
 

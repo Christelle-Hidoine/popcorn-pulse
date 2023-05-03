@@ -39,6 +39,7 @@ class MainController extends AbstractController
         // * un tableau de donnée à afficher (optionnel)
         // cette méthode renvoit un objet Reponse, on va pouvoir le renvoyer
         // dump($_SERVER);
+        
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
         dump($movies);
@@ -60,17 +61,21 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function search(MovieRepository $movieRepository, GenreRepository $genreRepository): Response
+    public function search(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
     {
         // $movieSearch = MovieModel::getAllMovies();
         // dump($movieSearch);
         $movies = $movieRepository->findAll();
         $genres = $genreRepository->findAll();
 
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
+
         return $this->render("main/search.html.twig",
             [
                 'movieSearch' => $movies,
                 'genreList' => $genres,
+                'theme' => $themeSession,
             ]
         );
     }
@@ -82,7 +87,7 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function show($id, MovieRepository $movieRepository): Response
+    public function show($id, MovieRepository $movieRepository, Request $request): Response
     {
         // TODO : récuperer le film avec son id
         // $movieById = MovieModel::getMovie($id);
@@ -90,12 +95,16 @@ class MainController extends AbstractController
 
         $movieById = $movieRepository->find($id);
         // dd($movieById);
+
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
         
         $twigResponse = $this->render("main/show.html.twig",
         [
             "movieId" => $id,
             // TODO fournir le film à ma vue
-            "movieForTwig" => $movieById
+            "movieForTwig" => $movieById,
+            'theme' => $themeSession,
         ]);
         
 
