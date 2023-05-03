@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% dump(app.request) %}
 
 	<!-- main -->
 	<div class="my-5 py-5 text-center">
@@ -17,13 +18,14 @@
 
 			<div class="col-12 col-lg-3">
 				<h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
-				
+
 				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
-				{% for movie in movieList %}
-					{% for genre in movie.genres %}
+
+					{# affichage de la liste des genres par ordre alphabétique #}
+					{% for genre in genreList|sort((a, b) => a.name > b.name) %}
 					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">{{ genre.name }}</li>
 					{% endfor %}
-				{% endfor %}	
+
 				</ul>
 			
 			</div>
@@ -32,19 +34,19 @@
 
 				<h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
 
-				{# 
-				                movieList 
-				                  0 => array:8 [▼
-				                    "type" => "Film"
-				                    "title" => "A Bug's Life"
-				                    "release_date" => 1998
-				                    "duration" => 93
-				                    "summary" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison."
-				                    "synopsis" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison. La fourmilière est dans tous ses états. En effet cette bévue va rendre ▶"
-				                    "poster" => "https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-				                    "rating" => 3.8
-				                    ]
-				                #}
+					{# 
+						movieList 
+							0 => array:8 [▼
+							"type" => "Film"
+							"title" => "A Bug's Life"
+							"release_date" => 1998
+							"duration" => 93
+							"summary" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison."
+							"synopsis" => "Tilt, fourmi quelque peu tête en l'air, détruit par inadvertance la récolte de la saison. La fourmilière est dans tous ses états. En effet cette bévue va rendre ▶"
+							"poster" => "https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+							"rating" => 3.8
+							]
+					#}
 
 				{% for movie in movieList %}
 
@@ -60,7 +62,7 @@
 							</a>
 							<strong class="d-inline-block mb-2 text-primary">{{ movie.type.name }}</strong>
 							<h3 class="mb-1">{{ movie.title }}</h3>
-							<div class="mb-1 text-muted">{{ movie.duration }}</div>
+							<div class="mb-1 text-muted">{{ movie.duration }} min</div>
 							<p>
 								<small>{{ movie.summary }}</small>
 							</p>

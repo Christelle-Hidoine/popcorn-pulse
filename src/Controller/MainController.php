@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +18,14 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function home(MovieRepository $movieRepository): Response
+    public function home(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
     {
         // TODO : récuperer la liste de tout les films
         // ! On utilise MovieModel tant que l'on a pas de BDD
         // $allMovies = MovieModel::getAllMovies();
         // dump($allMovies);
         $movies = $movieRepository->findAll();
+        $genres = $genreRepository->findAll();
 
         // TODO : afficher la valeur de la session 'favoris'
         // ? pour accèder à la session, il me faut la requete
@@ -37,14 +39,17 @@ class MainController extends AbstractController
         // * un tableau de donnée à afficher (optionnel)
         // cette méthode renvoit un objet Reponse, on va pouvoir le renvoyer
         // dump($_SERVER);
-        
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
         dump($movies);
         return $this->render("main/home.html.twig",
         [
             // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
             // TODO : fournir les données à twig
-            "movieList" => $movies
+            "movieList" => $movies,
+            "genreList" => $genres,
+            "theme" => $themeSession,
         ]);
     }
 
@@ -55,15 +60,17 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function search(MovieRepository $movieRepository): Response
+    public function search(MovieRepository $movieRepository, GenreRepository $genreRepository): Response
     {
         // $movieSearch = MovieModel::getAllMovies();
         // dump($movieSearch);
         $movies = $movieRepository->findAll();
+        $genres = $genreRepository->findAll();
 
         return $this->render("main/search.html.twig",
             [
-                'movieSearch' => $movies
+                'movieSearch' => $movies,
+                'genreList' => $genres,
             ]
         );
     }
