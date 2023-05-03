@@ -11,22 +11,12 @@
             <div class="col-12 col-lg-3">
                 <h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
                 <ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Action</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Animation</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Aventure</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Comédie</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Dessin animé</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Documentaire</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Drame</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Espionnage</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Famille</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Fantastique</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Historique</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Policier</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Romance</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Science-fiction</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Thriller</li>
-                    <li class="btn btn-sm btn-outline-danger mx-1 mb-2">Western</li>
+
+                    {# affichage de la liste des genres par ordre alphabétique #}
+					{% for genre in genreList|sort((a, b) => a.name > b.name) %}
+					<li class="btn btn-sm btn-outline-danger mx-1 mb-2">{{ genre.name }}</li>
+					{% endfor %}
+
                 </ul>
             </div>
 
@@ -34,7 +24,7 @@
 
                 <h2 class="text-muted fw-bold mb-4">Les films et séries/Résultats de recherche</h2>
 
-                {% for key, movie in movieSearch %}
+                {% for movie in movieSearch %}
 
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
                     <div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});">
@@ -42,10 +32,10 @@
                         <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
                     <div class="col-8 p-4 d-flex flex-column position-static">
-                        <a href="{{ path('add_favorites', {'id': key}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type }};</strong>
+                        <a href="{{ path('add_favorites', {'id': movie.id}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type.name }};</strong>
                         <h3 class="mb-1">{{ movie.title }};</h3>
-                        <div class="mb-1 text-muted">{{ movie.duration }}; min</div>
+                        <div class="mb-1 text-muted">{{ movie.duration }} min</div>
                         <p><small>{{ movie.summary }};</small>
                         </p>
                         <div class="d-flex" style="color: orange;">
@@ -70,7 +60,7 @@
                             <span class="ps-1">{{ movie.rating }};</span>
                         </div>
 
-                        <a href="{{ path('movie_show', {'id': key}) }}" class="fs-1 mt-3 text-danger align-self-start">
+                        <a href="{{ path('movie_show', {'id': movie.id}) }}" class="fs-1 mt-3 text-danger align-self-start">
                             <i class="bi bi-arrow-right-square"></i>
                         </a>
                     </div>

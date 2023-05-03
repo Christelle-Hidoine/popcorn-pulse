@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Models\MovieModel;
+use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,18 +18,20 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function home(Request $request): Response
+    public function home(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
     {
         // TODO : récuperer la liste de tout les films
         // ! On utilise MovieModel tant que l'on a pas de BDD
-        $allMovies = MovieModel::getAllMovies();
-        dump($allMovies);
+        // $allMovies = MovieModel::getAllMovies();
+        // dump($allMovies);
+        $movies = $movieRepository->findAll();
+        $genres = $genreRepository->findAll();
 
         // TODO : afficher la valeur de la session 'favoris'
         // ? pour accèder à la session, il me faut la requete
         // ? pour avoir la requete, je demande à Symfony : Injection de dépendance
-        $session = $request->getSession();
-        dump($session->get("favoris"));
+        // $session = $request->getSession();
+        // dump($session->get("favoris"));
 
         // la méthode render() prend 2 paramètres:
         // * le nom du fichier de vue que l'on veux utiliser
@@ -37,32 +39,38 @@ class MainController extends AbstractController
         // * un tableau de donnée à afficher (optionnel)
         // cette méthode renvoit un objet Reponse, on va pouvoir le renvoyer
         // dump($_SERVER);
-        
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
+        dump($movies);
         return $this->render("main/home.html.twig",
         [
             // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
             // TODO : fournir les données à twig
-            "movieList" => $allMovies
+            "movieList" => $movies,
+            "genreList" => $genres,
+            "theme" => $themeSession,
         ]);
     }
 
     /**
-     * page list affiche le résultat de la recherche
+     * page search affiche le résultat de la recherche
      *
      * @Route("/films", name="movie_search")
      *
      * @return Response
      */
-    public function list(): Response
+    public function search(MovieRepository $movieRepository, GenreRepository $genreRepository): Response
     {
+        // $movieSearch = MovieModel::getAllMovies();
+        // dump($movieSearch);
+        $movies = $movieRepository->findAll();
+        $genres = $genreRepository->findAll();
 
-        $movieSearch = MovieModel::getAllMovies();
-        dump($movieSearch);
-
-        return $this->render("main/list.html.twig",
+        return $this->render("main/search.html.twig",
             [
-                'movieSearch' => $movieSearch
+                'movieSearch' => $movies,
+                'genreList' => $genres,
             ]
         );
     }
