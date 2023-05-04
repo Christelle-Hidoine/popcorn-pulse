@@ -93,9 +93,12 @@
                             <dd class="col-sm-12">
 
                             {# classement des acteurs par ordre de creditOrder #}
-                            {% for casting in movieForTwig.castings|sort((a, b) => a.creditOrder <=> b.creditOrder) %}
+                            {# {% for casting in movieForTwig.castings|sort((a, b) => a.creditOrder <=> b.creditOrder) %} #}
 
-                                {{ casting.persons.firstname }}  {{ casting.persons.lastname }} {{ casting.creditOrder }} ({{ casting.role }})<br>
+                            {# données déjà triées par creditOrder via MainController méthode show avec findBy() #}
+                            {% for casting in allCasting %}
+
+                                {{ casting.persons.firstname }} {{ casting.persons.lastname }} {{ casting.creditOrder }} ({{ casting.role }})<br>
 
                             {% endfor %}    
 

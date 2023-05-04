@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CastingRepository;
 use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,10 +64,11 @@ class MainController extends AbstractController
      */
     public function search(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
     {
-        // $movieSearch = MovieModel::getAllMovies();
-        // dump($movieSearch);
-        $movies = $movieRepository->findAll();
         $genres = $genreRepository->findAll();
+
+        $search = $request->query->get('search', "");
+        $movies = $movieRepository->findByMovieTitle($search);
+        dump($search);
 
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
@@ -87,14 +89,39 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function show($id, MovieRepository $movieRepository, Request $request): Response
+    public function show($id, MovieRepository $movieRepository, CastingRepository $castingRepository, Request $request): Response
     {
         // TODO : récuperer le film avec son id
-        // $movieById = MovieModel::getMovie($id);
-        // récupération des données sur la BDD
-
         $movieById = $movieRepository->find($id);
         // dd($movieById);
+
+        // ! ERREUR $movieById == null si le film n'a pas été trouvé en BDD
+        if ($movieById === null) {
+            throw $this->createNotFoundException("Ce film n'existe pas");
+        }
+
+        // TODO : récuperer les castings du film, trié par creditOrder
+        // BBD : Repository, Casting : CastingRepository : Injection de dépendance
+        $allCastingByMovie = $castingRepository->findBy(
+            // * critere de recherche
+            // on manipule TOUJOURS des objets
+            // donc on parle propriété : movie (de l'objet Casting)
+            // cette propriété doit être égale à l'objet $movie
+            [
+                "movies" => $movieById
+            ],
+            // * orderBy
+            // on manipule TOUJOURS des objets
+            // on donne la propriété sur laquelle on trie
+            // en valeur, on donne le type de tri : ASC/DESC
+            [
+                "creditOrder" => "ASC"
+            ]
+        );
+
+        $castingsWithDQL = $castingRepository->findByMovieOrderByCreditOrderWithPerson($movieById);
+
+        dump($allCastingByMovie);
 
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
@@ -104,6 +131,9 @@ class MainController extends AbstractController
             "movieId" => $id,
             // TODO fournir le film à ma vue
             "movieForTwig" => $movieById,
+            // TODO fournir le casting à ma vue
+            "allCasting" => $castingsWithDQL,
+            // TODO fournir le thème à ma vue
             'theme' => $themeSession,
         ]);
         

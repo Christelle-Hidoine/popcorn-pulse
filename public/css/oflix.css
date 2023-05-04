@@ -31,3 +31,15 @@ html {
     top: 0;
     right: 0;
 }
+
+.bg-yellow {
+    background-color: #ffc107;
+}
+
+.nav-link.active#allocine {
+    color: #000000;
+}
+
+.nav-link#allocine {
+    color:#6C757D;
+}

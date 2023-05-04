@@ -42,7 +42,6 @@ class FavoritesController extends AbstractController
         // on passe en paramètre un tableau vide au cas où on n'est aucun favoris sur la page à afficher
         $moviesFavorites = $session->get('favoris', []);
         // dd($moviesFavorites);
-        
 
         // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('favorites/index.html.twig', [
@@ -75,11 +74,12 @@ class FavoritesController extends AbstractController
         // on demande à Symfony l'objet Request
         // * injection de dépendance
         $session = $request->getSession();
-
+        
         // j'enregistre en session le film que l'utilisateur a indiqué comme favoris
-        $session->set("favoris", $movie);
+        // $favoriteById = $session->set("favoris$id", $movie);
         // dd($session);
-
+        $session->set('favoris', $movie);
+        
         // ? je n'ai rien à afficher en particulier
         // je redirige l'utilisateur vers la page des favoris
         // càd vers une autre route
@@ -87,6 +87,46 @@ class FavoritesController extends AbstractController
         // je renvois de suite cette response
         return $this->redirectToRoute('movie_favorites');
 
-
     }
+
+    /**
+     * supprime un film en favoris
+     *
+     * @Route("/favoris/delete/{id}", name="delete_favorites_id", requirements={"id"="\d+"})
+     *
+     * @param int $id id du film 
+     * @param Request $request injection de dépendance pour récupérer la session
+     * @return Response
+     */
+    public function removeId($id, Request $request): Response
+    {
+        $session = $request->getSession();
+        
+        // $favorite = $session->get('favoris', []);
+        $favorite = $request->attributes->get("favoris$id");
+        dump($favorite);
+
+        $session->remove("favoris$id");
+        
+        
+        return $this->redirectToRoute("movie_favorites");
+    }
+
+    /**
+     * supprime tous les films en favoris
+     *
+     * @Route("/favoris/delete", name="delete_favorites")
+     *
+     * @param Request $request injection de dépendance pour récupérer la session
+     * @return Response
+     */
+    public function removeAll(Request $request): Response
+    {
+        $session = $request->getSession();
+        $session->remove('favoris');
+        
+        return $this->redirectToRoute("movie_favorites");
+    }
+
+
 }
