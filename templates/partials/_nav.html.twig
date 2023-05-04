@@ -7,7 +7,7 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
  <!-- Nav -->
     {% dump(theme) %}
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'warning' : 'dark' }}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'yellow' : 'dark' }}">
         <div class="container-fluid">
             <a href="{{ path('default') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
                 <img src="{{ asset('favicon.png') }}" height="24" alt="Logo O'flix">
@@ -18,20 +18,20 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="{{ theme == 'Allocine' ? 'allocineText' : 'netflix' }}">
                     <li class="nav-item">
-                        <a class="nav-link active {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}" href="{{ path('default') }}">Accueil</a>
+                        <a class="nav-link {{ app.request.get('_route') == 'default' ? 'active' : '' }}" href="{{ path('default') }}" id="{{ theme == 'Allocine' ? 'allocine' : 'netflix' }}">Accueil</a>                        
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}" href="{{ path('movie_search') }}"><i class="bi bi-film"></i> Films, séries TV</a>
+                        <a class="nav-link {{ app.request.get('_route') == 'movie_search' ? 'active' : '' }}" href="{{ path('movie_search') }}" id="{{ theme == 'Allocine' ? 'allocine' : 'netflix' }}"><i class="bi bi-film"></i> Films, séries TV</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}" href="{{ path('movie_favorites') }}"><i class="bi bi-bookmark"></i> Ma liste</a>
+                        <a class="nav-link {{ app.request.get('_route') == 'movie_favorites' ? 'active' : '' }}" href="{{ path('movie_favorites') }}" id="{{ theme == 'Allocine' ? 'allocine' : 'netflix' }}"><i class="bi bi-bookmark"></i> Ma liste</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle {{ theme == 'Allocine' ? 'text-muted' : 'text-white' }}" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown">
                             <span>Charles</span>
                             <i class="bi bi-person-square"></i>
@@ -49,7 +49,7 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
 
                 <button type="button" class="btn btn-{{ theme == 'Allocine' ? 'dark' : 'danger' }} me-2">Connexion</button>
 
-                <form class="d-flex" action="list.html">
+                <form class="d-flex" action="{{ path('movie_search') }}">
                     <input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
                     <button class="btn btn-outline-{{ theme == 'Allocine' ? 'dark' : 'danger' }}" type="submit"><i class="bi bi-search"></i></button>
                 </form>

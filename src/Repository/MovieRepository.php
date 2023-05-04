@@ -39,6 +39,22 @@ class MovieRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Method to retrieve data from Movie Entity according to search->get()
+     *
+     * @param [string] $search
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findByMovieTitle($search): array
+    {
+        return $this->createQueryBuilder('movie')
+            ->andWhere('movie.title LIKE :title')
+            ->setParameter('title', "%$search%")
+            ->orderBy('movie.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */
