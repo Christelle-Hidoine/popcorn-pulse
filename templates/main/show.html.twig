@@ -109,13 +109,14 @@
                             <dd class="col-sm-12">{{ movieForTwig.releaseDate|date("Y") }}</dd>
                         </dl>
 
-                    </div>
+                         <div class="d-grid gap-2 d-md-flex mb-5 me-5 justify-content-md-end">
+                            <a href="{{ path('add_review', {'id': movieId }) }}" class="btn btn-warning btn-lg" role="button" aria-disabled="false">Ajouter une critique</a>
+                        </div>
+
+                    </div>   
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 {% endblock %}

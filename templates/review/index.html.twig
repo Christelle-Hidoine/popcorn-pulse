@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Critique du film{% endblock %}
+
+{% block body %}
+
+<div class="container-md bg-dark my-5 border-top d-flex">
+    <div class="row m-auto">
+
+        <div class="col">
+
+            <h2 class="text-muted my-5">Ajouter une critique sur le film <span class='badge bg-warning text-dark'>{{ movie.title }}</span></h2>
+                                    {# désactivation de la validation html5 pour les tests unitaires = attr #}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.content) }}
+                {{ form_row(form.rating) }}
+                {{ form_row(form.watchedAt) }}
+                {{ form_row(form.movie) }}
+            
+        {# https://symfony.com/doc/5.4/best_practices.html#add-form-buttons-in-templates #}
+            <div class="col-12 mt-5 mb-5 d-flex justify-content-end">
+                <button type="submit" class="btn btn-warning">Valider</button>
+            </div>
+        {# la méthode form_end() fait le rendu de tout les éléments qui n'ont pas été positionné #}    
+        {{ form_end(form) }}
+
+        </div>
+    </div>
+</div> 
+{% endblock %}
