@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class MainController extends AbstractController
 {
@@ -19,14 +20,17 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function home(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
+    public function home(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request, PaginatorInterface $paginator): Response
     {
         // TODO : récuperer la liste de tout les films
         // ! On utilise MovieModel tant que l'on a pas de BDD
         // $allMovies = MovieModel::getAllMovies();
         // dump($allMovies);
-        $movies = $movieRepository->findAll();
+        $dataMovies = $movieRepository->findAll();
         $genres = $genreRepository->findAll();
+
+        // TODO : faire la pagination
+        $movies = $paginator->paginate($dataMovies, $request->query->getInt('page', 1),5);
 
         // TODO : afficher la valeur de la session 'favoris'
         // ? pour accèder à la session, il me faut la requete
@@ -43,13 +47,13 @@ class MainController extends AbstractController
         
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
-        dump($movies);
+        dump($dataMovies);
         return $this->render("main/home.html.twig",
         [
             // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
             // TODO : fournir les données à twig
-            "movieList" => $movies,
+            "movieList" => $dataMovies,
             "genreList" => $genres,
             "theme" => $themeSession,
         ]);
