@@ -8,9 +8,13 @@ use App\Entity\Movie;
 use App\Entity\Person;
 use App\Entity\Season;
 use App\Entity\Type;
+use Bluemmb\Faker\PicsumPhotosProvider;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use \Xylis\FakerCinema\Provider\Movie as FakerMovieProvider;
+use Xylis\FakerCinema\Provider\Person as FakerPersonProvider;
+// possibilité de créer un alias pour éviter les doublons de noms dans le fichier
 
 class Oflix extends Fixture
 {
@@ -21,6 +25,12 @@ class Oflix extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        $faker = \Faker\Factory::create();
+        $fakerFr = \Faker\Factory::create('fr_FR');
+        $faker->addProvider(new PicsumPhotosProvider($faker));
+        $faker->addProvider(new FakerMovieProvider($faker));
+        $faker->addProvider(new FakerPersonProvider($faker));
+
         // TODO : créer 10 Genres
         $genres = ["Action", "Animation", "Aventure", "Comédie", "Dessin Animé", "Documentaire", "Drame", "Espionnage", "Famille", "Fantastique", "Historique", "Policier", "Romance", "Science-fiction", "Thriller", "Western"];
         // TODO : faire un foreach sur le tableau pour avoir des données plus réaliste

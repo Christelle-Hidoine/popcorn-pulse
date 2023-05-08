@@ -78,7 +78,8 @@ class FavoritesController extends AbstractController
         // j'enregistre en session le film que l'utilisateur a indiqué comme favoris
         // $favoriteById = $session->set("favoris$id", $movie);
         // dd($session);
-        $session->set('favoris', $movie);
+        $session->set("favoris", $movie);
+        
         
         // ? je n'ai rien à afficher en particulier
         // je redirige l'utilisateur vers la page des favoris

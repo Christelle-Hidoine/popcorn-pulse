@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CastingRepository;
 use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
+use App\Repository\ReviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +26,11 @@ class MainController extends AbstractController
         // ! On utilise MovieModel tant que l'on a pas de BDD
         // $allMovies = MovieModel::getAllMovies();
         // dump($allMovies);
-        $movies = $movieRepository->findAll();
+        $dataMovies = $movieRepository->findAll();
         $genres = $genreRepository->findAll();
+
+        // TODO : faire la pagination
+        // $movies = $paginator->paginate($dataMovies, $request->query->getInt('page', 1),5);
 
         // TODO : afficher la valeur de la session 'favoris'
         // ? pour accèder à la session, il me faut la requete
@@ -43,13 +47,13 @@ class MainController extends AbstractController
         
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
-        dump($movies);
+        dump($dataMovies);
         return $this->render("main/home.html.twig",
         [
             // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
             // TODO : fournir les données à twig
-            "movieList" => $movies,
+            "movieList" => $dataMovies,
             "genreList" => $genres,
             "theme" => $themeSession,
         ]);
@@ -89,7 +93,7 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function show($id, MovieRepository $movieRepository, CastingRepository $castingRepository, Request $request): Response
+    public function show($id, MovieRepository $movieRepository, CastingRepository $castingRepository, ReviewRepository $reviewRepository, Request $request): Response
     {
         // TODO : récuperer le film avec son id
         $movieById = $movieRepository->find($id);
@@ -123,6 +127,11 @@ class MainController extends AbstractController
 
         dump($allCastingByMovie);
 
+        // TODO : récupérer les critiques par film - affichage des 5 dernières critiques
+        $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"], 5, 0);
+        dump($reviewByMovie);
+
+        // récupération du thème avant envoi à la vue
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
         
@@ -135,6 +144,8 @@ class MainController extends AbstractController
             "allCasting" => $castingsWithDQL,
             // TODO fournir le thème à ma vue
             'theme' => $themeSession,
+            // TODO fournir les critiques à ma vue
+            'reviews' => $reviewByMovie
         ]);
         
 
