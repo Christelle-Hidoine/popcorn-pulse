@@ -22,7 +22,7 @@ class ReviewController extends AbstractController
         $reviewForForm = new Review();
         $movie = $movieRepository->find($id);
         $reviewForForm->getMovie($movieRepository->find($id));
-        // création du formulaire à partir de note instance
+        // création du formulaire à partir de notre instance
         $form = $this->createForm(
             // le nom de la classe de formulaire
             ReviewType::class,
@@ -39,12 +39,16 @@ class ReviewController extends AbstractController
         // ! la validation des données n'est pas activé/utilisable par défaut
         if ($form->isSubmitted() && $form->isValid())
         {
+
+            // TODO : Ajouter le movie correspondant à la critique
+            $reviewForForm->setMovie($movie);
+
             // TODO : faire notre insertion en BDD           
             // persist + flush
             $entityManagerInterface->persist($reviewForForm);
             $entityManagerInterface->flush();
 
-            return $this->redirectToRoute("default");
+            return $this->redirectToRoute("movie_show", ["id" => $id]);
         }    
 
         $session = $request->getSession();

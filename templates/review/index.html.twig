@@ -4,26 +4,42 @@
 
 {% block body %}
 
-<div class="container-md bg-dark my-5 border-top d-flex">
+<div class="container-md bg-light my-5 border-top d-flex">
     <div class="row m-auto">
 
         <div class="col">
 
-            <h2 class="text-muted my-5">Ajouter une critique sur le film <span class='badge bg-warning text-dark'>{{ movie.title }}</span></h2>
-                                    {# désactivation de la validation html5 pour les tests unitaires = attr #}
+            <h2 class="text-muted my-5">Ajouter une critique sur {{ movie.type.name == 'Film' ? 'le film ' : 'la série ' }}<span class='badge bg-warning text-dark'>{{ movie.title }}</span></h2>
+            {# désactivation de la validation html5 pour les tests = attr #}
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.content) }}
                 {{ form_row(form.rating) }}
+                {{ form_row(form.reactions) }}
                 {{ form_row(form.watchedAt) }}
-                {{ form_row(form.movie) }}
+                {# <input
+                    name="{{ field_name(form.movie) }}"
+                    value="{{ field_value(form.movie) }}"
+                    placeholder="{{ field_label(form.movie) }}"
+                    class="form-control"
+                /> #}
+
+                {# <select name="{{ field_name(form.movie) }}" class="form-control">
+                    <option value="">{{ field_label(form.movie),  }}</option>
+
+                    {% for label, value in field_choices(form.movie), {'title': movie.title} %}
+                        <option value="{{ movie.id }}">{{ label }}</option>
+                    {% endfor %}
+                </select> #}
+                {# {{ form_row(form.movie)}} #}
             
         {# https://symfony.com/doc/5.4/best_practices.html#add-form-buttons-in-templates #}
             <div class="col-12 mt-5 mb-5 d-flex justify-content-end">
                 <button type="submit" class="btn btn-warning">Valider</button>
             </div>
         {# la méthode form_end() fait le rendu de tout les éléments qui n'ont pas été positionné #}    
+        {# {% dump(form.movie) %} #}
         {{ form_end(form) }}
 
         </div>

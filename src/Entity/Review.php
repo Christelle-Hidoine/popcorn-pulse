@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
@@ -19,36 +20,54 @@ class Review
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(
+     *      message="Le pseudonyme est obligatoire"
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *      message = "L'email '{{ value }}' n'est pas valide."
+     * )
+     * @Assert\NotBlank(
+     *      message="L'email est obligatoire"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message="On attend une critique à la base..."
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="float")
+     * 
      */
     private $rating;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank(
+     *      message="Merci de cocher au minimum une des réactions"
+     * )
      */
     private $reactions = [];
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     *
      */
     private $watchedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Movie::class)
+     * 
      */
     private $movie;
 
