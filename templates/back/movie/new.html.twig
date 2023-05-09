@@ -3,9 +3,17 @@
 {% block title %}New Movie{% endblock %}
 
 {% block body %}
-    <h1>Create new Movie</h1>
 
-    {{ include('back/movie/_form.html.twig') }}
+    <div class="container-md bg-light my-5 border-top d-flex">
+        <div class="row m-auto">
 
-    <a href="{{ path('app_back_movie_index') }}">back to list</a>
+            <h1 class="text-muted my-5">Create new Movie</h1>
+
+                {{ include('back/movie/_form.html.twig') }}
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_movie_index') }}" class="btn btn-warning btn-lg mb-2" role="button" aria-disabled="true">Back to list</a>
+            </div>    
+        </div>    
+    </div>
 {% endblock %}

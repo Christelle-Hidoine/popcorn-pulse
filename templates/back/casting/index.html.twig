@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Casting index{% endblock %}
+
+{% block body %}
+
+{# {% if message %}
+
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+            {{ message }}
+        </div>
+    </div>
+{% endif %} #}
+
+
+<div class="container-fluid p-5 ">
+    <div class="my-5 py-5 text-center">
+
+        <h1 class="text-muted my-2">Casting index</h1>
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_casting_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
+            </div>
+
+            <div class="table-responsive ms-auto">
+                
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">CreditOrder</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for casting in castings %}
+                        <tr>
+                            <td class ="align-middle" scope="row">{{ casting.id }}</td>
+                            <td class ="align-middle">{{ casting.role }}</td>
+                            <td class ="align-middle">{{ casting.creditOrder }}</td>
+                            <td>
+                                <a href="{{ path('app_back_casting_show', {'id': casting.id}) }}" class="btn btn-outline-dark btn-lg mb-2" role="button" aria-disabled="true">Show</a>
+                                <a href="{{ path('app_back_casting_edit', {'id': casting.id}) }}" class="btn btn-secondary btn-lg mb-2" role="button" aria-disabled="true">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>  
+{% endblock %}

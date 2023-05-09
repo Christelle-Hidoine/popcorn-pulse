@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CastingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CastingRepository::class)
@@ -19,21 +20,36 @@ class Casting
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\NotBlank(
+     *      message="Le nom du personnage est obligatoire"
+     * )
      */
     private $role;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(
+     *      message="L'ordre d'importance des acteur est obligatoire"
+     * )
+     * @Assert\Positive(
+     *      message="Cette valeur ne peut pas être négative."
+     * )
      */
     private $creditOrder;
 
     /**
      * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="castings")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un film ou une série"
+     * )
      */
     private $movies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="castings")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un acteur ou une actrice"
+     * )
      */
     private $persons;
 

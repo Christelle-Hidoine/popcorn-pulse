@@ -3,13 +3,17 @@
 {% block title %}Movie index{% endblock %}
 
 {% block body %}
+
 <div class="container-fluid p-5 ">
     <div class="my-5 py-5 text-center">
+        <h1 class="text-muted my-2">Movie index</h1>
 
-        <h1>Movie index</h1>
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_movie_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
+            </div>
 
             <div class="table-responsive ms-auto">
-                
+               
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
@@ -29,17 +33,19 @@
                         {% for movie in movies %}
                             <tr>
                                 <th class ="align-middle" scope="row">{{ movie.id }}</th>
-                                <td class ="align-middle">{{ movie.title }}</td>
+                                <td class ="align-middle fw-bolder">{{ movie.title }}</td>
                                 <td class ="align-middle">{{ movie.duration }}</td>
                                 <td class ="align-middle">{{ movie.rating }}</td>
-                                <td class ="align-bottom text-start">{{ movie.summary }}</td>
-                                <td class ="align-bottom text-start">{{ movie.synopsis }}</td>
+                                <td class ="align-bottom text-start fst-italic">{{ movie.summary }}</td>
+                                <td class ="align-bottom text-start fst-italic">{{ movie.synopsis }}</td>
                                 <td class ="align-middle">{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
                                 <td class ="align-middle">{{ movie.country }}</td>
                                 <td class ="align-middle text-start">{{ movie.poster }}</td>
                                 <td>
-                                    <a href="{{ path('app_back_movie_show', {'id': movie.id}) }}">show</a>
-                                    <a href="{{ path('app_back_movie_edit', {'id': movie.id}) }}">edit</a>
+
+                                <a href="{{ path('app_back_movie_show', {'id': movie.id}) }}" class="btn btn-outline-dark btn-lg mb-2" role="button" aria-disabled="true">Show</a>
+                                <a href="{{ path('app_back_movie_edit', {'id': movie.id}) }}" class="btn btn-secondary btn-lg mb-2" role="button" aria-disabled="true">Edit</a>
+
                                 </td>
                             </tr>
                         {% else %}
@@ -49,8 +55,6 @@
                         {% endfor %}
                         </tbody>
                     </table>
-
-                    <a href="{{ path('app_back_movie_new') }}">Create new</a>
             </div>
     </div>    
 </div>

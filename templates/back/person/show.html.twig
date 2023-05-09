@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Person{% endblock %}
+
+{% block body %}
+
+<div class="container my-4">
+    <div class="my-2 py-2 text-center">
+        <h1>Person</h1>
+
+        <div class="table-responsive ms-auto d-flex justify-content-center mt-5">
+            <div class="row col-4">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th class ="align-middle" scope="row">Id</th>
+                            <td class ="align-bottom text-start">{{ person.id }}</td>
+                        </tr>
+                        <tr>
+                            <th class ="align-middle" scope="row">Firstname</th>
+                            <td class ="align-bottom text-start">{{ person.firstname }}</td>
+                        </tr>
+                        <tr>
+                            <th class ="align-middle" scope="row">Lastname</th>
+                            <td class ="align-bottom text-start">{{ person.lastname }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-center gap-3 mt-5">
+                    <a href="{{ path('app_back_person_index') }}" class="btn btn-warning btn-lg mb-2" role="button" aria-disabled="true">Back to list</a>
+                    <a href="{{ path('app_back_person_edit', {'id': person.id}) }}" class="btn btn-secondary btn-lg mb-2" role="button" aria-disabled="true">Edit</a>
+                    
+                {{ include('back/person/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>  
+               
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Casting{% endblock %}
+
+{% block body %}
+
+<div class="container-md bg-light my-5 border-top d-flex">
+    <div class="row m-auto">
+
+        <h1 class="text-muted my-5">Create new Casting</h1>
+            <div class="col-6 justify-content-center">
+
+                {{ include('back/casting/_form.html.twig') }}
+                <div class="d-flex justify-content-end gap-3 mb-5">
+                    <a href="{{ path('app_back_casting_index') }}" class="btn btn-warning btn-lg mb-2" role="button" aria-disabled="true">Back to list</a>
+                </div>
+            </div>   
+    </div>    
+</div>
+
+{% endblock %}
