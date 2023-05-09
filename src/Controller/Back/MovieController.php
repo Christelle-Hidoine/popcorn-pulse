@@ -76,7 +76,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, ?Movie $movie, MovieRepository $movieRepository): Response
     {
@@ -103,7 +103,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"POST"})
+     * @Route("/{id}", name="delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, ?Movie $movie, MovieRepository $movieRepository): Response
     {

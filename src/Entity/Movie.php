@@ -6,6 +6,7 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRepository::class)
@@ -21,52 +22,95 @@ class Movie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Le titre du film est obligatoire"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     *      message="La durée du film est obligatoire"
+     * )
+     * @Assert\Positive(
+     *      message="Cette valeur ne peut pas être négative."
+     * )
      */
     private $duration;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un avis"
+     * )
      */
     private $rating;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message="Remplir le champs Résumé"
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage = "Votre résumé doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
+     * )
      */
     private $summary;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message="Remplir le champs Synopsis"
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Votre synopsis doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
+     * )
      */
     private $synopsis;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(
+     *      message="Merci d'indiquer une date"
+     * )
+     * @Assert\Type("\DateTimeInterface")
      */
     private $releaseDate;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un pays"
+     * )
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url
+     * @Assert\NotBlank(
+     *      message="Merci de remplir le champs Poster"
+     * )
      */
     private $poster;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un type"
+     * )
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="movies")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un ou plusieurs genres"
+     * )
      */
     private $genres;
 

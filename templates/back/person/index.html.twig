@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Person index{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid p-5 ">
+    <div class="my-5 py-5 text-center">
+
+        <h1 class="text-muted my-2">Person index</h1>
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_person_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
+            </div>
+
+            <div class="table-responsive ms-auto">
+                
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for person in people %}
+                        <tr>
+                            <td class ="align-middle" scope="row">{{ person.id }}</td>
+                            <td class ="align-middle">{{ person.firstname }}</td>
+                            <td class ="align-middle">{{ person.lastname }}</td>
+                            <td>
+                                <a href="{{ path('app_back_person_show', {'id': person.id}) }}" class="btn btn-outline-dark btn-lg mb-2" role="button" aria-disabled="true">Show</a>
+                                <a href="{{ path('app_back_person_edit', {'id': person.id}) }}" class="btn btn-secondary btn-lg mb-2" role="button" aria-disabled="true">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div> 
+{% endblock %}

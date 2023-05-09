@@ -7,6 +7,13 @@ use App\Entity\Movie;
 use App\Entity\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +22,35 @@ class MovieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('duration')
-            ->add('rating')
-            ->add('summary')
-            ->add('synopsis')
-            ->add('releaseDate')
-            ->add('country')
-            ->add('poster')
+            ->add('title', TextType::class, ["label" => "Titre", "attr" => ["placeholder" => "titre du film ou de la série"]])
+            ->add('duration', IntegerType::class, ["label" => "Durée", "help" => "(la durée doit être indiquée en minutes)", 'attr' => [
+                'min' => 1
+            ]])
+            ->add('rating', ChoiceType::class, [
+                'choices'  => [
+                'Excellent' => 5,
+                'Très bon' => 4,
+                'Bon' => 3,
+                'Peut mieux faire' => 2,
+                'A éviter' => 1],
+                "expanded" => true,
+                "multiple" => false,
+                "label" => "Avis", "help"  => "(un seul choix possible)"])
+            ->add('summary', TextareaType::class, ["label" => "Résumé", 
+            "attr" => [
+                "placeholder" => "écrivez un résumé du film ou de la série"]
+            ])
+            ->add('synopsis', TextareaType::class, ["label" => "Synopsis", 
+            "attr" => [
+                "placeholder" => "écrivez le synopsis du film ou de la série"]
+            ])
+            ->add('releaseDate', DateType::class, ['widget' => 'single_text', "label" => "Date de sortie"])
+            ->add('country', CountryType::class, ["choices" => [
+                "expanded" => true, 
+                "multiple" => false, 
+                "label" => "Pays"]
+            ])
+            ->add('poster', UrlType::class, ["label" => "Url de l'image", "attr" => ["placeholder" => "http://..."]])
             // j'ai une relation avec une autre Entité
             // l'élément HTML désiré : Choix : ChoiceType
             // on veux un choiceType spécialisé pour les entités : EntityType
@@ -31,15 +59,11 @@ class MovieType extends AbstractType
                 // * c'est un ChoiceType : multiple + expanded
                 "multiple" => false,
                 "expanded" => false, // radiobutton
-                // ! The required option "class" is missing.
-                // ? à quelle entité est on lié ?
                 "class" => Type::class,
-                // ! Object of class Proxies\__CG__\App\Entity\Type could not be converted to string
                 // on doit préciser la propriété pour l'affichage
                 'choice_label' => 'name',
 
             ])
-            // ! Can't get a way to read the property "genres" in class "App\Entity\Movie".
             ->add('genres', EntityType::class, [
                     // * c'est un ChoiceType : multiple + expanded
                     // ! Genres c'est un tableau : multiple = true

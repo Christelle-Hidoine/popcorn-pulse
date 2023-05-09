@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SeasonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SeasonRepository::class)
@@ -19,16 +20,31 @@ class Season
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(
+     *      message="Le numéro de la saison est obligatoire"
+     * )
+     * @Assert\Positive(
+     *      message="Cette valeur ne peut pas être négative."
+     * )
      */
     private $number;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(
+     *      message="Le nombre d'épisodes est obligatoire"
+     * )
+     * @Assert\Positive(
+     *      message="Cette valeur ne peut pas être négative."
+     * )
      */
     private $nbEpisodes;
 
     /**
      * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="seasons")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner une série"
+     * )
      */
     private $movies;
 
