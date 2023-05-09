@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movie index{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-5 ">
+    <div class="my-5 py-5 text-center">
+
+        <h1>Movie index</h1>
+
+            <div class="table-responsive ms-auto">
+                
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">Summary</th>
+                                <th scope="col">Synopsis</th>
+                                <th scope="col">ReleaseDate</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Poster</th>
+                                <th scope="col">actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for movie in movies %}
+                            <tr>
+                                <th class ="align-middle" scope="row">{{ movie.id }}</th>
+                                <td class ="align-middle">{{ movie.title }}</td>
+                                <td class ="align-middle">{{ movie.duration }}</td>
+                                <td class ="align-middle">{{ movie.rating }}</td>
+                                <td class ="align-bottom text-start">{{ movie.summary }}</td>
+                                <td class ="align-bottom text-start">{{ movie.synopsis }}</td>
+                                <td class ="align-middle">{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+                                <td class ="align-middle">{{ movie.country }}</td>
+                                <td class ="align-middle text-start">{{ movie.poster }}</td>
+                                <td>
+                                    <a href="{{ path('app_back_movie_show', {'id': movie.id}) }}">show</a>
+                                    <a href="{{ path('app_back_movie_edit', {'id': movie.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <a href="{{ path('app_back_movie_new') }}">Create new</a>
+            </div>
+    </div>    
+</div>
+
+{% endblock %}

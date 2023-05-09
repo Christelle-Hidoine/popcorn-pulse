@@ -68,7 +68,7 @@
 								<small>{{ movie.summary }}</small>
 							</p>
 
-							{% include 'partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
+							{% include 'front/partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
 
 							<a href="{{ path('movie_show', {'id': movie.id}) }}" class="fs-1 mt-3 text-danger align-self-start">
 								<i class="bi bi-arrow-right-square"></i>

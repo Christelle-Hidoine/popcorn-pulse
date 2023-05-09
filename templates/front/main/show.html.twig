@@ -48,7 +48,7 @@
 
                             <p>{{ movieForTwig.synopsis }}</p>
 
-                            {% include 'partials/_stars.html.twig' with {'ratingStars': movieForTwig.rating} %}
+                            {% include 'front/partials/_stars.html.twig' with {'ratingStars': movieForTwig.rating} %}
                             
                             {# on conditionne la partie saison que pour les série #}
                             {% if movieForTwig.type.name == 'Série' %}
@@ -101,7 +101,7 @@
                                     <div class="card-body">
                                         <h6 class="card-subtitle mb-2 text-muted">{{ review.username }}</h6>
 
-                                         {% include 'partials/_stars.html.twig' with {'ratingStars': review.rating} %}
+                                         {% include 'front/partials/_stars.html.twig' with {'ratingStars': review.rating} %}
 
                                         <em><p class="card-text">{{ review.content}}</p>
                                         <p class="card-subtitle mb-2 text-muted">Vu le {{ review.watchedAt|date('d-m-Y') }}<p></em>
