@@ -67,26 +67,8 @@
 							<p>
 								<small>{{ movie.summary }}</small>
 							</p>
-							<div class="d-flex" style="color: orange;">
 
-								{# condition pour l'affichage des étoiles/notes #}
-								{# on a 5 étoiles (index 0-4) #}
-								{% for i in 0..4 %}
-									{# si la note - le nombre total d'étoiles(5) est > ou égal 0.8 #}
-										{% if movie.rating - i >= 0.8 %}
-										{# alors affiche une étoile pleine avec la class bi-star-fill #}<i class="bi bi-star-fill"> </i>
-										{# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
-									{% elseif movie.rating - i <= 0.1 %}
-										{# alors affiche une étoile vide avec la class bi-star #}
-										<i class="bi bi-star"></i>
-									{% else %}
-										{# sinon reste = décimal entre 0.1 et 0.8 alors on affiche une étoile avec la class bi-star-half #}
-										<i class="bi bi-star-half"></i>
-									{% endif %}
-								{% endfor %}
-
-								<span class="ps-1">{{ movie.rating }}</span>
-							</div>
+							{% include 'partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
 
 							<a href="{{ path('movie_show', {'id': movie.id}) }}" class="fs-1 mt-3 text-danger align-self-start">
 								<i class="bi bi-arrow-right-square"></i>

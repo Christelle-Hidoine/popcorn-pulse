@@ -71,6 +71,22 @@ class MovieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Method to retrieve rating from Movie Entity
+     * 
+     * @param [int] $id
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findRatingByMovie($id): array
+    {
+        return $this->createQueryBuilder('movie')
+            ->select("COUNT(movie.rating)")
+            ->andWhere('movie.id LIKE :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */

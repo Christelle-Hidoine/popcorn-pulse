@@ -26,41 +26,46 @@ class ReviewType extends AbstractType
         
         // emojis pour "reactions"
         $icons = [
-            "😂" => 'Rires',
-            "😭" => 'Pleurer',
-            "😴" => 'Dormir',
-            "🤔" => 'Réfléchir',
-            "🤩" => 'Rêver',
-            
+            "😂 Rire" => 'smile',
+            "😭 Pleurer" => 'cry',
+            "😴  Dormir" => 'sleep',
+            "🤔 Réfléchir" => 'think',
+            "🤩 Rêver" => 'dream', 
         ];
        
         $builder
-            ->add('username', TextType::class, ["label" => "Pseudonyme"])
+            ->add('username', TextType::class, ["label" => "Pseudonyme", "attr" => ["placeholder" => "votre pseudo"]])
             ->add('email', EmailType::class, 
                 // ["label" => "E-mail"], 
                 ["attr" => ["placeholder" => "exemple@cinema.com"]])
-            ->add('content', TextareaType::class, ["label" => "Critique"], ["attr" => ["placeholder" => "écrivez votre critique ici, et ne soyez pas trop méchant ;)"]])
-            ->add('rating', ChoiceType::class, 
-                ['choices'  => [
+            ->add('content', TextareaType::class, ["label" => "Critique", 
+                "attr" => [
+                    "placeholder" => "écrivez votre critique ici, et ne soyez pas trop méchant 😉"]
+                ])
+            ->add('rating', ChoiceType::class, [
+                    'choices'  => [
                     'Excellent' => 5,
                     'Très bon' => 4,
                     'Bon' => 3,
                     'Peut mieux faire' => 2,
                     'A éviter' => 1],
+                    // * si on utilise le choiceType (ou ses enfants) toujours ajouter :
+                    "expanded" => true,
+                    "multiple" => false,
                     "label" => "Avis", "help"  => "(un seul choix possible)"])
             ->add('reactions', ChoiceType::class, [ 
                 "choices" => [
-                $icons], 
-                // "Rires" => "Rires,
-                // "Pleurer" => "Pleurer",
-                // "Dormir" => "Dormir" ,
-                // "Réfléchir" => "Réfléchir",
-                // "Rêver" => "Rêver"],
+                    $icons], 
+                    // "Rire" => "Rire,
+                    // "Pleurer" => "Pleurer",
+                    // "Dormir" => "Dormir" ,
+                    // "Réfléchir" => "Réfléchir",
+                    // "Rêver" => "Rêver"],
                 "expanded" => true,
                 "multiple" => true,
-                "label" => "Ce film vous a fait : Rire, Pleurer, Réfléchir, Dormir, Rêver ?", "help" => "(plusieurs choix possibles)"
+                "label" => "Ce film vous a fait : ", "help" => "(plusieurs choix possibles)"
                 ])
-            ->add('watchedAt', null, ["label" => "Vous avez vu ce film le : "])
+            ->add('watchedAt', DateType::class, ['widget' => 'single_text', 'input' => 'datetime_immutable', "label" => "Vous avez vu ce film le : "])
             // ->add('movie', EntityType::class, ["class" => Movie::class, "choice_label" => 'title'])
         ;
     }

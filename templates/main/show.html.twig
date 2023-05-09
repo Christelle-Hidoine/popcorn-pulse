@@ -48,27 +48,7 @@
 
                             <p>{{ movieForTwig.synopsis }}</p>
 
-                            <div class="d-flex mb-4" style="color: orange;">
-
-                            {# condition pour l'affichage des étoiles/notes #}
-                            {# on a 5 étoiles (index 0-4) #}
-                            {% for i in 0..4 %}
-                                {# si la note - le nombre total d'étoiles(5) est > ou égal 0.9 #}
-                                {% if movieForTwig.rating - i >= 0.9 %}
-                                    {# alors affiche une étoile pleine avec la class bi-star-fill #}
-                                    <i class="bi bi-star-fill"></i>
-                                {# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
-                                {% elseif movieForTwig.rating - i <= 0.1 %}
-                                    {# alors affiche une étoile vide avec la class bi-star #}
-                                    <i class="bi bi-star"></i>
-                                {% else %}
-                                    {# sinon reste = décimal entre 0.1 et 0.9 alors on affiche une étoile avec la class bi-star-half #}
-                                    <i class="bi bi-star-half"></i>
-                                {% endif %}  
-                            {% endfor %}
-
-                                <span class="ps-1">{{ movieForTwig.rating }}</span>
-                            </div>
+                            {% include 'partials/_stars.html.twig' with {'ratingStars': movieForTwig.rating} %}
                             
                             {# on conditionne la partie saison que pour les série #}
                             {% if movieForTwig.type.name == 'Série' %}
@@ -117,43 +97,26 @@
                             {# affichage des critiques #}
                             {% for review in reviews %}
                 
-                                {% if reviews is empty %}
-
-                                    <div class="card" style="width: 18rem;">
-                                        <div class="card-body">
-                                            <p><span class="ps-1">Ce film n'a pas encore de critique<p></span>
-                                        </div>
-                                    </div>
-                                
-                                {% else %}
-
                                 <div class="card" style="width: 18rem;">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mb-2 text-muted">{{ review.username }}</h6>
-                                        <div class="d-flex mb-4" style="color: orange;">
-                                            {% for i in 0..4 %}
-                                                {# si la note - le nombre total d'étoiles(5) est > ou égal 0.9 #}
-                                                {% if review.rating - i >= 0.9 %}
-                                                    {# alors affiche une étoile pleine avec la class bi-star-fill #}
-                                                    <i class="bi bi-star-fill"></i>
-                                                {# sinon si la note - le nombre total d'étoiles est < ou égal 0.1 #}
-                                                {% elseif review.rating - i <= 0.1 %}
-                                                    {# alors affiche une étoile vide avec la class bi-star #}
-                                                    <i class="bi bi-star"></i>
-                                                {% else %}
-                                                    {# sinon reste = décimal entre 0.1 et 0.9 alors on affiche une étoile avec la class bi-star-half #}
-                                                    <i class="bi bi-star-half"></i>
-                                                {% endif %}  
-                                            {% endfor %}
-                                            <span class="ps-1">{{ review.rating }}</span>
-                                        </div>
+
+                                         {% include 'partials/_stars.html.twig' with {'ratingStars': review.rating} %}
 
                                         <em><p class="card-text">{{ review.content}}</p>
                                         <p class="card-subtitle mb-2 text-muted">Vu le {{ review.watchedAt|date('d-m-Y') }}<p></em>
 
                                     </div>
                                 </div>
-                                {% endif %}
+
+                            {% else %}
+
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <em><p><span class="ps-1">Ce film n'a pas encore de critique<p></span></em>
+                                    </div>
+                                </div>
+                                
                             {% endfor %} 
                     </div>   
                 </div>
