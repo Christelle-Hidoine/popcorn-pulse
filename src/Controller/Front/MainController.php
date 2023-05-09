@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Repository\CastingRepository;
 use App\Repository\GenreRepository;
@@ -48,7 +48,7 @@ class MainController extends AbstractController
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
         dump($dataMovies);
-        return $this->render("main/home.html.twig",
+        return $this->render("front/main/home.html.twig",
         [
             // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
@@ -77,7 +77,7 @@ class MainController extends AbstractController
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
 
-        return $this->render("main/search.html.twig",
+        return $this->render("front/main/search.html.twig",
             [
                 'movieSearch' => $movies,
                 'genreList' => $genres,
@@ -135,7 +135,7 @@ class MainController extends AbstractController
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
         
-        $twigResponse = $this->render("main/show.html.twig",
+        $twigResponse = $this->render("front/main/show.html.twig",
         [
             "movieId" => $id,
             // TODO fournir le film à ma vue

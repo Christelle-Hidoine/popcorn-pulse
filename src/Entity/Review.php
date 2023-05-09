@@ -42,11 +42,18 @@ class Review
      * @Assert\NotBlank(
      *      message="On attend une critique à la base..."
      * )
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage = "Votre critique doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(
+     *      message="Merci de sélectionner un avis"
+     * )
      * 
      */
     private $rating;
@@ -54,13 +61,17 @@ class Review
     /**
      * @ORM\Column(type="json")
      * @Assert\NotBlank(
-     *      message="Merci de cocher au minimum une des réactions"
+     *      message="Merci de sélectionner au minimum une réaction"
      * )
      */
     private $reactions = [];
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Assert\NotBlank(
+     *      message="Merci d'indiquer une date"
+     * )
+     * @Assert\Type("\DateTimeImmutable")
      *
      */
     private $watchedAt;

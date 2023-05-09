@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +44,7 @@ class FavoritesController extends AbstractController
         // dd($moviesFavorites);
 
         // render() renvoie un contenu (résultat du fichier twig)
-        return $this->render('favorites/index.html.twig', [
+        return $this->render('front/favorites/index.html.twig', [
             'movie' => $moviesFavorites,
             'theme' => $themeSession,
         ]);
