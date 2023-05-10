@@ -31,14 +31,15 @@ class SeasonType extends AbstractType
                 // * EntityType : choice_label est obligatoire
                 'choice_label' => 'title',
                 'label' => "Série",
-                // 'query_builder' => function (EntityRepository $er) {
-                //     return $er->createQueryBuilder('movie','type')
-                //         ->select("movie", "type")
-                //         ->from('App\Entity\Movie', 'movie')
-                //         ->join('type.movies', 'type')
-                //         ->where('type.name LIKE :name')
-                //         ->setParameter('name', "%Série%" );
-                //     },
+                // ? https://symfony.com/doc/5.4/reference/forms/types/entity.html#query-builder
+                "query_builder" => function(EntityRepository $er){
+                    // TODO : requete perso : tri par titre
+                    // TODO : requete perso : que le type série
+                    return $er->createQueryBuilder('m')
+                        ->join("m.type", "t")
+                        ->where("t.name = 'série'")
+                        ->orderBy('m.title', 'ASC');
+                }
             ]);
     }
 

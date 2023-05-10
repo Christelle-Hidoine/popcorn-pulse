@@ -18,15 +18,10 @@ class PersonController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(PersonRepository $personRepository, Request $request): Response
+    public function index(PersonRepository $personRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->render('back/person/index.html.twig', [
             'people' => $personRepository->findAll(),
-            'theme' => $themeSession,
         ]);
     }
 
@@ -35,10 +30,6 @@ class PersonController extends AbstractController
      */
     public function new(Request $request, PersonRepository $personRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
@@ -46,28 +37,27 @@ class PersonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $personRepository->add($person, true);
 
+            $this->addFlash(
+                'success',
+                'Bravo, votre acteur/actrice a été enregistré(e)!'
+            );
+
             return $this->redirectToRoute('app_back_person_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/person/new.html.twig', [
             'person' => $person,
             'form' => $form,
-            'theme' => $themeSession,
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function show(Person $person, Request $request): Response
+    public function show(Person $person): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->render('back/person/show.html.twig', [
             'person' => $person,
-            'theme' => $themeSession,
         ]);
     }
 
@@ -76,10 +66,6 @@ class PersonController extends AbstractController
      */
     public function edit(Request $request, Person $person, PersonRepository $personRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
 
@@ -92,7 +78,6 @@ class PersonController extends AbstractController
         return $this->renderForm('back/person/edit.html.twig', [
             'person' => $person,
             'form' => $form,
-            'theme' => $themeSession,
         ]);
     }
 

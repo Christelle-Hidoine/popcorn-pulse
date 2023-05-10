@@ -18,15 +18,10 @@ class CastingController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(CastingRepository $castingRepository, Request $request): Response
+    public function index(CastingRepository $castingRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->render('back/casting/index.html.twig', [
             'castings' => $castingRepository->findAll(),
-            'theme' => $themeSession,
         ]);
     }
 
@@ -35,10 +30,6 @@ class CastingController extends AbstractController
      */
     public function new(Request $request, CastingRepository $castingRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         $casting = new Casting();
         $form = $this->createForm(CastingType::class, $casting);
         $form->handleRequest($request);
@@ -46,28 +37,27 @@ class CastingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $castingRepository->add($casting, true);
 
+            $this->addFlash(
+                'success',
+                'Bravo, votre nouveau casting a été enregistré!'
+            );
+
             return $this->redirectToRoute('app_back_casting_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/casting/new.html.twig', [
             'casting' => $casting,
             'form' => $form,
-            'theme' => $themeSession,
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function show(Casting $casting, Request $request): Response
+    public function show(Casting $casting): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->render('back/casting/show.html.twig', [
             'casting' => $casting,
-            'theme' => $themeSession,
         ]);
     }
 
@@ -76,24 +66,18 @@ class CastingController extends AbstractController
      */
     public function edit(Request $request, Casting $casting, CastingRepository $castingRepository): Response
     {
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         $form = $this->createForm(CastingType::class, $casting);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $castingRepository->add($casting, true);
-            $message = 'Le formulaire a bien été mis à jour.';
-            dump($message);
-            return $this->redirectToRoute('app_back_casting_index', ['message' => $message], Response::HTTP_SEE_OTHER);
+            
+            return $this->redirectToRoute('app_back_casting_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/casting/edit.html.twig', [
             'casting' => $casting,
             'form' => $form,
-            'theme' => $themeSession,
         ]);
     }
 

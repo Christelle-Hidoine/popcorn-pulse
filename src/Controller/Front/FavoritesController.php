@@ -13,7 +13,7 @@ class FavoritesController extends AbstractController
     /**
      * Afficher le/les films en favoris
      * 
-     * @Route("/favoris", name="movie_favorites")
+     * @Route("/favoris", name="app_front_movie_favorites")
      */
     public function favorites(Request $request): Response
     {
@@ -35,7 +35,7 @@ class FavoritesController extends AbstractController
         // $session->set('favoris', "Vive les Radium");
         // en PHP, sans symfony : 
         // $_SESSION["favoris"] = "Vive les Radium";
-        dump($session);
+        // dump($session);
         $themeSession = $session->get('theme', []);
         
         // TODO : récupérer les films favoris
@@ -53,7 +53,7 @@ class FavoritesController extends AbstractController
     /**
      * ajout d'un film en favoris
      * 
-     * @Route("/favoris/add/{id}", name="add_favorites", requirements={"id"="\d+"})
+     * @Route("/favoris/add/{id}", name="app_front_add_favorites", requirements={"id"="\d+"})
      *
      * @return Response
      */
@@ -86,14 +86,14 @@ class FavoritesController extends AbstractController
         // càd vers une autre route
         // la méthode redirectToRoute() me fournit une Response
         // je renvois de suite cette response
-        return $this->redirectToRoute('movie_favorites');
+        return $this->redirectToRoute('app_front_movie_favorites');
 
     }
 
     /**
      * supprime un film en favoris
      *
-     * @Route("/favoris/delete/{id}", name="delete_favorites_id", requirements={"id"="\d+"})
+     * @Route("/favoris/delete/{id}", name="app_front_delete_favorites_id", requirements={"id"="\d+"})
      *
      * @param int $id id du film 
      * @param Request $request injection de dépendance pour récupérer la session
@@ -105,18 +105,18 @@ class FavoritesController extends AbstractController
         
         // $favorite = $session->get('favoris', []);
         $favorite = $request->attributes->get("favoris$id");
-        dump($favorite);
+        // dump($favorite);
 
         $session->remove("favoris$id");
         
         
-        return $this->redirectToRoute("movie_favorites");
+        return $this->redirectToRoute("app_front_movie_favorites");
     }
 
     /**
      * supprime tous les films en favoris
      *
-     * @Route("/favoris/delete", name="delete_favorites")
+     * @Route("/favoris/delete", name="app_front_delete_favorites")
      *
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
@@ -126,7 +126,7 @@ class FavoritesController extends AbstractController
         $session = $request->getSession();
         $session->remove('favoris');
         
-        return $this->redirectToRoute("movie_favorites");
+        return $this->redirectToRoute("app_front_movie_favorites");
     }
 
 

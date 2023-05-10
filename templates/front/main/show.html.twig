@@ -2,7 +2,7 @@
 
 {% block body %}
     {# movieForTwig #}
-        {% dump(movieForTwig) %}
+        {# {% dump(movieForTwig) %} #}
         
         {#
         array:8 [▼
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="col-8 p-4 d-flex flex-column position-static bg-light">
-                        <a href="{{ path('add_favorites', {'id': movieId }) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <a href="{{ path('app_front_add_favorites', {'id': movieId }) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
                         <strong class="d-inline-block mb-2 text-primary">{{ movieForTwig.type.name }}</strong>
                         <h3 class="mb-1">{{ movieForTwig.title }}</h3>
                             <div class="mb-1 text-muted">{{ movieForTwig.duration }} min</div>
@@ -61,7 +61,7 @@
                                     {# on trie les saisons dans l'ordre croissant avec le filter |sort en comparant avec l'opérateur spaceship =
                                     An int less than, equal to, or greater than zero when $a is less than, equal to, or greater than $b, respectively.#}
                                     {% for season in movieForTwig.seasons|sort((a, b) => a.number <=> b.number) %} 
-                                        {% dump(season) %}
+                                        {# {% dump(season) %} #}
                                         <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
                                     {% endfor %}
                                     </ul>

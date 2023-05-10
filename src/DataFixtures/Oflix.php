@@ -14,6 +14,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use \Xylis\FakerCinema\Provider\Movie as FakerMovieProvider;
 use Xylis\FakerCinema\Provider\Person as FakerPersonProvider;
+use Xylis\FakerCinema\Provider\TvShow as FakerTvShowProvider;
 // possibilité de créer un alias pour éviter les doublons de noms dans le fichier
 
 class Oflix extends Fixture
@@ -30,6 +31,7 @@ class Oflix extends Fixture
         $faker->addProvider(new PicsumPhotosProvider($faker));
         $faker->addProvider(new FakerMovieProvider($faker));
         $faker->addProvider(new FakerPersonProvider($faker));
+        $faker->addProvider(new FakerTvShowProvider($faker));
 
         // TODO : créer 10 Genres
         $genres = ["Action", "Animation", "Aventure", "Comédie", "Dessin Animé", "Documentaire", "Drame", "Espionnage", "Famille", "Fantastique", "Historique", "Policier", "Romance", "Science-fiction", "Thriller", "Western"];
@@ -78,8 +80,12 @@ class Oflix extends Fixture
             // 1. faire une nouvelle instance
             $newPerson = new Person();
             //2. remplir les prop
-            $newPerson->setFirstname("prénom #" . $i);
-            $newPerson->setLastname("nom #" . $i);
+            // si on utilise le faker cinema, il faut rajouter un traitement pour séparer prénom / nom
+            $actorFullName = $faker->actor();// Cate Blanchett
+            $actorNames = explode(" ", $actorFullName);
+            // ! JB aime pas l'utilisation de ce tableau sans vérifier que les index existe
+            $newPerson->setFirstname($actorNames[0]);
+            $newPerson->setLastname($actorNames[1]);
 
             // 3. demander la persitance
             $manager->persist($newPerson);
@@ -96,19 +102,34 @@ class Oflix extends Fixture
             // 1. instance
             $newMovie = new Movie();
             // 2. prop
-            $newMovie->setTitle("Titre #" . $i);
+            // * on décalle la propriété title car avec le faker on veux différencier les titres
             $newMovie->setDuration(mt_rand(10, 360));
             $newMovie->setRating(mt_rand(0,50) / 10);
-            $newMovie->setSummary("lorem ipsum summary");
+            $newMovie->setSummary($fakerFr->realText());
             $newMovie->setSynopsis("lorem ipsum synopsis");
             // ? https://www.php.net/manual/fr/datetime.construct.php
             $newMovie->setReleaseDate(new DateTime("1970-01-01"));
             $newMovie->setCountry("FR");
-            $newMovie->setPoster("https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg");
+
+            $defaultUrl = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
+            $picsumDefaultUrl = "https://picsum.photos/200/300";
+            
+            $picsumSeededUrl = "https://picsum.photos/seed/radium".$i."/200/300";
+
+            $fakerPicsumSeededUrl = $faker->imageUrl(200,300, 'radium-' . $i);
+            $newMovie->setPoster($fakerPicsumSeededUrl);
 
             // 2.bis : les associations
             $randomType = $allTypes[mt_rand(0, count($allTypes)-1)];
             $newMovie->setType($randomType);
+
+            // * on décalle la propriété title car avec le faker on veux différencier les titres
+            if ($randomType->getName() === "série"){
+                $newMovie->setTitle($faker->tvShow());
+            } else {
+                $newMovie->setTitle($faker->movie());
+            }
+            
 
             // 3. persist
             $manager->persist($newMovie);

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome Backoffice{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+    <div class="my-4 py-4 text-center">
+
+		<img src="{{ asset('favicon.png') }}" height="100" alt="Logo O'flix" class="mb-3">
+		<h1 class="display-6 fw-bold">Bienvenue dans le BackOffice O'flix</h1>
+		
+	</div>
+
+        <div class="row d-flex gap-3">
+        
+            {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'season' } %}
+            {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'movie' } %}
+            {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'casting' } %}
+            {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'person' } %}
+           
+        </div>
+</div>  
+
+{% endblock %}
