@@ -33,7 +33,7 @@ class ReviewController extends AbstractController
             // l'objet associé
             $reviewForForm);
             
-        dump($movie);    
+        // dump($movie);    
 
         // TODO : traitement du formulaire
         // 1. on fournit la requete au formulaire pour qu'il aille lui même chercher les infos dedans
@@ -61,7 +61,7 @@ class ReviewController extends AbstractController
             $newRating = $movieRepository->findRatingByMovie($id);
             // dd($ratingReview, $movieReview, $newRating);
 
-            return $this->redirectToRoute("movie_show", ["id" => $movie->getId()]);
+            return $this->redirectToRoute("app_front_movie_show", ["id" => $movie->getId()]);
         }    
 
         $session = $request->getSession();

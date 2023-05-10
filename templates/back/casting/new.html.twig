@@ -11,8 +11,12 @@
             <div class="col-6 justify-content-center">
 
                 {{ include('back/casting/_form.html.twig') }}
+                
+                <a href="{{ path('app_back_person_new') }}" class="btn btn-outline-dark btn-md mb-2" role="button" aria-disabled="true">Ajouter un nouvel acteur</a>
+
                 <div class="d-flex justify-content-end gap-3 mb-5">
-                    <a href="{{ path('app_back_casting_index') }}" class="btn btn-warning btn-lg mb-2" role="button" aria-disabled="true">Back to list</a>
+                    <a href="{{ path('app_back_casting_index') }}" class="btn btn-warning btn-md mb-2" role="button" aria-disabled="true">Back to list</a>
+
                 </div>
             </div>   
     </div>    

@@ -9,6 +9,15 @@
 
         <h1 class="text-muted my-2">Season index</h1>
 
+            {% for message in app.flashes("success") %}
+            {# https://getbootstrap.com/docs/5.0/components/alerts/ #}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            {% endfor %}
+
             <div class="d-flex justify-content-end gap-3 mb-5">
                 <a href="{{ path('app_back_season_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
             </div>

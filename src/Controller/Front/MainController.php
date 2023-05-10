@@ -47,7 +47,7 @@ class MainController extends AbstractController
         
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
-        dump($dataMovies);
+        // dump($dataMovies);
         return $this->render("front/main/home.html.twig",
         [
             // les données se passe par un tableau associatif
@@ -62,7 +62,7 @@ class MainController extends AbstractController
     /**
      * page search affiche le résultat de la recherche
      *
-     * @Route("/films", name="movie_search")
+     * @Route("/films", name="app_front_movie_search")
      *
      * @return Response
      */
@@ -72,7 +72,7 @@ class MainController extends AbstractController
 
         $search = $request->query->get('search', "");
         $movies = $movieRepository->findByMovieTitle($search);
-        dump($search);
+        // dump($search);
 
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
@@ -89,7 +89,7 @@ class MainController extends AbstractController
     /**
      * page show affiche le détail d'un film 
      *
-     * @Route("/film/{id}", name="movie_show", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/film/{id}", name="app_front_movie_show", methods={"GET"}, requirements={"id"="\d+"})
      *
      * @return Response
      */
@@ -125,11 +125,11 @@ class MainController extends AbstractController
 
         $castingsWithDQL = $castingRepository->findByMovieOrderByCreditOrderWithPerson($movieById);
 
-        dump($allCastingByMovie);
+        // dump($allCastingByMovie);
 
         // TODO : récupérer les critiques par film - affichage des 5 dernières critiques
         $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"], 5, 0);
-        dump($reviewByMovie);
+        // dump($reviewByMovie);
 
         // récupération du thème avant envoi à la vue
         $session = $request->getSession();
