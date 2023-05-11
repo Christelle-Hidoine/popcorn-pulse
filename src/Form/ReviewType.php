@@ -41,7 +41,7 @@ class ReviewType extends AbstractType
                     "placeholder" => "écrivez votre critique ici, et ne soyez pas trop méchant 😉"]
                 ])
             ->add('rating', ChoiceType::class, [
-                    'choices'  => [
+                    'choices' => [
                     'Excellent' => 5,
                     'Très bon' => 4,
                     'Bon' => 3,

@@ -72,6 +72,11 @@ class PersonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $personRepository->add($person, true);
 
+            $this->addFlash(
+                'success',
+                'Bravo, votre acteur/actrice a bien été mis à jour!'
+            );
+
             return $this->redirectToRoute('app_back_person_index', [], Response::HTTP_SEE_OTHER);
         }
 

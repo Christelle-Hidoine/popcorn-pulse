@@ -6,15 +6,19 @@ use App\Entity\Casting;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Person;
+use App\Entity\Review;
 use App\Entity\Season;
 use App\Entity\Type;
+use App\Entity\User;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use \Xylis\FakerCinema\Provider\Movie as FakerMovieProvider;
 use Xylis\FakerCinema\Provider\Person as FakerPersonProvider;
 use Xylis\FakerCinema\Provider\TvShow as FakerTvShowProvider;
+use \Xylis\FakerCinema\Provider\Character as FakerCharacterProvider;
 // possibilité de créer un alias pour éviter les doublons de noms dans le fichier
 
 class Oflix extends Fixture
@@ -32,6 +36,36 @@ class Oflix extends Fixture
         $faker->addProvider(new FakerMovieProvider($faker));
         $faker->addProvider(new FakerPersonProvider($faker));
         $faker->addProvider(new FakerTvShowProvider($faker));
+        $faker->addProvider(new FakerCharacterProvider($faker));
+
+        // TODO : créer 3 utilisateurs, chacun avec un ROLE
+        $admin = new User();
+        $admin->setEmail("admin@admin.com");
+        // * on donne le mot de passe hashé
+        // mdp : admin
+        $admin->setPassword('$2y$13$UX6UDREB8cdTuNVt3i9QcOFcyFqcQbCk.yh.D9rgYHJzs4GrfD/w.');
+        $admin->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($admin);
+
+        $managerUser = new User();
+        $managerUser->setEmail("manager@manager.com");
+        // * on donne le mot de passe hashé
+        // mdp : manager
+        $managerUser->setPassword('$2y$13$ehwmxDazwOE8ol3eTRz/C.YapEQ8UMyDFzolfGCg97gegVtOwjXu6');
+        $managerUser->setRoles(['ROLE_MANAGER']);
+
+        $manager->persist($managerUser);
+
+
+        $user = new User();
+        $user->setEmail("user@user.com");
+        // * on donne le mot de passe hashé
+        // mdp : user
+        $user->setPassword('$2y$13$J9VkB737ouoPOiH0oTGNQOlvqxZ6Hz95mZiubq/kFzgJ2B7nt608m');
+        $user->setRoles(['ROLE_USER']);
+
+        $manager->persist($user);
 
         // TODO : créer 10 Genres
         $genres = ["Action", "Animation", "Aventure", "Comédie", "Dessin Animé", "Documentaire", "Drame", "Espionnage", "Famille", "Fantastique", "Historique", "Policier", "Romance", "Science-fiction", "Thriller", "Western"];
@@ -73,10 +107,10 @@ class Oflix extends Fixture
             $allTypes[] = $newType;
         }
 
-        // TODO : 2000 person
+        // TODO : 1000 person
         /** @var Person[] $allPerson */
         $allPerson = [];
-        for ($i=0; $i < 2000; $i++) { 
+        for ($i=0; $i < 1000; $i++) { 
             // 1. faire une nouvelle instance
             $newPerson = new Person();
             //2. remplir les prop
@@ -105,11 +139,11 @@ class Oflix extends Fixture
             // * on décalle la propriété title car avec le faker on veux différencier les titres
             $newMovie->setDuration(mt_rand(10, 360));
             $newMovie->setRating(mt_rand(0,50) / 10);
-            $newMovie->setSummary($fakerFr->realText());
-            $newMovie->setSynopsis("lorem ipsum synopsis");
+            $newMovie->setSummary($fakerFr->realText(60,2));
+            $newMovie->setSynopsis($fakerFr->realText(200,2));
             // ? https://www.php.net/manual/fr/datetime.construct.php
-            $newMovie->setReleaseDate(new DateTime("1970-01-01"));
-            $newMovie->setCountry("FR");
+            $newMovie->setReleaseDate(new DateTime($faker->date()));
+            $newMovie->setCountry($faker->countryCode());
 
             $defaultUrl = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
             $picsumDefaultUrl = "https://picsum.photos/200/300";
@@ -147,7 +181,7 @@ class Oflix extends Fixture
                 // 1 .
                 $newCasting = new Casting();
                 // 2. 
-                $newCasting->setRole("Role #" . $i);
+                $newCasting->setRole($faker->character());
                 $newCasting->setCreditOrder($i);
                 // 2.b
                 $newCasting->setMovies($movie);
@@ -190,6 +224,44 @@ class Oflix extends Fixture
                 }
             }
         }
+
+        // // TODO : Créer 500 review
+        // $reactions = ['cry', 'smile', 'dream', 'think', 'sleep'];
+        // /** @var Review[] $allPerson */
+        // $allReviews = [];
+        // for ($i=0; $i < 500; $i++) { 
+        //     // 1. faire une nouvelle instance
+        //     $newReview = new Review();
+        //     //2. remplir les prop
+        //     $newReview->setUsername($faker->userName());
+        //     $newReview->setEmail($faker->email());
+        //     $newReview->setContent($faker->realText(30, 2));
+        //     $newReview->setRating($faker->randomDigitNot(6,7,8,9,0));
+        //     // créer un nombre de réaction aléatoire entre 1 et 3
+        //     $randomNbReaction = mt_rand(1,3);
+        //     $reactionReview = [];
+        //     for ($i=0; $i <= $randomNbReaction; $i++) {
+        //         // 1. je cherche une réaction aléatoire
+        //         $randomReaction = $reactions[mt_rand(0, count($reactions)-1)];
+        //         $reactionReview[] = $randomReaction;
+        //         $newReview->setReactions($reactionReview);
+        //     }
+        //     $newReview->setWatchedAt(new DateTimeImmutable($faker->date()));
+        //     // 3. demander la persitance
+        //     $manager->persist($newReview);
+
+        //     // 4. pour les fixtures : un tableau avec toutes les personnes
+        //     $allReviews[] = $newReview;
+        // }
+
+        // // TODO : association de Review avec Movie : entre 0 et 3 reviews par film
+        // foreach ($allMovies as $movie) {
+        //     //random nb casting
+        //     $randomNbReview = mt_rand(0,3);
+        //     for ($i=1; $i <= $randomNbReview; $i++) { 
+        //         $newReview->setMovie($movie);
+        //     }
+        // }
 
         // * appeler la méthode flush
         // c'est ici que les requetes SQL sont exécutées

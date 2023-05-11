@@ -20,11 +20,28 @@ composer require --dev symfony/debug-bundle
 ## le maker
 composer require --dev symfony/maker-bundle
 
-# E05
+# E06
+# création des fixtures
+composer require orm-fixtures --dev
 
+# E08
+# faker général
+composer require fakerphp/faker
 
+# E09
+# faker image
+composer require --dev bluemmb/faker-picsum-photos-provider ^2.0
+
+# E10
+# formulaire et token csrf
+composer require form validator
+composer require security-csrf 
+
+# E12
+# sécurité
+composer require symfony/security-bundle
 
 # E05
 ## installation de tout les composants pour Doctrine
 ## A METTRE EN DERNIER car il nous pose une question à laquelle on répond 'x'
-composer require symfony/orm-pack
+echo "x" | composer require symfony/orm-pack
