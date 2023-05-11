@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid p-5 ">
+    <div class="my-5 py-5 text-center">
+        <h1>User index</h1>
+		    
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_user_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
+            </div>
+
+        <div class="table-responsive ms-auto">
+               
+            <table class="table table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Roles</th>
+                    {# <th scope="col">Password</th> #}
+                    <th scope="col">actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th class ="align-middle" scope="row">{{ user.id }}</th>
+                        <td class ="align-middle fw-bolder">{{ user.email }}</td>
+                        <td class ="align-middle">{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        {# <td>{{ user.password }}</td> #}
+                        <td>
+                            <a href="{{ path('app_back_user_show', {'id': user.id}) }}" class="btn btn-outline-dark btn-md mb-2" role="button" aria-disabled="true">Show</a>
+                            <a href="{{ path('app_back_user_edit', {'id': user.id}) }}"class="btn btn-secondary btn-md mb-2" role="button" aria-disabled="true">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+    </div>
+</div>        
+{% endblock %}

@@ -12,7 +12,7 @@
 		
 	</div>
 
-        <div class="row d-flex gap-3">
+        <div class="row d-flex gap-4">
         
             {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'season' } %}
             {% if is_granted('ROLE_MANAGER') %}
@@ -21,6 +21,9 @@
             
             {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'casting' } %}
             {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'person' } %}
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'user' } %}
+            {% endif %}
            
         </div>
 </div>  

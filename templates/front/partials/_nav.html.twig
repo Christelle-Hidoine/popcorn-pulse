@@ -6,7 +6,7 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
  
  <!-- Nav -->
 
-    {% if app.session.get('theme') %}
+{% if app.session.get('theme') %}
     
     {# <nav class="navbar navbar-expand-lg navbar-dark {% if isBackOffice %}bg-warning{% else %}bg-dark{% endif %}"> #}
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'yellow' : 'dark' }}">
@@ -31,25 +31,8 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
                         <a class="nav-link {{ app.request.get('_route') == 'app_front_movie_favorites' ? 'active' : '' }}" href="{{ path('app_front_movie_favorites') }}" id="{{ theme == 'Allocine' ? 'allocine' : 'netflix' }}"><i class="bi bi-bookmark"></i> Ma liste</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ theme == 'Allocine' ? 'text-muted' : 'text-white' }}" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            <span>Charles</span>
-                            <i class="bi bi-person-square"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ path('app_back_default')}}">Backoffice</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Déconnexion</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <button type="button" class="btn btn-{{ theme == 'Allocine' ? 'dark' : 'danger' }} me-2">Connexion</button>
+                
+                {% include "front/partials/_user_nav.html.twig" %}
 
                 <form class="d-flex" action="{{ path('app_front_movie_search') }}">
                     <input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
@@ -84,29 +67,8 @@ c'est vraiment une inclusion du code HTML/twig de cette vue
                         <a class="nav-link {{ app.request.get('_route') == 'app_front_movie_favorites' ? 'active' : '' }}" href="{{ path('app_front_movie_favorites') }}"><i class="bi bi-bookmark"></i> Ma liste</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            {% if  app.user  %}
-                            <span>{{ app.user.userIdentifier }}</span>
-                            {% else %}
-                            <span>Anonyme</span>   
-                            {% endif %}
-                            <i class="bi bi-person-square"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ path('app_back_default')}}">Backoffice</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <button type="button" class="btn btn-danger me-2" onclick="window.location.href = '{{ path('app_login') }}';">Connexion</button>
+                
+                {% include "front/partials/_user_nav.html.twig" %}
 
                 <form class="d-flex" action="{{ path('app_front_movie_search') }}">
                     <input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">

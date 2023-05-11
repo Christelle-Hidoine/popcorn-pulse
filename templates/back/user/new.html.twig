@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+
+ <div class="container-md bg-light my-5 border-top d-flex">
+        <div class="row m-auto">
+
+            <h1 class="text-muted my-5">Create new User</h1>
+
+                {{ include('back/user/_form.html.twig') }}
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_user_index') }}"class="btn btn-warning btn-md mb-2" role="button" aria-disabled="true">Back to list</a>
+            </div>    
+        </div>    
+</div>
+{% endblock %}

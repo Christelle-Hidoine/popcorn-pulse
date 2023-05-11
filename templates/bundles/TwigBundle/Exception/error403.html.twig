@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container my-4">
+    <div class="my-5 py-5 text-center">
+		<h1 class="fw-bold display-1">{{ status_code }}</h1>
+        <div class="col-lg-6 mx-auto">
+			<h2 class="lead mb-4 text-muted">Freeze ! It's a crime scene 🔫</h2>
+            <p class="display-6 ">{{ status_text }}<p>
+		</div>
+        <img src="https://pngimg.com/uploads/police_tape/police_tape_PNG34.png" class="img-fluid" alt="Crime Scene do not cross" class="mb-3">
+	</div>
+</div>
+
+{% endblock %}
