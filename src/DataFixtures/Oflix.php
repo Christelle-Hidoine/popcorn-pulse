@@ -8,6 +8,7 @@ use App\Entity\Movie;
 use App\Entity\Person;
 use App\Entity\Season;
 use App\Entity\Type;
+use App\Entity\User;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,6 +16,7 @@ use Doctrine\Persistence\ObjectManager;
 use \Xylis\FakerCinema\Provider\Movie as FakerMovieProvider;
 use Xylis\FakerCinema\Provider\Person as FakerPersonProvider;
 use Xylis\FakerCinema\Provider\TvShow as FakerTvShowProvider;
+use \Xylis\FakerCinema\Provider\Character as FakerCharacterProvider;
 // possibilité de créer un alias pour éviter les doublons de noms dans le fichier
 
 class Oflix extends Fixture
@@ -32,6 +34,36 @@ class Oflix extends Fixture
         $faker->addProvider(new FakerMovieProvider($faker));
         $faker->addProvider(new FakerPersonProvider($faker));
         $faker->addProvider(new FakerTvShowProvider($faker));
+        $faker->addProvider(new FakerCharacterProvider($faker));
+
+        // TODO : créer 3 utilisateurs, chacun avec un ROLE
+        $admin = new User();
+        $admin->setEmail("admin@admin.com");
+        // * on donne le mot de passe hashé
+        // mdp : admin
+        $admin->setPassword('$2y$13$UX6UDREB8cdTuNVt3i9QcOFcyFqcQbCk.yh.D9rgYHJzs4GrfD/w.');
+        $admin->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($admin);
+
+        $managerUser = new User();
+        $managerUser->setEmail("manager@manager.com");
+        // * on donne le mot de passe hashé
+        // mdp : manager
+        $managerUser->setPassword('$2y$13$ehwmxDazwOE8ol3eTRz/C.YapEQ8UMyDFzolfGCg97gegVtOwjXu6');
+        $managerUser->setRoles(['ROLE_MANAGER']);
+
+        $manager->persist($managerUser);
+
+
+        $user = new User();
+        $user->setEmail("user@user.com");
+        // * on donne le mot de passe hashé
+        // mdp : user
+        $user->setPassword('$2y$13$J9VkB737ouoPOiH0oTGNQOlvqxZ6Hz95mZiubq/kFzgJ2B7nt608m');
+        $user->setRoles(['ROLE_USER']);
+
+        $manager->persist($user);
 
         // TODO : créer 10 Genres
         $genres = ["Action", "Animation", "Aventure", "Comédie", "Dessin Animé", "Documentaire", "Drame", "Espionnage", "Famille", "Fantastique", "Historique", "Policier", "Romance", "Science-fiction", "Thriller", "Western"];
@@ -147,7 +179,7 @@ class Oflix extends Fixture
                 // 1 .
                 $newCasting = new Casting();
                 // 2. 
-                $newCasting->setRole("Role #" . $i);
+                $newCasting->setRole($faker->character());
                 $newCasting->setCreditOrder($i);
                 // 2.b
                 $newCasting->setMovies($movie);
