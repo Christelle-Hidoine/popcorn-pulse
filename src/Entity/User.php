@@ -34,22 +34,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\NotBlank(
-     *      message="Merci de sélectionner un rôle"
-     * )
+     * 
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(
-     *      message="Merci d'indiquer un mot de passe"
-     * )
-     * @Assert\Length(
-     *      min = 4,
-     *      minMessage = "Votre mot de passe doit contenir au minimum {{ limit }} caractères",
-     * )
+     * 
      */
     private $password;
 
@@ -95,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }

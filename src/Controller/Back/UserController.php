@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,14 +75,27 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(UserPasswordHasherInterface $passwordHasher, Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($user === null){throw $this->createNotFoundException("ce user n'existe pas");}
         
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            // il nous faut le mot de passe : 
+            // * on le récupère depuis la requete car on a désactivé la mise à jour auto par le formulaire
+            $plainPassword = $request->request->get("password");
+            // dd($plainPassword);
+            // si mdp complété = on ne récupère pas le mdp 
+            if (!empty($plainPassword)){
+                // je hash le mot de passe
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                // * j'oublie pas de mettre à jour mon objet
+                $user->setPassword($hashedPassword);     
+            }
+            
             $userRepository->add($user, true);
 
             $this->addFlash(

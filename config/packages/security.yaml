@@ -32,14 +32,21 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # Admin : Si ROLE_MANAGER : accès aux pages de listes movie, genres etc. et pages show (si existantes).
-        - { path: ^\/back\/\w+\/\d+$, roles: ROLE_MANAGER}
+        # pour eviter les boucles infinies de redirection
+        # on met toujours la page de login en premier et en public
+        - { path: ^/login$, roles: PUBLIC_ACCESS }
+        # Admin : Si ROLE_MANAGER : accès aux pages de "listes" = method GET  movie, genres etc. et pages show (si existantes).
+        - { path: ^\/back\/\w+\/\d+$, roles: ROLE_MANAGER, methods: [GET] }
         # Admin : Sécuriser toutes les routes /add /edit /delete avec ROLE_ADMIN.
         - { path: ^\/back\/\w+\/\w+, roles: ROLE_ADMIN }
+        # Admin : Si ROLE_MANAGER et ROLE_ADMIN : accès backoffice 
+        - { path: ^\/back, roles: ROLE_MANAGER }
         # Front : Si ROLE_USER : ajouter une critique sur un film.
         - { path: ^\/review\/add\/\d+$, roles: ROLE_USER }
+        # Front : Si ROLE_USER : ajouter un favoris
+        - { path: ^\/favoris$, roles: ROLE_USER }
         # Front : Si user ANONYME : page d'accueil + fiche film seulement.
-        - { path: ^\/|(\/?films)|(\/?\/\d+$), roles: PUBLIC_ACCESS }
+        - { path: ^\/|(\/?films)|(\/?\/\d+)$, roles: PUBLIC_ACCESS }
 
         
     role_hierarchy:
