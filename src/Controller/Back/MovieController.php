@@ -78,6 +78,8 @@ class MovieController extends AbstractController
      */
     public function edit(Request $request, ?Movie $movie, MovieRepository $movieRepository): Response
     {
+        $this->denyAccessUnlessGranted("MOVIE_1430", $movie);
+        
         if ($movie === null){throw $this->createNotFoundException("ce film n'existe pas");}
 
         $form = $this->createForm(MovieType::class, $movie);
