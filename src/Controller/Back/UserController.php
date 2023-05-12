@@ -86,7 +86,8 @@ class UserController extends AbstractController
             
             // il nous faut le mot de passe : 
             // * on le récupère depuis la requete car on a désactivé la mise à jour auto par le formulaire
-            $plainPassword = $request->request->get("password");
+            $plainPassword = $request->request->get("user_edit")["password"];
+            dump($request->request->get('user_edit'));
             // dd($plainPassword);
             // si mdp complété = on ne récupère pas le mdp 
             if (!empty($plainPassword)){
