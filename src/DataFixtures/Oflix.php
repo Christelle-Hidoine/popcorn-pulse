@@ -192,9 +192,9 @@ class Oflix extends Fixture
             }
         }
 
-        // TODO : association de Genre avec Movie : entre 3 et 5 genre par film
+        // TODO : association de Genre avec Movie : entre 1 et 3 genre par film
         foreach ($allMovies as $movie) {
-            $randomNbGenre = mt_rand(3,5);
+            $randomNbGenre = mt_rand(1,3);
             for ($i=0; $i <= $randomNbGenre; $i++) { 
                 // 1. je cherche un genre aléatoire
                 $randomGenre = $allGenre[mt_rand(0, count($allGenre)-1)];
@@ -225,43 +225,40 @@ class Oflix extends Fixture
             }
         }
 
-        // // TODO : Créer 500 review
-        // $reactions = ['cry', 'smile', 'dream', 'think', 'sleep'];
-        // /** @var Review[] $allPerson */
-        // $allReviews = [];
-        // for ($i=0; $i < 500; $i++) { 
-        //     // 1. faire une nouvelle instance
-        //     $newReview = new Review();
-        //     //2. remplir les prop
-        //     $newReview->setUsername($faker->userName());
-        //     $newReview->setEmail($faker->email());
-        //     $newReview->setContent($faker->realText(30, 2));
-        //     $newReview->setRating($faker->randomDigitNot(6,7,8,9,0));
-        //     // créer un nombre de réaction aléatoire entre 1 et 3
-        //     $randomNbReaction = mt_rand(1,3);
-        //     $reactionReview = [];
-        //     for ($i=0; $i <= $randomNbReaction; $i++) {
-        //         // 1. je cherche une réaction aléatoire
-        //         $randomReaction = $reactions[mt_rand(0, count($reactions)-1)];
-        //         $reactionReview[] = $randomReaction;
-        //         $newReview->setReactions($reactionReview);
-        //     }
-        //     $newReview->setWatchedAt(new DateTimeImmutable($faker->date()));
-        //     // 3. demander la persitance
-        //     $manager->persist($newReview);
+        // TODO : Créer entre 0 et 4 review par movie
+        $reactions = ['cry', 'smile', 'dream', 'think', 'sleep'];
+        $rating = [];
+        foreach ($allMovies as $movie) {
+            $randomNbReview = mt_rand(0, 5);
+            
+            for ($i=0; $i < $randomNbReview; $i++) {
+                // 1. faire une nouvelle instance
+                /** @var Review $newReview */
+                $newReview = new Review();
+                //2. remplir les prop
+                $newReview->setUsername($faker->userName());
+                $newReview->setEmail($faker->email());
+                $newReview->setContent($fakerFr->realText(30, 1));
+                $newReview->setRating($faker->numberBetween(1,5));
+                // créer un nombre de réactions aléatoire entre 1 et 5
+                $randomNbReaction = $faker->numberBetween(0, count($reactions) -1);
+                $newReview->setReactions([$reactions[$randomNbReaction]]);
+                $newReview->setWatchedAt(new DateTimeImmutable($faker->date()));
 
-        //     // 4. pour les fixtures : un tableau avec toutes les personnes
-        //     $allReviews[] = $newReview;
-        // }
+                // calcul rating moyen
+                $rating[] = $newReview->getRating();
+                $sum = array_sum($rating);
+                $count = count($rating);
+                // moyenne arrondie à 1 chiffre après virgule
+                $average = round($sum/$count, 1);
+                $movie->setRating($average);
+                $newReview->setMovie($movie);
 
-        // // TODO : association de Review avec Movie : entre 0 et 3 reviews par film
-        // foreach ($allMovies as $movie) {
-        //     //random nb casting
-        //     $randomNbReview = mt_rand(0,3);
-        //     for ($i=1; $i <= $randomNbReview; $i++) { 
-        //         $newReview->setMovie($movie);
-        //     }
-        // }
+                // 3. demander la persitance
+                $manager->persist($newReview);
+
+            }
+        }
 
         // * appeler la méthode flush
         // c'est ici que les requetes SQL sont exécutées

@@ -28,17 +28,20 @@ class FavoritesManager
     public function addFavorites(Movie $movie)
     {
         $session = $this->request->getSession();
-        $session->set("favoris", $movie);
-        $this->favoris[] = $session->get("favoris", []);
+        $id = $movie->getId();
+        $session->set("$id", $movie);
+        $this->favoris = $session->get("$id");
+        // $this->favoris[] = $favorisSession;
     }
 
     // 2. removeFavorites
     public function removeFavorites(Movie $movie)
     {
         $session = $this->request->getSession();
-        $removeFav = $session->remove("favoris", $movie);
-        $this->favoris[] = $removeFav;
-        dump($removeFav);
+        $id = $movie->getId();
+        $session->remove("$id", $movie);
+        // $this->favoris[] = $removeFav;
+        // dump($removeFav);
     }
 
 

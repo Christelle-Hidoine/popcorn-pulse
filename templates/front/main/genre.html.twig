@@ -18,13 +18,12 @@
 		<div class="row mb-2">
 
 			<div class="col-12 col-lg-3">
-				<h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
 
 				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
 
 					{# affichage de la liste des genres par ordre alphabétique #}
 					{% for genre in genreList|sort((a, b) => a.name > b.name) %}
-					<a href="{{ path('app_front_genre_show', {'id': genre.id}) }}" class="btn btn-sm btn-outline-danger mx-1 mb-2" ><li>{{ genre.name }}</li></a>
+					<a href="{{ path('app_front_genre_show', {'id': genre.id}) }}" class="btn btn-sm btn-outline-danger mx-1 mb-2"><li>{{ genre.name }}</li></a>
 					{% endfor %}
 
 				</ul>
@@ -33,7 +32,7 @@
 
 			<div class="col-12 col-lg-9">
 
-				<h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
+				<h2 class="text-center text-muted fw-bold mb-4">Les films et séries <span class='badge bg-warning text-dark'>{{ genreById.name }}</span></h2>
 
 					{# 
 						movieList 
@@ -49,7 +48,8 @@
 							]
 					#}
 
-				{% for movie in movieList %}
+				{% for movie in movieGenre %}
+                {% dump(movie) %}
 
 					<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
 						<div class="col-4 movie__poster" style="background-image: url({{ movie.poster }})">
@@ -79,7 +79,7 @@
 				{% endfor %}
 
 				<div class="navigation d-flex justify-content-center">
-            		{{ knp_pagination_render(movieList) }}
+            		{{ knp_pagination_render(movieGenre) }}
         		</div>
 				
 				{# <nav class="col-lg-9 offset-lg-3">
