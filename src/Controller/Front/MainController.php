@@ -31,7 +31,8 @@ class MainController extends AbstractController
     public function home(MovieRepository $movieRepository, 
         GenreRepository $genreRepository, 
         Request $request, 
-        PaginatorInterface $paginator): Response
+        PaginatorInterface $paginator
+        ): Response
     {
         // TODO : récuperer la liste de tous les films
         $dataMovies = $movieRepository->findAll();
@@ -40,15 +41,6 @@ class MainController extends AbstractController
         // TODO : faire la pagination
         $dataMovies = $paginator->paginate($dataMovies, $request->query->getInt('page', 1),5);
     
-        // TODO : afficher la valeur de la session 'favoris'
-        // ? pour accèder à la session, il me faut la requete
-        // ? pour avoir la requete, je demande à Symfony : Injection de dépendance
-        // $session = $request->getSession();
-        // dump($session->get("favoris"));
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-        // dump($dataMovies);
-
         // la méthode render() prend 2 paramètres:
         // * le nom du fichier de vue que l'on veux utiliser
         // le chemin du fichier tiwg commence dans le dossier templates
@@ -60,7 +52,6 @@ class MainController extends AbstractController
             // TODO : fournir les données à twig
             "movieList" => $dataMovies,
             "genreList" => $genres,
-            "theme" => $themeSession,
         ]);
     }
 
@@ -85,14 +76,10 @@ class MainController extends AbstractController
         // TODO : faire la pagination
         $movies = $paginator->paginate($movies, $request->query->getInt('page', 1),5);
 
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->render("front/main/search.html.twig",
             [
                 'movieSearch' => $movies,
                 'genreList' => $genres,
-                'theme' => $themeSession,
             ]
         );
     }
@@ -104,7 +91,11 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function show($id, MovieRepository $movieRepository, CastingRepository $castingRepository, ReviewRepository $reviewRepository, Request $request): Response
+    public function show($id, 
+        MovieRepository $movieRepository, 
+        CastingRepository $castingRepository, 
+        ReviewRepository $reviewRepository
+        ): Response
     {
         // TODO : récuperer le film avec son id
         $movieById = $movieRepository->find($id);
@@ -137,10 +128,6 @@ class MainController extends AbstractController
         // TODO : récupérer les critiques par film - affichage des 5 dernières critiques
         $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"]);
         // dump($reviewByMovie);
-
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
         
         $twigResponse = $this->render("front/main/show.html.twig",
         [
@@ -149,8 +136,6 @@ class MainController extends AbstractController
             "movie" => $movieById,
             // TODO fournir le casting à ma vue
             "allCasting" => $castingsWithDQL,
-            // TODO fournir le thème à ma vue
-            'theme' => $themeSession,
             // TODO fournir les critiques à ma vue
             'reviews' => $reviewByMovie
         ]);
@@ -183,10 +168,6 @@ class MainController extends AbstractController
 
         // TODO : faire la pagination
         $movieGenre = $paginator->paginate($genreById->getMovies(), $request->query->getInt('page', 1),5);
-
-        // récupération du thème avant envoi à la vue
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
         
         $twigResponse = $this->render("front/main/genre.html.twig",
         [
@@ -196,11 +177,8 @@ class MainController extends AbstractController
             'movieGenre' => $movieGenre,
             // TODO fournir le data du genre
             "genreById" => $genreById,
-            // TODO fournir le thème à ma vue
-            'theme' => $themeSession,
         ]);
         
-
         return $twigResponse;
     }
 }

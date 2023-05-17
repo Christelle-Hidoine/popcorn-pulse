@@ -146,10 +146,10 @@ class Oflix extends Fixture
             $newMovie->setCountry($faker->countryCode());
 
             $defaultUrl = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
-            $picsumDefaultUrl = "https://picsum.photos/200/300";
             
             $picsumSeededUrl = "https://picsum.photos/seed/radium".$i."/200/300";
 
+            // TODO utiliser le service que vous avez créé : OMDBAPI
             $fakerPicsumSeededUrl = $faker->imageUrl(200,300, 'radium-' . $i);
             $newMovie->setPoster($fakerPicsumSeededUrl);
 

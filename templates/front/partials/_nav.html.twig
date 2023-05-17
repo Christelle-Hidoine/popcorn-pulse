@@ -1,12 +1,7 @@
- {#
-Une vue partielle sera utilisé avec l'instruction include
-donc il n'y a pas de block, car on ne fait pas d'héritage
-c'est vraiment une inclusion du code HTML/twig de cette vue
-#}
  
  <!-- Nav -->
-
 {% if app.session.get('theme') %}
+{% set theme = app.session.get('theme') %}
     
     {# <nav class="navbar navbar-expand-lg navbar-dark {% if isBackOffice %}bg-warning{% else %}bg-dark{% endif %}"> #}
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'yellow' : 'dark' }}">

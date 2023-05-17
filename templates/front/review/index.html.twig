@@ -18,28 +18,12 @@
                 {{ form_row(form.rating) }}
                 {{ form_row(form.reactions) }}
                 {{ form_row(form.watchedAt) }}
-                {# <input
-                    name="{{ field_name(form.movie) }}"
-                    value="{{ field_value(form.movie) }}"
-                    placeholder="{{ field_label(form.movie) }}"
-                    class="form-control"
-                /> #}
-
-                {# <select name="{{ field_name(form.movie) }}" class="form-control">
-                    <option value="">{{ field_label(form.movie),  }}</option>
-
-                    {% for label, value in field_choices(form.movie), {'title': movie.title} %}
-                        <option value="{{ movie.id }}">{{ label }}</option>
-                    {% endfor %}
-                </select> #}
-                {# {{ form_row(form.movie)}} #}
             
         {# https://symfony.com/doc/5.4/best_practices.html#add-form-buttons-in-templates #}
             <div class="col-12 mt-5 mb-5 d-flex justify-content-end">
                 <button type="submit" class="btn btn-warning">Valider</button>
             </div>
-        {# la méthode form_end() fait le rendu de tout les éléments qui n'ont pas été positionné #}    
-        {# {% dump(form.movie) %} #}
+        {# la méthode form_end() fait le rendu de tous les éléments qui n'ont pas été positionnés #}    
         {{ form_end(form) }}
 
         </div>
