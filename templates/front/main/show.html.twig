@@ -1,23 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {# movieForTwig #}
-        {# {% dump(movieForTwig) %} #}
-        
-        {#
-        array:8 [▼
-            "type" => "Série"
-            "title" => "Game of Thrones"
-            "release_date" => 2011
-            "duration" => 52
-            "summary" => "Neuf familles nobles se battent pour le contrôle des terres de Westeros, tandis qu'un ancien ennemi revient..."
-            "synopsis" => "Il y a très longtemps, à une époque oubliée, une force a détruit l'équilibre des saisons. Dans un pays où l'été peut durer plusieurs années et l'hiver toute une ▶"
-            "poster" => "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg"
-            "rating" => 4.7
-            ]
-        #}
-    <!-- main -->
 
+    <!-- main -->
     <div class="container bg-light pt-5">
 
         <div class="row mb-2">
@@ -29,7 +14,6 @@
                     <div class="col-4 movie__poster img-thumbnail"
                         style="background-image: url({{ movie.poster }})">
                         <img src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
-                        <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
 
                     <div class="col-8 p-4 d-flex flex-column position-static bg-light">
@@ -51,7 +35,7 @@
                             {% include 'front/partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
                             
                             {# on conditionne la partie saison que pour les série #}
-                            {% if movie.type.name == 'Série' %}
+                            {% if movie.type.name == 'série' %}
 
                                 {# on détermine le nombre de saison avec le filter |length + condition pour l'affichage au pluriel #}
                                 <h2>{{ movie.seasons|length }} {{ movie.seasons|length > 1 ? 'Saisons' : 'Saison' }}</h2>
@@ -79,7 +63,7 @@
                                 {# données déjà triées par creditOrder via MainController méthode show avec findBy() #}
                                 {% for casting in allCasting %}
 
-                                    {{ casting.persons.firstname }} {{ casting.persons.lastname }} {{ casting.creditOrder }} ({{ casting.role }})<br>
+                                    {{ casting.persons.firstname }} {{ casting.persons.lastname }} | ({{ casting.role }})<br>
 
                                 {% endfor %}    
 

@@ -17,16 +17,6 @@
         <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
         <title>{% block title %}O'flix{% endblock %}</title>
     </head>
-        
-
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {# {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %} #}
 
     <body>
 
@@ -34,7 +24,7 @@
         {% include 'partials/_fullnav.html.twig' with {'isBackOffice': isBackOffice}  %} #}
 
         {# je sépare la navigation du layout #}
-        {# l'intruction include fait la même chose que le include PHP #}
+        {# l'instruction include fait la même chose que le include PHP #}
         {# par convention les templates partials commencent par un _ #}
         {% if app.request.attributes.get("_route") starts with "app_back_" %}
             {% include 'back/partials/_nav.html.twig' %}
@@ -47,28 +37,22 @@
         {% block body %}{% endblock %}
     </body>
 
+    <!-- footer -->
     {% if 'app_back' in app.request.get('_route') %}    
     <footer class="container-fluid py-4 border-top text-center">
         <span class="text-muted">O'flix made with &hearts; at O'clock !
             <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>Netflix</a></small></a>
         </span>
     </footer>
-    <!-- Optional JavaScript; choose one of 
-        the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-    -->  
-
     {% else %}
-    <!-- footer -->
+    {% set theme = app.session.get('theme') %}
+   
     <footer class="container-fluid py-4 border-top text-center">
         <span class="text-muted">O'flix made with &hearts; at O'clock !
             <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>{{ theme == 'Allocine' ? 'Allociné' : 'Netflix' }}</a></small></a>

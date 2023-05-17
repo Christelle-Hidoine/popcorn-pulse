@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% dump(app.session.get('favoris')) %}
-
+{# {% dump(app.session.get('favoris')) %} #}
 
     <!-- main -->
-
     <div class="container-xl bg-light p-5 border-top">
 
         <div class="row mb-2">
@@ -20,7 +18,6 @@
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
                     <div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});">
                         <img src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
-                        <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
                     <div class="col-8 p-4 d-flex flex-column position-static">
                         <a href="{{ path('app_front_delete_favorites_id', {'id': movie.id}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-x-fill"></i></a>
