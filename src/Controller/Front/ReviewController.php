@@ -70,7 +70,7 @@ class ReviewController extends AbstractController
             }
             // on set le résultat dans la BDD entity Movie selon l'id movie passé en paramètre
             $movie->setRating($average);
-            $entityManagerInterface->flush();     
+            $entityManagerInterface->flush();    
 
             return $this->redirectToRoute("app_front_movie_show", ["id" => $movie->getId()]);
         }    
