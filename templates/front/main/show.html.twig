@@ -27,40 +27,40 @@
                 <div
                     class="row g-0 border rounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
                     <div class="col-4 movie__poster img-thumbnail"
-                        style="background-image: url({{ movieForTwig.poster }})">
+                        style="background-image: url({{ movie.poster }})">
                         <img src="{{ asset('images/poster-placeholder.png') }}" class="img-fluid">
                         <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
 
                     <div class="col-8 p-4 d-flex flex-column position-static bg-light">
-                        <a href="{{ path('app_front_add_favorites', {'id': movieId }) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">{{ movieForTwig.type.name }}</strong>
-                        <h3 class="mb-1">{{ movieForTwig.title }}</h3>
-                            <div class="mb-1 text-muted">{{ movieForTwig.duration }} min</div>
+                        {% include "front/partials/_favorites.html.twig" with {'movieIDForPartial': movie.id} %}
+                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type.name }}</strong>
+                        <h3 class="mb-1">{{ movie.title }}</h3>
+                            <div class="mb-1 text-muted">{{ movie.duration }} min</div>
 
                             <p>
-                            {% for genre in movieForTwig.genres %}
+                            {% for genre in movie.genres %}
 
                                 <span class="badge bg-warning text-dark">{{ genre.name }}</span>
 
                             {% endfor %}    
                             </p>
 
-                            <p>{{ movieForTwig.synopsis }}</p>
+                            <p>{{ movie.synopsis }}</p>
 
-                            {% include 'front/partials/_stars.html.twig' with {'ratingStars': movieForTwig.rating} %}
+                            {% include 'front/partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
                             
                             {# on conditionne la partie saison que pour les série #}
-                            {% if movieForTwig.type.name == 'Série' %}
+                            {% if movie.type.name == 'Série' %}
 
                                 {# on détermine le nombre de saison avec le filter |length + condition pour l'affichage au pluriel #}
-                                <h2>{{ movieForTwig.seasons|length }} {{ movieForTwig.seasons|length > 1 ? 'Saisons' : 'Saison' }}</h2>
+                                <h2>{{ movie.seasons|length }} {{ movie.seasons|length > 1 ? 'Saisons' : 'Saison' }}</h2>
 
                                     <ul class="list-unstyled">
 
                                     {# on trie les saisons dans l'ordre croissant avec le filter |sort en comparant avec l'opérateur spaceship =
                                     An int less than, equal to, or greater than zero when $a is less than, equal to, or greater than $b, respectively.#}
-                                    {% for season in movieForTwig.seasons|sort((a, b) => a.number <=> b.number) %} 
+                                    {% for season in movie.seasons|sort((a, b) => a.number <=> b.number) %} 
                                         {# {% dump(season) %} #}
                                         <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
                                     {% endfor %}
@@ -85,9 +85,9 @@
 
                                 </dd>
                                 <dt class="col-sm-12">Pays</dt>
-                                <dd class="col-sm-12">{{ movieForTwig.country }}</dd>
+                                <dd class="col-sm-12">{{ movie.country }}</dd>
                                 <dt class="col-sm-12">Année</dt>
-                                <dd class="col-sm-12">{{ movieForTwig.releaseDate|date("Y") }}</dd>
+                                <dd class="col-sm-12">{{ movie.releaseDate|date("Y") }}</dd>
                             </dl>
 
                             {% if is_granted('ROLE_USER') %}

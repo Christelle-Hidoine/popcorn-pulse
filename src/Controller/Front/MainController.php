@@ -146,7 +146,7 @@ class MainController extends AbstractController
         [
             "movieId" => $id,
             // TODO fournir le film à ma vue
-            "movieForTwig" => $movieById,
+            "movie" => $movieById,
             // TODO fournir le casting à ma vue
             "allCasting" => $castingsWithDQL,
             // TODO fournir le thème à ma vue

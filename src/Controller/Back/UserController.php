@@ -49,7 +49,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Bravo, le user a bien été enregistré!'
+                'Bravo, le nouvel user a bien été enregistré!'
             );
 
             return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);

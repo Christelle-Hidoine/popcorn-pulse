@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% dump(app.session.get('favoris')) %}
 
 
     <!-- main -->
@@ -10,15 +11,10 @@
         <div class="row mb-2">
 
             <h2 class="text-muted fw-bold mb-4">Ma liste</h2>
-            
-            {% for movie in movies %}
-                {% dump(app.session) %}
-            
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ movie.title }}</strong> a été ajouté à votre liste de favoris.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
 
+            {% for movie in movies %}
+                {% dump(app.session.get('favoris')|last) %}
+                
             <div class="col-6">
 
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
@@ -40,6 +36,7 @@
             {% else %}
             <em>Vous n'avez pas encore de favoris</em>
             {% endfor %}
+            
         </div>
 
         <div class="col">

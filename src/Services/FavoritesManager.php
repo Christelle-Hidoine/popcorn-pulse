@@ -7,9 +7,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class FavoritesManager 
 {
-    /** @var RequestStack */
-    private $request;
-    private $favoris = [];
+    /** @var SessionInterface $session */
+    private $session;
 
     /**
      * Injection de dépendance Request pour récupérer la session
@@ -18,50 +17,47 @@ class FavoritesManager
      */
     public function __construct(RequestStack $request)
     {
-        $this->request = $request;
+        $this->session = $request->getSession();
     }
 
 
     // TODO : je sauvegarde en session les actions sur les favoris
 
     // 1. addFavorites 
-    public function addFavorites(Movie $movie)
+    public function addFavorite(Movie $movie)
     {
-        $session = $this->request->getSession();
+        $favoriteSession = $this->session->get("favoris", []);
         $id = $movie->getId();
-        $session->set("$id", $movie);
-        $this->favoris = $session->get("$id");
-        // $this->favoris[] = $favorisSession;
+        $favoriteSession[$id] = $movie;
+        $this->session->set("favoris", $favoriteSession);
+        
     }
 
-    // 2. removeFavorites
-    public function removeFavorites(Movie $movie)
+    // 2. listFavorites
+    public function listFavorites()
     {
-        $session = $this->request->getSession();
-        $id = $movie->getId();
-        $session->remove("$id", $movie);
-        // $this->favoris[] = $removeFav;
-        // dump($removeFav);
+        return $this->session->get("favoris", []);
     }
 
-
-    /**
-     * Get the value of favoris
-     */ 
-    public function getFavoris()
+    // 3. removeFavorites
+    public function removeFavorite(Movie $movie)
     {
-        return $this->favoris;
+        $favorisList = $this->session->get("favoris", []);
+
+        if (array_key_exists($movie->getId(), $favorisList)){
+            // ? https://www.php.net/manual/en/function.unset.php
+            unset($favorisList[$movie->getId()]);
+            // met à jour la session
+            $this->session->set("favoris", $favorisList);
+        }
     }
 
-    /**
-     * Set the value of favoris
-     *
-     * @return  self
-     */ 
-    public function setFavoris($favoris)
+    public function removeAll()
     {
-        $this->favoris = $favoris;
-
-        return $this;
+        // on met un tableau vide pour purger nos favoris
+        $this->session->set("favoris", []);
+        // version plus bourine qui supprime directement la clé en session
+        $this->session->remove("favoris");
     }
+
 }
