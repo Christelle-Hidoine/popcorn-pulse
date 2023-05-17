@@ -22,37 +22,17 @@ class FavoritesController extends AbstractController
         // TODO : récupérer les films de la page favoris
         $movies = $movieRepository->findAll();
         $moviesFavorites = [];
+
         // TODO : stocker en session les favoris
-        // ? où se trouve la session ? dans le cookies de la requete
-        // ? où se trouve les informations qui proviennent de la requete ?
-        // dans symfony il y un objet Request, tout comme il y a un objet Reponse
-        // ? Comment on obtient cet objet Request ?
-        // new Request();
-        // ! ce n'est pas une bonne idée, car on devrait pas créer nous même une requete
-        // il faut demander à symfony, c'est lui qui gère/reçoit la requete
-        // Pour demander un objet à Symfony, il suffit de l'ajouter en argument de notre function
-        // avec le type hinting Symfony va savoir de quel objet on a besoin
-        // dd($request);
         // * cette façon de faire est utilisée dans plusieurs languages
         // * cela s'appele l'injection de dépendance
         
         $session = $request->getSession();
-        // dd($session);
-        // $session->set('favoris', "Vive les Radium");
-        
         $themeSession = $session->get('theme', []);
         
         // TODO : récupérer les films favoris
-        // on passe en paramètre un tableau vide au cas où on n'est aucun favoris sur la page à afficher
-        // $favorite = $request->attributes->get("favoris$id");
-        foreach ($movies as $movie) {
-            $movieById = $movie->getId();
-        }
-        $moviesFavorites[] = $session->get("$movieById", []);
-        // dump($moviesFavorites);
-
-        // $moviesFavorite = $session->get('favoris', []);
-        $sessionFav = $favorites->getFavoris($movies);
+        $moviesFavorites = $favorites->listFavorites();
+        
 
         // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('front/favorites/index.html.twig', [
@@ -70,20 +50,23 @@ class FavoritesController extends AbstractController
      */
     public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites): Response
     {
-        // TODO : j'ai besoin de l'identifiant du film à mettre en favoris
-        // ? comment l'utilisateur me fournit l'ID ?
-        // avec un paramètre de route : {id}
-        // dd($id);
-
         // TODO : j'ai besoin des informations du film en question
         $movie = $movieRepository->find($id);
+
+        if ($movie === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
 
         // TODO : je veux mettre en session le film pour le garder en favoris
         // pour accéder à la session, il me faut la requete
         // on demande à Symfony l'objet Request
         // * injection de dépendance
         // $session = $request->getSession();
-        $favorites->addFavorites($movie);
+        $favorites->addFavorite($movie);
+        $title = $movie->getTitle();
+
+        $this->addFlash(
+            'success',
+            "$title a été ajouté à votre liste de favoris"
+        );
         
         // j'enregistre en session le film que l'utilisateur a indiqué comme favoris
         // dd($session);
@@ -107,16 +90,18 @@ class FavoritesController extends AbstractController
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
      */
-    public function removeId($id, Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
+    public function remove($id, FavoritesManager $favorites, MovieRepository $movieRepository): Response
     {
-        $movieById = $movieRepository->find($id);
-        // $session = $request->getSession();
+        $movie = $movieRepository->find($id);
+        if ($movie === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
         
-        // $favorite = $session->get('favoris', []);
-        // $favorite = $request->attributes->get("favoris$id");
-        // dump($favorite);
+        $favorites->removeFavorite($movie);
+        $title = $movie->getTitle();
 
-        $favorites->removeFavorites($movieById);
+        $this->addFlash(
+            'success',
+            "$title a été supprimé de votre liste de favoris"
+        );
         
         return $this->redirectToRoute("app_front_movie_favorites");
     }
@@ -129,11 +114,15 @@ class FavoritesController extends AbstractController
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
      */
-    public function removeAll(Request $request): Response
+    public function removeAll(FavoritesManager $favorite): Response
     {
-        $session = $request->getSession();
-        $session->remove('favoris');
+        $favorite->removeAll();
         
+        $this->addFlash(
+            'success',
+            "Les films ont été supprimés de votre liste de favoris"
+        );
+
         return $this->redirectToRoute("app_front_movie_favorites");
     }
 

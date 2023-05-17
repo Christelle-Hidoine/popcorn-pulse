@@ -1,0 +1,13 @@
+{% if app.session.get('favoris') is not empty %}
+    {% set movieFav = app.session.get('favoris') %}
+    {% set movieFavId = movieFav|map(item => item.id) %}
+    {% set pathAddFav = path('app_front_add_favorites', {'id': movie.id})  %}
+    {% set pathDeleteFav = path('app_front_delete_favorites_id', {'id': movie.id}) %}
+<a href="{{ movieIDForPartial in movieFavId ? pathDeleteFav : pathAddFav }}" class="movie__favorite fs-1 my-2 mx-3 link-danger">
+    <i class="bi bi-bookmark-{{ movieIDForPartial in movieFavId ? 'dash-fill' : 'plus' }}"></i>
+</a>
+{% else %}
+<a href="{{ path('app_front_add_favorites', {'id': movieIDForPartial}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger">
+    <i class="bi bi-bookmark-plus"></i>
+</a>	
+{% endif %}	
