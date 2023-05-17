@@ -21,7 +21,7 @@ class ReviewController extends AbstractController
     {
         $reviewForForm = new Review();
         $movie = $movieRepository->find($id);
-
+    
         // ! si le film n'existe pas : 404
         if ($movie === null){ throw $this->createNotFoundException("Ce film n'existe pas, essaie encore 😜");}
         
@@ -43,8 +43,7 @@ class ReviewController extends AbstractController
         // on demande à valider les données
         // ! la validation des données n'est pas activé/utilisable par défaut
         if ($form->isSubmitted() && $form->isValid())
-        {
-
+        {         
             // TODO : Ajouter le movie correspondant à la critique
             $reviewForForm->setMovie($movie);
 
@@ -53,13 +52,25 @@ class ReviewController extends AbstractController
             $entityManagerInterface->persist($reviewForForm);
             $entityManagerInterface->flush();
             // 2ème possibilité : Repository de la bonne entité : ReviewRepository
-            // $reviewRepository->add($newReview, true);
+            // $reviewRepository->add($newReview, true);  
 
-            // TODO : recalculer le rating avec l'ajout 
-            $ratingReview = $reviewForForm->getRating();
-            $movieReview = $movie->getRating();
-            $newRating = $movieRepository->findRatingByMovie($id);
-            // dd($ratingReview, $movieReview, $newRating);
+            // TODO : calcul du rating après l'ajout d'une review
+            // récupérer les critiques par film
+            $reviewByMovie = $reviewRepository->findBy(["movie" => $movie], ["watchedAt" => "DESC"]);
+            $rating = [];
+            foreach ($reviewByMovie as $review) {
+                $rating[] = $review->getRating();
+            }
+            $sum = array_sum($rating);
+            $count = count($rating);
+            if ($count !== 0) {
+                $average = round($sum/$count, 1);
+            } else {
+                $average = 0;
+            }
+            // on set le résultat dans la BDD entity Movie selon l'id movie passé en paramètre
+            $movie->setRating($average);
+            $entityManagerInterface->flush();     
 
             return $this->redirectToRoute("app_front_movie_show", ["id" => $movie->getId()]);
         }    

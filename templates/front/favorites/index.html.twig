@@ -10,10 +10,10 @@
         <div class="row mb-2">
 
             <h2 class="text-muted fw-bold mb-4">Ma liste</h2>
-
-            {% if movie is empty %}
-                <em>Vous n'avez pas encore de favoris</em>
-            {% else %}
+            
+            {% for movie in movies %}
+                {% dump(app.session) %}
+            
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ movie.title }}</strong> a été ajouté à votre liste de favoris.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -37,7 +37,9 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
+            {% else %}
+            <em>Vous n'avez pas encore de favoris</em>
+            {% endfor %}
         </div>
 
         <div class="col">

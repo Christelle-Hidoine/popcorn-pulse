@@ -29,7 +29,7 @@ class UserType extends AbstractType
                 "attr" => ["placeholder" => "user@cinema.com"]
             ])
             ->add('roles', ChoiceType::class, [
-                "multiple" => true,
+                "multiple" => false,
                 "expanded" => true,
                 "choices" => [
                     "Administrateur" => "ROLE_ADMIN",
@@ -50,18 +50,19 @@ class UserType extends AbstractType
                 ],
             ])
         ;
-        // // Data transformer
-        // $builder->get('roles')
-        //     ->addModelTransformer(new CallbackTransformer(
-        //         function ($rolesArray) {
-        //             //  transform the array to a string
-        //              return count($rolesArray)? $rolesArray[0]: null;
-        //         },
-        //         function ($rolesString) {
-        //             //  transform the string back to an array
-        //              return [$rolesString];
-        //         }
-        // ));
+        
+        // Data transformer
+        $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                    //  transform the array to a string
+                     return count($rolesArray)? $rolesArray[0]: null;
+                },
+                function ($rolesString) {
+                    //  transform the string back to an array
+                     return [$rolesString];
+                }
+        ));
     }
 
     

@@ -2,7 +2,9 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Movie;
 use App\Repository\MovieRepository;
+use App\Services\FavoritesManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,11 @@ class FavoritesController extends AbstractController
      * 
      * @Route("/favoris", name="app_front_movie_favorites")
      */
-    public function favorites(Request $request): Response
+    public function favorites(Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
     {
+        // TODO : récupérer les films de la page favoris
+        $movies = $movieRepository->findAll();
+        $moviesFavorites = [];
         // TODO : stocker en session les favoris
         // ? où se trouve la session ? dans le cookies de la requete
         // ? où se trouve les informations qui proviennent de la requete ?
@@ -30,22 +35,28 @@ class FavoritesController extends AbstractController
         // dd($request);
         // * cette façon de faire est utilisée dans plusieurs languages
         // * cela s'appele l'injection de dépendance
+        
         $session = $request->getSession();
         // dd($session);
         // $session->set('favoris', "Vive les Radium");
-        // en PHP, sans symfony : 
-        // $_SESSION["favoris"] = "Vive les Radium";
-        // dump($session);
+        
         $themeSession = $session->get('theme', []);
         
         // TODO : récupérer les films favoris
         // on passe en paramètre un tableau vide au cas où on n'est aucun favoris sur la page à afficher
-        $moviesFavorites = $session->get('favoris', []);
-        // dd($moviesFavorites);
+        // $favorite = $request->attributes->get("favoris$id");
+        foreach ($movies as $movie) {
+            $movieById = $movie->getId();
+        }
+        $moviesFavorites[] = $session->get("$movieById", []);
+        // dump($moviesFavorites);
+
+        // $moviesFavorite = $session->get('favoris', []);
+        $sessionFav = $favorites->getFavoris($movies);
 
         // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('front/favorites/index.html.twig', [
-            'movie' => $moviesFavorites,
+            'movies' => $moviesFavorites,
             'theme' => $themeSession,
         ]);
     }
@@ -57,7 +68,7 @@ class FavoritesController extends AbstractController
      *
      * @return Response
      */
-    public function add($id, MovieRepository $movieRepository, Request $request): Response
+    public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites): Response
     {
         // TODO : j'ai besoin de l'identifiant du film à mettre en favoris
         // ? comment l'utilisateur me fournit l'ID ?
@@ -65,21 +76,18 @@ class FavoritesController extends AbstractController
         // dd($id);
 
         // TODO : j'ai besoin des informations du film en question
-        // je vais demander à la classe MovieModel de me donner les informations de ce film
-        // $movie = MovieModel::getMovie($id);
         $movie = $movieRepository->find($id);
 
         // TODO : je veux mettre en session le film pour le garder en favoris
         // pour accéder à la session, il me faut la requete
         // on demande à Symfony l'objet Request
         // * injection de dépendance
-        $session = $request->getSession();
+        // $session = $request->getSession();
+        $favorites->addFavorites($movie);
         
         // j'enregistre en session le film que l'utilisateur a indiqué comme favoris
-        // $favoriteById = $session->set("favoris$id", $movie);
         // dd($session);
-        $session->set("favoris", $movie);
-        
+        // $session->set("favoris$id", $movie);
         
         // ? je n'ai rien à afficher en particulier
         // je redirige l'utilisateur vers la page des favoris
@@ -99,16 +107,16 @@ class FavoritesController extends AbstractController
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
      */
-    public function removeId($id, Request $request): Response
+    public function removeId($id, Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
     {
-        $session = $request->getSession();
+        $movieById = $movieRepository->find($id);
+        // $session = $request->getSession();
         
         // $favorite = $session->get('favoris', []);
-        $favorite = $request->attributes->get("favoris$id");
+        // $favorite = $request->attributes->get("favoris$id");
         // dump($favorite);
 
-        $session->remove("favoris$id");
-        
+        $favorites->removeFavorites($movieById);
         
         return $this->redirectToRoute("app_front_movie_favorites");
     }

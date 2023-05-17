@@ -2,11 +2,15 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Review;
 use App\Repository\CastingRepository;
 use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
 use App\Repository\ReviewRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,37 +28,34 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function home(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
+    public function home(MovieRepository $movieRepository, 
+        GenreRepository $genreRepository, 
+        Request $request, 
+        PaginatorInterface $paginator): Response
     {
-        // TODO : récuperer la liste de tout les films
-        // ! On utilise MovieModel tant que l'on a pas de BDD
-        // $allMovies = MovieModel::getAllMovies();
-        // dump($allMovies);
+        // TODO : récuperer la liste de tous les films
         $dataMovies = $movieRepository->findAll();
         $genres = $genreRepository->findAll();
 
         // TODO : faire la pagination
-        // $movies = $paginator->paginate($dataMovies, $request->query->getInt('page', 1),5);
-
+        $dataMovies = $paginator->paginate($dataMovies, $request->query->getInt('page', 1),5);
+    
         // TODO : afficher la valeur de la session 'favoris'
         // ? pour accèder à la session, il me faut la requete
         // ? pour avoir la requete, je demande à Symfony : Injection de dépendance
         // $session = $request->getSession();
         // dump($session->get("favoris"));
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
+        // dump($dataMovies);
 
         // la méthode render() prend 2 paramètres:
         // * le nom du fichier de vue que l'on veux utiliser
         // le chemin du fichier tiwg commence dans le dossier templates
         // * un tableau de donnée à afficher (optionnel)
-        // cette méthode renvoit un objet Reponse, on va pouvoir le renvoyer
-        // dump($_SERVER);
-        
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-        // dump($dataMovies);
+        // cette méthode renvoie un objet Reponse, on va pouvoir le renvoyer
         return $this->render("front/main/home.html.twig",
         [
-            // les données se passe par un tableau associatif
             // la clé du tableau deviendra le nom de la variable dans twig
             // TODO : fournir les données à twig
             "movieList" => $dataMovies,
@@ -70,13 +71,19 @@ class MainController extends AbstractController
      *
      * @return Response
      */
-    public function search(MovieRepository $movieRepository, GenreRepository $genreRepository, Request $request): Response
+    public function search(MovieRepository $movieRepository, 
+        GenreRepository $genreRepository, 
+        Request $request, 
+        PaginatorInterface $paginator): Response
     {
         $genres = $genreRepository->findAll();
 
         $search = $request->query->get('search', "");
         $movies = $movieRepository->findByMovieTitle($search);
         // dump($search);
+
+        // TODO : faire la pagination
+        $movies = $paginator->paginate($movies, $request->query->getInt('page', 1),5);
 
         $session = $request->getSession();
         $themeSession = $session->get('theme', []);
@@ -112,27 +119,23 @@ class MainController extends AbstractController
         // BBD : Repository, Casting : CastingRepository : Injection de dépendance
         $allCastingByMovie = $castingRepository->findBy(
             // * critere de recherche
-            // on manipule TOUJOURS des objets
-            // donc on parle propriété : movie (de l'objet Casting)
-            // cette propriété doit être égale à l'objet $movie
+            // donc on parle propriété : movies (de l'objet Casting)
+            // cette propriété doit être égale à l'objet $movieById
             [
                 "movies" => $movieById
             ],
             // * orderBy
-            // on manipule TOUJOURS des objets
             // on donne la propriété sur laquelle on trie
             // en valeur, on donne le type de tri : ASC/DESC
             [
                 "creditOrder" => "ASC"
             ]
         );
-
+        // autre méthode pour trier les castings en passant par castingRepository
         $castingsWithDQL = $castingRepository->findByMovieOrderByCreditOrderWithPerson($movieById);
 
-        // dump($allCastingByMovie);
-
         // TODO : récupérer les critiques par film - affichage des 5 dernières critiques
-        $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"], 5, 0);
+        $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"]);
         // dump($reviewByMovie);
 
         // récupération du thème avant envoi à la vue
@@ -150,6 +153,51 @@ class MainController extends AbstractController
             'theme' => $themeSession,
             // TODO fournir les critiques à ma vue
             'reviews' => $reviewByMovie
+        ]);
+        
+        return $twigResponse;
+    }
+
+    /**
+     * page show affiche les films par genre 
+     *
+     * @Route("/genre/{id}", name="app_front_genre_show", methods={"GET"}, requirements={"id"="\d+"})
+     *
+     * @return Response
+     */
+    public function genreShow($id, 
+        GenreRepository $genreRepository, 
+        Request $request,
+        PaginatorInterface $paginator): Response
+    {
+        // TODO : récuperer le film avec son id
+        $genreById = $genreRepository->find($id);
+        $movieGenre = $genreById->getMovies();
+        $genreList = $genreRepository->findAll();
+        dump($genreById);
+
+        // ! ERREUR $genreById->getMovies() == null si le film n'a pas été trouvé en BDD
+        if ($genreById->getMovies() === null) {
+            throw $this->createNotFoundException("Ce genre n'a pas encore de films");
+        }
+
+        // TODO : faire la pagination
+        $movieGenre = $paginator->paginate($genreById->getMovies(), $request->query->getInt('page', 1),5);
+
+        // récupération du thème avant envoi à la vue
+        $session = $request->getSession();
+        $themeSession = $session->get('theme', []);
+        
+        $twigResponse = $this->render("front/main/genre.html.twig",
+        [
+            // TODO fournir la liste des genres à ma vue
+            "genreList" => $genreList,
+            // TODO fournir les films correspondants à ces genres
+            'movieGenre' => $movieGenre,
+            // TODO fournir le data du genre
+            "genreById" => $genreById,
+            // TODO fournir le thème à ma vue
+            'theme' => $themeSession,
         ]);
         
 
