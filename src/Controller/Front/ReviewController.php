@@ -3,7 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Entity\Review;
-use App\Form\ReviewType;
+use App\Form\Front\ReviewType;
 use App\Repository\MovieRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;

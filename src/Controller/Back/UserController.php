@@ -3,8 +3,8 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
-use App\Form\UserEditType;
-use App\Form\UserType;
+use App\Form\Back\UserEditType;
+use App\Form\Back\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

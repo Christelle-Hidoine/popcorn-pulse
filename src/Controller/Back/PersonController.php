@@ -3,7 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Person;
-use App\Form\PersonType;
+use App\Form\Back\PersonType;
 use App\Repository\PersonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

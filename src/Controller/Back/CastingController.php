@@ -3,7 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Casting;
-use App\Form\CastingType;
+use App\Form\Back\CastingType;
 use App\Repository\CastingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

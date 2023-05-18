@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Front;
 
 use App\Entity\Movie;
 use App\Entity\Review;

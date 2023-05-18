@@ -45,6 +45,8 @@ class Oflix extends Fixture
         // mdp : admin
         $admin->setPassword('$2y$13$UX6UDREB8cdTuNVt3i9QcOFcyFqcQbCk.yh.D9rgYHJzs4GrfD/w.');
         $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setFirstname('Admin');
+        $admin->setLastname('Admin');
 
         $manager->persist($admin);
 
@@ -54,6 +56,8 @@ class Oflix extends Fixture
         // mdp : manager
         $managerUser->setPassword('$2y$13$ehwmxDazwOE8ol3eTRz/C.YapEQ8UMyDFzolfGCg97gegVtOwjXu6');
         $managerUser->setRoles(['ROLE_MANAGER']);
+        $managerUser->setFirstname('ManagerUser');
+        $managerUser->setLastname('ManagerUser');
 
         $manager->persist($managerUser);
 
@@ -64,6 +68,8 @@ class Oflix extends Fixture
         // mdp : user
         $user->setPassword('$2y$13$J9VkB737ouoPOiH0oTGNQOlvqxZ6Hz95mZiubq/kFzgJ2B7nt608m');
         $user->setRoles(['ROLE_USER']);
+        $user->setFirstname('User');
+        $user->setLastname('User');
 
         $manager->persist($user);
 

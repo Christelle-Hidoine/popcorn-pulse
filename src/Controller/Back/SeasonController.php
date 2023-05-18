@@ -3,7 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Season;
-use App\Form\SeasonType;
+use App\Form\Back\SeasonType;
 use App\Repository\SeasonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
