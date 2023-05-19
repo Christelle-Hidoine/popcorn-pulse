@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,16 +23,22 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 "attr" => ["placeholder" => "user@cinema.com"]
             ])
-            ->add('password', PasswordType::class, [
-                "label" => "Mot de passe",
-                // On déplace les contraintes de l'entité vers le form d'ajout
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identiques',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe', 
+                "help" => 'Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial', 
+                "attr" => [
+                    'placeholder' => 'votre mot de passe']],
+                'second_options' => ['label' => 'Répéter le mot de passe', "attr" => ['placeholder' => 'répéter le mot de passe']],
                 'constraints' => [
                     new NotBlank(),
                     new Regex(
                         "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                        "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
-                    ),
-                ],
+                        "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial")
+                ]
             ])
         ;
     }

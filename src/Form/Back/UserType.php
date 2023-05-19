@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -41,7 +42,7 @@ class UserType extends AbstractType
                 "label" => "Rôles", "help" => "(un seul choix possible)"
             ])
             ->add('password', PasswordType::class, [
-                "label" => "mot de passe",
+                "label" => "Mot de passe",
                 // On déplace les contraintes de l'entité vers le form d'ajout
                 'constraints' => [
                     new NotBlank(),

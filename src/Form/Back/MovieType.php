@@ -16,13 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class MovieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ["label" => "Titre", "attr" => ["placeholder" => "titre du film ou de la série"]])
+            ->add('title', TextType::class, ["label" => new TranslatableMessage("Titre", ["Titre" => "Titre"]), "attr" => ["placeholder" => "titre du film ou de la série"]])
             ->add('duration', IntegerType::class, ["label" => "Durée", "help" => "(la durée doit être indiquée en minutes)", 'attr' => [
                 'min' => 1
             ]])
@@ -47,8 +48,8 @@ class MovieType extends AbstractType
             ->add('releaseDate', DateType::class, ['widget' => 'single_text', "label" => "Date de sortie"])
             ->add('country', CountryType::class, ["choices" => [
                 "expanded" => true, 
-                "multiple" => false, 
-                "label" => "Pays"]
+                "multiple" => false],
+                "label" => "Pays"
             ])
             ->add('poster', UrlType::class, ["label" => "Url de l'image", "attr" => ["placeholder" => "http://..."]])
             // j'ai une relation avec une autre Entité

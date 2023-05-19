@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="jd6P4oT" resname="Pseudonyme">
+        <source>Pseudonyme</source>
+        <target>Pseudonyme</target>
+      </trans-unit>
+      <trans-unit id="0gMuu7S" resname="Votre pseudo">
+        <source>Votre pseudo</source>
+        <target>Votre pseudo</target>
+      </trans-unit>
+      <trans-unit id="yGVab0f" resname="😂 Rire">
+        <source>😂 Rire</source>
+        <target>😂 Rire</target>
+      </trans-unit>
+      <trans-unit id="vuGSx7J" resname="😭 Pleurer">
+        <source>😭 Pleurer</source>
+        <target>😭 Pleurer</target>
+      </trans-unit>
+      <trans-unit id="odr6KxX" resname="😴  Dormir">
+        <source>😴  Dormir</source>
+        <target>😴  Dormir</target>
+      </trans-unit>
+      <trans-unit id="K7UYm1T" resname="🤔 Réfléchir">
+        <source>🤔 Réfléchir</source>
+        <target>🤔 Réfléchir</target>
+      </trans-unit>
+      <trans-unit id="ZIRR0Ew" resname="🤩 Rêver">
+        <source>🤩 Rêver</source>
+        <target>🤩 Rêver</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="VR3sVXe" resname="exemple@cinema.com">
+        <source>exemple@cinema.com</source>
+        <target>exemple@cinema.com</target>
+      </trans-unit>
+      <trans-unit id="AZeUbMM" resname="Critique">
+        <source>Critique</source>
+        <target>Critique</target>
+      </trans-unit>
+      <trans-unit id="2Ipu8Hu" resname="écrivez votre critique ici, et ne soyez pas trop méchant 😉">
+        <source>écrivez votre critique ici, et ne soyez pas trop méchant 😉</source>
+        <target>écrivez votre critique ici, et ne soyez pas trop méchant 😉</target>
+      </trans-unit>
+      <trans-unit id="DcjuVVw" resname="Excellent">
+        <source>Excellent</source>
+        <target>Excellent</target>
+      </trans-unit>
+      <trans-unit id="BdBezmz" resname="Très bon">
+        <source>Très bon</source>
+        <target>Très bon</target>
+      </trans-unit>
+      <trans-unit id="jCurGnT" resname="Bon">
+        <source>Bon</source>
+        <target>Bon</target>
+      </trans-unit>
+      <trans-unit id="JB96u4J" resname="Peut mieux faire">
+        <source>Peut mieux faire</source>
+        <target>Peut mieux faire</target>
+      </trans-unit>
+      <trans-unit id="zQx_lGd" resname="A éviter">
+        <source>A éviter</source>
+        <target>A éviter</target>
+      </trans-unit>
+      <trans-unit id="Pn7xwmS" resname="Avis">
+        <source>Avis</source>
+        <target>Avis</target>
+      </trans-unit>
+      <trans-unit id="3Rv0xh4" resname="(un seul choix possible)">
+        <source>(un seul choix possible)</source>
+        <target>(un seul choix possible)</target>
+      </trans-unit>
+      <trans-unit id="1vrAbcF" resname="😴 Dormir">
+        <source>😴 Dormir</source>
+        <target>😴 Dormir</target>
+      </trans-unit>
+      <trans-unit id="ZXSCu4w" resname="Ce film vous a fait : ">
+        <source>Ce film vous a fait : </source>
+        <target>Ce film vous a fait : </target>
+      </trans-unit>
+      <trans-unit id="nyLEYLR" resname="(plusieurs choix possibles)">
+        <source>(plusieurs choix possibles)</source>
+        <target>(plusieurs choix possibles)</target>
+      </trans-unit>
+      <trans-unit id="oqDhUiU" resname="Vous avez vu ce film le : ">
+        <source>Vous avez vu ce film le : </source>
+        <target>Vous avez vu ce film le : </target>
+      </trans-unit>
+      <trans-unit id="4yW.j5A" resname="Prénom">
+        <source>Prénom</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="BkhUaB_" resname="prénom de l'acteur/actrice">
+        <source>prénom de l'acteur/actrice</source>
+        <target>prénom de l'acteur/actrice</target>
+      </trans-unit>
+      <trans-unit id="ssEkU20" resname="Nom">
+        <source>Nom</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="Luy.8F." resname="nom de l'acteur/actrice">
+        <source>nom de l'acteur/actrice</source>
+        <target>nom de l'acteur/actrice</target>
+      </trans-unit>
+      <trans-unit id="ofyWfFW" resname="Rôle">
+        <source>Rôle</source>
+        <target>Rôle</target>
+      </trans-unit>
+      <trans-unit id="vUD7w50" resname="personnage joué dans le film ou la série">
+        <source>personnage joué dans le film ou la série</source>
+        <target>personnage joué dans le film ou la série</target>
+      </trans-unit>
+      <trans-unit id="pmURBFd" resname="Classement par importance du rôle">
+        <source>Classement par importance du rôle</source>
+        <target>Classement par importance du rôle</target>
+      </trans-unit>
+      <trans-unit id="9.wmfzQ" resname="Film ou Série">
+        <source>Film ou Série</source>
+        <target>Film ou Série</target>
+      </trans-unit>
+      <trans-unit id="5bk3Eno" resname="Acteur / Actrice">
+        <source>Acteur / Actrice</source>
+        <target>Acteur / Actrice</target>
+      </trans-unit>
+      <trans-unit id="eOeSABC" resname="Titre">
+        <source>Titre</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="cR4Mmgk" resname="titre du film ou de la série">
+        <source>titre du film ou de la série</source>
+        <target>titre du film ou de la série</target>
+      </trans-unit>
+      <trans-unit id="cdC61Cr" resname="Durée">
+        <source>Durée</source>
+        <target>Durée</target>
+      </trans-unit>
+      <trans-unit id="L.R3XfY" resname="(la durée doit être indiquée en minutes)">
+        <source>(la durée doit être indiquée en minutes)</source>
+        <target>(la durée doit être indiquée en minutes)</target>
+      </trans-unit>
+      <trans-unit id="nXUPrnS" resname="Résumé">
+        <source>Résumé</source>
+        <target>Résumé</target>
+      </trans-unit>
+      <trans-unit id="pxK8cnU" resname="écrivez un résumé du film ou de la série">
+        <source>écrivez un résumé du film ou de la série</source>
+        <target>écrivez un résumé du film ou de la série</target>
+      </trans-unit>
+      <trans-unit id="jrN1U4F" resname="Synopsis">
+        <source>Synopsis</source>
+        <target>Synopsis</target>
+      </trans-unit>
+      <trans-unit id="uS.pOSv" resname="écrivez le synopsis du film ou de la série">
+        <source>écrivez le synopsis du film ou de la série</source>
+        <target>écrivez le synopsis du film ou de la série</target>
+      </trans-unit>
+      <trans-unit id="0pox7no" resname="Date de sortie">
+        <source>Date de sortie</source>
+        <target>Date de sortie</target>
+      </trans-unit>
+      <trans-unit id=".nU._5u" resname="Pays">
+        <source>Pays</source>
+        <target>Pays</target>
+      </trans-unit>
+      <trans-unit id="QCie6Pd" resname="Url de l'image">
+        <source>Url de l'image</source>
+        <target>Url de l'image</target>
+      </trans-unit>
+      <trans-unit id="eNTxYIk" resname="http://...">
+        <source>http://...</source>
+        <target>http://...</target>
+      </trans-unit>
+      <trans-unit id="uq3fcPt" resname="Type">
+        <source>Type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="NWGr.oB" resname="Genres">
+        <source>Genres</source>
+        <target>Genres</target>
+      </trans-unit>
+      <trans-unit id="vzaCmGS" resname="Numéro de la saison">
+        <source>Numéro de la saison</source>
+        <target>Numéro de la saison</target>
+      </trans-unit>
+      <trans-unit id="OaiqCeo" resname="Nombre d'épisodes">
+        <source>Nombre d'épisodes</source>
+        <target>Nombre d'épisodes</target>
+      </trans-unit>
+      <trans-unit id="cBkVAFQ" resname="Série">
+        <source>Série</source>
+        <target>Série</target>
+      </trans-unit>
+      <trans-unit id="f9UDoym" resname="Rôles">
+        <source>Rôles</source>
+        <target>Rôles</target>
+      </trans-unit>
+      <trans-unit id="8C7c.tD" resname="user@cinema.com">
+        <source>user@cinema.com</source>
+        <target>user@cinema.com</target>
+      </trans-unit>
+      <trans-unit id="iyCF903" resname="Manager">
+        <source>Manager</source>
+        <target>Manager</target>
+      </trans-unit>
+      <trans-unit id="53Az_YO" resname="Administrateur">
+        <source>Administrateur</source>
+        <target>Administrateur</target>
+      </trans-unit>
+      <trans-unit id="821BI1m" resname="Membre">
+        <source>Membre</source>
+        <target>Membre</target>
+      </trans-unit>
+      <trans-unit id=".5yLjAZ" resname="Mot de passe">
+        <source>Mot de passe</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="A9FhRlj" resname="votre mot de passe">
+        <source>votre mot de passe</source>
+        <target>votre mot de passe</target>
+      </trans-unit>
+      <trans-unit id="J3M3_JB" resname="Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial">
+        <source>Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial</source>
+        <target>Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial</target>
+      </trans-unit>
+      <trans-unit id="X4sYKvU" resname="Répéter le mot de passe">
+        <source>Répéter le mot de passe</source>
+        <target>Répéter le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="3EWhKA4" resname="répéter le mot de passe">
+        <source>répéter le mot de passe</source>
+        <target>répéter le mot de passe</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

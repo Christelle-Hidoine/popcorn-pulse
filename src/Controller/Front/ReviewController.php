@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReviewController extends AbstractController
 {
     /**
-     * @Route("/review/add/{id}", name="add_review", requirements={"id"="\d+"})
+     * 
+     * @Route("/{_locale}/review/add/{id}", name="add_review", requirements={"id"="\d+"})
      */
     public function index($id, Request $request, ReviewRepository $reviewRepository, MovieRepository $movieRepository, EntityManagerInterface $entityManagerInterface): Response
     {
@@ -75,11 +76,7 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute("app_front_movie_show", ["id" => $movie->getId()]);
         }    
 
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-
         return $this->renderForm('front/review/index.html.twig', [
-            'theme' => $themeSession,
             'form' => $form,
             'movie' => $movie
         ]);

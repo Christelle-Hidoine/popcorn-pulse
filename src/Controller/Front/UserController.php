@@ -16,17 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    // /**
-    //  * @Route("/", name="index", methods={"GET"})
-    //  */
-    // public function index(UserRepository $userRepository): Response
-    // {
-    //     return $this->render('front/user/index.html.twig', [
-    //         'users' => $userRepository->findAll(),
-    //     ]);
-    // }
-
-    /**
+     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(UserPasswordHasherInterface $passwordHasher, Request $request, UserRepository $userRepository): Response
@@ -36,6 +26,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // ROLE_USER par défaut
             $user->setRoles(['ROLE_USER']);
             // on récupère le password non hashé du form
             $plaintextPassword = $user->getPassword();
@@ -50,7 +41,7 @@ class UserController extends AbstractController
                 'Bravo ' . $user->getFirstname() . ' vous êtes bien enregistré!'
             );
 
-            return $this->redirectToRoute('app_front_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('front/user/new.html.twig', [
@@ -80,7 +71,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->add($user, true);
 
-            return $this->redirectToRoute('app_front_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('default', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('front/user/edit.html.twig', [
@@ -95,9 +86,13 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
+            $this->addFlash(
+                'success',
+                "Votre demande de suppression de compte a été envoyée. Elle sera traitée sous 72h."
+            );
+            // $userRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('app_front_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('default', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -10,13 +10,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class SeasonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('number', IntegerType::class, ["label" => "Numéro de la saison", 'attr' => [
+            ->add('number', IntegerType::class, ["label" => new TranslatableMessage("Numéro de la saison", ["Numéro de la saison" => "Numéro de la saison"]), 
+            'attr' => [
                 'min' => 1
             ]])
             ->add('nbEpisodes', IntegerType::class, ["label" => "Nombre d'épisodes", 'attr' => [

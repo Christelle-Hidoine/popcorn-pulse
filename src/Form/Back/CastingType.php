@@ -12,13 +12,14 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class CastingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('role', TypeTextType::class, ["label" => "Rôle", "attr" => ["placeholder" => "personnage joué dans le film ou la série"]])
+            ->add('role', TypeTextType::class, ["label" => new TranslatableMessage("Rôle", ["Rôle" => "Rôle"]), "attr" => ["placeholder" => "personnage joué dans le film ou la série"]])
             ->add('creditOrder', IntegerType::class, ["label" => "Classement par importance du rôle", 'attr' => [
                 'min' => 1
             ]])

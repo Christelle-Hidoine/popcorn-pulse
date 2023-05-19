@@ -3,9 +3,20 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+<div class="container-md bg-light my-5 border-top d-flex">
+    <div class="row m-auto">
 
-    {{ include('front/user/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="col">
 
-    {{ include('front/user/_delete_form.html.twig') }}
+            <h1 class="text-muted my-5">Modifier mon profil <span class="header-logo__title text-white badge bg-dark fs-2">O'flix</span></h1>
+
+                {{ include('front/user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                {{ include('front/user/_delete_form.html.twig') }}
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('default') }}"class="btn btn-warning btn-md mb-2" role="button" aria-disabled="true">Retour aux films</a>
+            </div>
+        </div>
+    </div>
+</div> 
 {% endblock %}

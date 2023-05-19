@@ -8,7 +8,7 @@
             <i class="bi bi-person-square"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_USER' ? 'Membre'}}</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_USER' ? user.firstname }}</a></li>
             {% if is_granted('ROLE_MANAGER') %}
                 <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_ADMIN' ? 'Administrateur' : 'Manager' }}</a></li>
             {% endif %}

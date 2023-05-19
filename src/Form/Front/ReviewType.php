@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Date;
 
 class ReviewType extends AbstractType
@@ -31,39 +32,55 @@ class ReviewType extends AbstractType
             "🤩 Rêver" => 'dream', 
         ];
        
+        // pour translation rajouter new TranslatableMessage() avec les paramètres de traduction 
+        // et exécuter la commande dans le terminal : bin/console translation:extract fr --force --domain=messages
+
         $builder
-            ->add('username', TextType::class, ["label" => "Pseudonyme", "attr" => ["placeholder" => "votre pseudo"]])
-            ->add('email', EmailType::class, 
-                // ["label" => "E-mail"], 
-                ["attr" => ["placeholder" => "exemple@cinema.com"]])
-            ->add('content', TextareaType::class, ["label" => "Critique", 
+            ->add('username', TextType::class, [
+                "label" => new TranslatableMessage("Pseudonyme", ["Pseudonyme" => "Pseudonyme"]),
                 "attr" => [
-                    "placeholder" => "écrivez votre critique ici, et ne soyez pas trop méchant 😉"]
+                    "placeholder" => new TranslatableMessage("Votre pseudo", ["Votre pseudo" => "Votre Pseudo"])
+                    ]
+                ])
+            ->add('email', EmailType::class, [
+                "label" => new TranslatableMessage("Email", ["Email" => "Email"]), 
+                "attr" => [
+                    "placeholder" => new TranslatableMessage("exemple@cinema.com", ["exemple@cinema.com" => "exemple@cinema.com"])
+                    ]
+                ])
+            ->add('content', TextareaType::class, ["label" => new TranslatableMessage("Critique", ["Critique" => "Critique"]), 
+                "attr" => [
+                    "placeholder" => new TranslatableMessage("écrivez votre critique ici, et ne soyez pas trop méchant 😉", [
+                        "écrivez votre critique ici, et ne soyez pas trop méchant 😉" => "écrivez votre critique ici, et ne soyez pas trop méchant 😉"]
+                        )
+                    ]
                 ])
             ->add('rating', ChoiceType::class, [
-                    'choices' => [
+                'choices' => [
                     'Excellent' => 5,
                     'Très bon' => 4,
                     'Bon' => 3,
                     'Peut mieux faire' => 2,
-                    'A éviter' => 1],
-                    // * si on utilise le choiceType (ou ses enfants) toujours ajouter :
-                    "expanded" => true,
-                    "multiple" => false,
-                    "label" => "Avis", "help"  => "(un seul choix possible)"])
+                    'A éviter' => 1
+                ],
+                // * si on utilise le choiceType (ou ses enfants) toujours ajouter :
+                "expanded" => true,
+                "multiple" => false,
+                "label" => new TranslatableMessage("Avis", ["Avis" => "Avis"]), 
+                "help"  => new TranslatableMessage("(un seul choix possible)", ["(un seul choix possible)" => "(un seul choix possible)"])
+                ])
             ->add('reactions', ChoiceType::class, [ 
                 "choices" => [
-                    $icons], 
-                    // "Rire" => "Rire,
-                    // "Pleurer" => "Pleurer",
-                    // "Dormir" => "Dormir" ,
-                    // "Réfléchir" => "Réfléchir",
-                    // "Rêver" => "Rêver"],
+                    $icons
+                    ],
                 "expanded" => true,
                 "multiple" => true,
-                "label" => "Ce film vous a fait : ", "help" => "(plusieurs choix possibles)"
+                "label" => new TranslatableMessage("Ce film vous a fait : ", ["Ce film vous a fait : " => "Ce film vous a fait : "]), 
+                "help" => new TranslatableMessage("(plusieurs choix possibles)", ["(plusieurs choix possibles)" => "(plusieurs choix possibles)"])
                 ])
-            ->add('watchedAt', DateType::class, ['widget' => 'single_text', 'input' => 'datetime_immutable', "label" => "Vous avez vu ce film le : "])
+            ->add('watchedAt', DateType::class, ['widget' => 'single_text', 'input' => 'datetime_immutable', 
+                "label" => new TranslatableMessage("Vous avez vu ce film le : ",["Vous avez vu ce film le : " => "Vous avez vu ce film le : "])
+                ])
             // ->add('movie', EntityType::class, ["class" => Movie::class, "choice_label" => 'title'])
         ;
     }

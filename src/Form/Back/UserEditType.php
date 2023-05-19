@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class UserEditType extends AbstractType
@@ -24,8 +26,10 @@ class UserEditType extends AbstractType
             ];
 
         $builder
+            ->add('firstname', TextType::class, ['label' => 'Prénom'])
+            ->add('lastname', TextType::class, ['label' => 'Nom'])
             ->add('email', EmailType::class, [
-                "attr" => ["placeholder" => "user@cinema.com"]
+                "attr" => ["placeholder" => new TranslatableMessage("user@cinema.com", ["user@cinema.com" => "user@cinema.com"])]
             ])
             ->add('roles', ChoiceType::class, [
                 "multiple" => true,

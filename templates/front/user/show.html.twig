@@ -3,30 +3,37 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+<div class="container my-4">
+    <div class="my-2 py-2 text-center">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <h1>Mon profil</h1>
 
-    <a href="{{ path('app_front_user_edit', {'id': user.id}) }}">edit</a>
+        <div class="table-responsive ms-auto">
+               
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th class ="align-middle" scope="row">Prénom</th>
+                        <td class ="align-bottom text-start">{{ user.firstname }}</td>
+                    </tr>
+                     <tr>
+                        <th class ="align-middle" scope="row">Nom</th>
+                        <td class ="align-bottom text-start">{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th class ="align-middle" scope="row">Email</th>
+                        <td class ="align-bottom text-start">{{ user.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    {{ include('front/user/_delete_form.html.twig') }}
+            <div class="d-flex justify-content-center gap-3">
+            <a href="{{ path('app_front_user_edit', {'id': user.id}) }}"class="btn btn-secondary btn-md mb-2" role="button" aria-disabled="true">Modifier mon profil</a>
+            {{ include('front/user/_delete_form.html.twig') }}
+            <a href="{{ path('default') }}"class="btn btn-warning btn-md mb-2" role="button" aria-disabled="true">Retour aux films</a>
+            </div>
+        </div>
+    </div>    
+</div>
+
 {% endblock %}
