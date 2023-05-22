@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SeasonRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SeasonRepository::class)
@@ -15,6 +16,8 @@ class Season
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"movie_read"})
      */
     private $id;
 
@@ -26,6 +29,8 @@ class Season
      * @Assert\Positive(
      *      message="Cette valeur ne peut pas être négative."
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $number;
 
@@ -37,6 +42,8 @@ class Season
      * @Assert\Positive(
      *      message="Cette valeur ne peut pas être négative."
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $nbEpisodes;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CastingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CastingRepository::class)
@@ -15,6 +16,8 @@ class Casting
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"movie_read"})
      */
     private $id;
 
@@ -23,6 +26,8 @@ class Casting
      * @Assert\NotBlank(
      *      message="Le nom du personnage est obligatoire"
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $role;
 
@@ -34,6 +39,8 @@ class Casting
      * @Assert\Positive(
      *      message="Cette valeur ne peut pas être négative."
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $creditOrder;
 
@@ -50,6 +57,7 @@ class Casting
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un acteur ou une actrice"
      * )
+     * @Groups({"movie_read"})
      */
     private $persons;
 

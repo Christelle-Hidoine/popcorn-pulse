@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PersonRepository::class)
@@ -17,6 +18,8 @@ class Person
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"movie_read"})
      */
     private $id;
 
@@ -25,6 +28,8 @@ class Person
      * @Assert\NotBlank(
      *      message="Le prénom de l'acteur-actrice est obligatoire"
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $firstname;
 
@@ -33,6 +38,8 @@ class Person
      * @Assert\NotBlank(
      *      message="Le nom de l'acteur-actrice est obligatoire"
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $lastname;
 

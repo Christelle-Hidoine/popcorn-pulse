@@ -22,7 +22,7 @@ class Movie1430Voter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         // si le droit se nomme MOVIE_1430 et le contexte est un objet Movie = return true
-        if ($attribute === "MOVIE_1430" && $subject instanceof Movie) {
+        if ($attribute === "MOVIE_2030" && $subject instanceof Movie) {
             return true;
         } else {
             return false;
@@ -50,7 +50,7 @@ class Movie1430Voter extends Voter
         // ? https://www.php.net/manual/fr/datetime.format.php
         // $heure =>  810, 1430
         $heure = $dateDuJour->format("Gi");
-        if ($heure > 1430){
+        if ($heure > 2030){
             return false;
         }
 

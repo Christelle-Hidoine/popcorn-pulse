@@ -40,12 +40,10 @@
                                 <td class ="align-bottom text-start fst-italic">{{ movie.synopsis }}</td>
                                 <td class ="align-middle">{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
                                 <td class ="align-middle">{{ movie.country }}</td>
-                                <td class ="align-middle text-start">{{ movie.poster }}</td>
+                                <td class ="align-middle text-start text-break">{{ movie.poster }}</td>
                                 <td>
-
-                                <a href="{{ path('app_back_movie_show', {'id': movie.id}) }}" class="btn btn-outline-dark btn-md mb-2" role="button" aria-disabled="true">Show</a>
-                                <a href="{{ path('app_back_movie_edit', {'id': movie.id}) }}" class="btn btn-secondary btn-md mb-2" role="button" aria-disabled="true">Edit</a>
-
+                                    <a href="{{ path('app_back_movie_show', {'id': movie.id}) }}" class="btn btn-outline-dark btn-md mb-2" role="button" aria-disabled="true">Show</a>
+                                    <a href="{{ path('app_back_movie_edit', {'id': movie.id}) }}" class="btn btn-secondary btn-md mb-2" role="button" aria-disabled="true">Edit</a>
                                 </td>
                             </tr>
                         {% else %}
