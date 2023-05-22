@@ -8,12 +8,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OmdbApi 
 {
-    private $apiKey = "a93b767b";
+    private $apiKey;
     private $client;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, $apiKey)
     {
         $this->client = $client;
+        $this->apiKey = $apiKey;
     }
 
     public function fetch(string $title): array

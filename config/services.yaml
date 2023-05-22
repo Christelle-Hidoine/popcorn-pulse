@@ -22,3 +22,22 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # * Merci Bruno B.
+    # ! le paramétrage de services doit ABSOLUMENT être à partir d'ici sinon cela ne sera pas pris en compte
+    # * c'est ici que l'on paramètre nos services
+    # Pour paramétrer un service je dois fournir le FQCN du service
+    App\EventSubscriber\MaintenanceSubscriber:
+        # on explique que notre service a des arguments
+        arguments:
+            # on précise alors le nom de l'argument
+            # ainsi que la valeur qu'il va avoir
+            # env(resolve) donne une chaine de caractères
+            # mais nous on veut un boolean = on remplace resolve par bool
+            $argMaintenanceActive: '%env(bool:MAINTENANCE_ACTIVE)%'
+            
+    App\Services\OmdbApi:
+        # on explique que notre service a des arguments
+        arguments:
+            # on précise alors le nom de l'argument
+            # ainsi que la valeur qu'il va avoir
+            $apiKey: '%env(string:OMDB_API_KEY)%'
