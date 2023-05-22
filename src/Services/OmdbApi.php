@@ -38,7 +38,6 @@ class OmdbApi
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
-        
         return $content;
     }
 

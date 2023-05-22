@@ -10,6 +10,7 @@ use App\Entity\Review;
 use App\Entity\Season;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Services\OmdbApi;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use DateTime;
 use DateTimeImmutable;
@@ -23,6 +24,13 @@ use \Xylis\FakerCinema\Provider\Character as FakerCharacterProvider;
 
 class Oflix extends Fixture
 {
+    private $omdbApi;
+
+    public function __construct(OmdbApi $omdbApi)
+    {
+        $this->omdbApi = $omdbApi;
+    }
+
     /**
      * Création de donnée
      *
@@ -142,34 +150,73 @@ class Oflix extends Fixture
             // 1. instance
             $newMovie = new Movie();
             // 2. prop
-            // * on décalle la propriété title car avec le faker on veux différencier les titres
-            $newMovie->setDuration(mt_rand(10, 360));
-            $newMovie->setRating(mt_rand(0,50) / 10);
-            $newMovie->setSummary($fakerFr->realText(60,2));
-            $newMovie->setSynopsis($fakerFr->realText(200,2));
-            // ? https://www.php.net/manual/fr/datetime.construct.php
-            $newMovie->setReleaseDate(new DateTime($faker->date()));
-            $newMovie->setCountry($faker->countryCode());
-
-            $defaultUrl = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
-            
-            $picsumSeededUrl = "https://picsum.photos/seed/radium".$i."/200/300";
-
-            // TODO utiliser le service que vous avez créé : OMDBAPI
-            $fakerPicsumSeededUrl = $faker->imageUrl(200,300, 'radium-' . $i);
-            $newMovie->setPoster($fakerPicsumSeededUrl);
+            // $defaultUrl = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
+            // $picsumSeededUrl = "https://picsum.photos/seed/radium".$i."/200/300";
+            // $fakerPicsumSeededUrl = $faker->imageUrl(200,300, 'radium-' . $i);
+            // $newMovie->setPoster($fakerPicsumSeededUrl);
 
             // 2.bis : les associations
             $randomType = $allTypes[mt_rand(0, count($allTypes)-1)];
             $newMovie->setType($randomType);
 
-            // * on décalle la propriété title car avec le faker on veux différencier les titres
+            // TODO utiliser le service que vous avez créé : OMDBAPI
+            // * on décale la propriété title car avec le faker on veux différencier les titres            
             if ($randomType->getName() === "série"){
-                $newMovie->setTitle($faker->tvShow());
+                $titleTvShow = $faker->tvShow();
+                $contentTvShow = $this->omdbApi->fetch($titleTvShow);
+                $newMovie->setTitle($titleTvShow);
+                if (array_key_exists('Poster', $contentTvShow)){
+                    $posterTvShow = $contentTvShow['Poster'];
+                } else {
+                    // il n'y pas de lien pour le poster
+                    // on met une URL par défaut
+                    $posterTvShow = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
+                }
+                $newMovie->setPoster($posterTvShow);
+                if (array_key_exists('Plot', $contentTvShow)) {
+                    $summaryTvShow = $contentTvShow['Plot'];
+                } else {
+                    $summaryTvShow = $fakerFr->realText(60,2);
+                }
+                $newMovie->setSummary($summaryTvShow);
+                if (array_key_exists('Country', $contentTvShow)) {
+                    $countryTvShow = $contentTvShow['Country'];
+                } else {
+                    $countryTvShow = $faker->countryCode();
+                }
+                $newMovie->setCountry($countryTvShow);
             } else {
-                $newMovie->setTitle($faker->movie());
+                $titleMovie = $faker->movie();
+                $contentMovie = $this->omdbApi->fetch($titleMovie);
+                $newMovie->setTitle($titleMovie);
+                if (array_key_exists('Poster', $contentMovie)){
+                    $posterMovie = $contentMovie['Poster'];
+                } else {
+                    // il n'y pas de lien pour le poster
+                    // on met une URL par défaut
+                    $posterMovie = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
+                }
+                $newMovie->setPoster($posterMovie);
+                if (array_key_exists('Plot', $contentMovie)) {
+                    $summaryMovie = $contentMovie['Plot'];
+                } else {
+                    $summaryMovie = $fakerFr->realText(60,2);
+                }
+                $newMovie->setSummary($summaryMovie);
+                if (array_key_exists('Country', $contentMovie)) {
+                    $countryMovie = $contentMovie['Country'];
+                } else {
+                    $countryMovie = $faker->countryCode();
+                }
+                $newMovie->setCountry($countryMovie);
             }
-            
+
+            $newMovie->setDuration(mt_rand(10, 360));
+            $newMovie->setRating(mt_rand(0,50) / 10);
+
+            $newMovie->setSynopsis($fakerFr->realText(200,2));
+            // ? https://www.php.net/manual/fr/datetime.construct.php
+            $newMovie->setReleaseDate(new DateTime($faker->date()));
 
             // 3. persist
             $manager->persist($newMovie);
@@ -270,4 +317,5 @@ class Oflix extends Fixture
         // c'est ici que les requetes SQL sont exécutées
         $manager->flush();
     }
+    // bin/console doctrine:fixture:load
 }

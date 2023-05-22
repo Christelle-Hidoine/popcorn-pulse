@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Movie
 {
@@ -17,6 +19,8 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"genre_browse", "movie_read"})
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Movie
      * @Assert\NotBlank(
      *      message="Le titre du film est obligatoire"
      * )
+     * 
+     * @Groups({"genre_browse", "movie_read"})
      */
     private $title;
 
@@ -36,6 +42,7 @@ class Movie
      * @Assert\Positive(
      *      message="Cette valeur ne peut pas être négative."
      * )
+     * @Groups({"movie_read"})
      */
     private $duration;
 
@@ -56,6 +63,7 @@ class Movie
      *      min = 5,
      *      minMessage = "Votre résumé doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
      * )
+     * 
      */
     private $summary;
 
@@ -68,6 +76,7 @@ class Movie
      *      min = 10,
      *      minMessage = "Votre synopsis doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
      * )
+     * @Groups({"movie_read"})
      */
     private $synopsis;
 
@@ -77,6 +86,7 @@ class Movie
      *      message="Merci d'indiquer une date"
      * )
      * @Assert\Type("\DateTimeInterface")
+     * @Groups({"movie_read"})
      */
     private $releaseDate;
 
@@ -85,6 +95,7 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un pays"
      * )
+     * @Groups({"movie_read"})
      */
     private $country;
 
@@ -94,6 +105,7 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de remplir le champs Poster"
      * )
+     * @Groups({"movie_read"})
      */
     private $poster;
 
@@ -103,6 +115,8 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un type"
      * )
+     * 
+     * @Groups({"movie_read"})
      */
     private $type;
 
@@ -116,13 +130,22 @@ class Movie
 
     /**
      * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movies")
+     * 
+     * @Groups({"movie_read"})
      */
     private $castings;
 
     /**
      * @ORM\OneToMany(targetEntity=Season::class, mappedBy="movies")
+     * 
+     * @Groups({"movie_read"})
      */
     private $seasons;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -327,4 +350,28 @@ class Movie
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+    
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * mettre à jour la date de modification de l'entité Movie dès qu'elle est modifiée côté back
+     */
+    public function preUpdateCallback()
+    {
+        $this->updatedAt = new \DateTime("now");
+
+        return $this;
+    }
+
 }
