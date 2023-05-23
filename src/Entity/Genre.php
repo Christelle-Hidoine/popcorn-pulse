@@ -18,21 +18,21 @@ class Genre
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"genre_browse"})
+     * @Groups({"genre_browse", "genre_read", "movie_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
      * 
-     * @Groups({"genre_browse"})
+     * @Groups({"genre_browse", "genre_read", "movie_read"})
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity=Movie::class, mappedBy="genres")
      * 
-     * @Groups({"genre_browse"})
+     * @Groups({"genre_browse", "genre_read"})
      */
     private $movies;
 

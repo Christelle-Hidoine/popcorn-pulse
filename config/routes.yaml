@@ -4,3 +4,5 @@
 # index:
 #     path: /
 #     controller: App\Controller\MainController::home
+api_login_check:
+    path: /api/login_check

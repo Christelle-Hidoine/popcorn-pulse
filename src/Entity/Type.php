@@ -25,7 +25,7 @@ class Type
     /**
      * @ORM\Column(type="string", length=6)
      * 
-     * @Groups({"movie_read"})
+     * @Groups({"movie_read", "genre_read"})
      */
     private $name;
 

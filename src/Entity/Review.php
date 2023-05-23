@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
  */
@@ -16,6 +17,7 @@ class Review
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"review_browse"})
      */
     private $id;
 
@@ -24,6 +26,7 @@ class Review
      * @Assert\NotBlank(
      *      message="Le pseudonyme est obligatoire"
      * )
+     * @Groups({"review_browse"})
      */
     private $username;
 
@@ -47,6 +50,7 @@ class Review
      *      min = 3,
      *      minMessage = "Votre critique doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
      * )
+     * @Groups({"review_browse"})
      */
     private $content;
 
@@ -55,6 +59,7 @@ class Review
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un avis"
      * )
+     * @Groups({"review_browse"})
      * 
      */
     private $rating;
@@ -73,13 +78,13 @@ class Review
      *      message="Merci d'indiquer une date"
      * )
      * @Assert\Type("\DateTimeImmutable")
-     *
+     *@Groups({"review_browse"})
      */
     private $watchedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Movie::class)
-     * 
+     * @Groups({"review_browse"})
      */
     private $movie;
 

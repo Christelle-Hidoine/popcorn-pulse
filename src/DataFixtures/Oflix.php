@@ -24,6 +24,11 @@ use \Xylis\FakerCinema\Provider\Character as FakerCharacterProvider;
 
 class Oflix extends Fixture
 {
+    /**
+     * Service OmdbApi
+     *
+     * @var OmdbApi
+     */
     private $omdbApi;
 
     public function __construct(OmdbApi $omdbApi)
@@ -165,49 +170,28 @@ class Oflix extends Fixture
                 $titleTvShow = $faker->tvShow();
                 $contentTvShow = $this->omdbApi->fetch($titleTvShow);
                 $newMovie->setTitle($titleTvShow);
-                if (array_key_exists('Poster', $contentTvShow)){
-                    $posterTvShow = $contentTvShow['Poster'];
-                } else {
-                    // il n'y pas de lien pour le poster
-                    // on met une URL par défaut
-                    $posterTvShow = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
-                }
+
+                $posterTvShow = $contentTvShow->getPoster();
                 $newMovie->setPoster($posterTvShow);
-                if (array_key_exists('Plot', $contentTvShow)) {
-                    $summaryTvShow = $contentTvShow['Plot'];
-                } else {
-                    $summaryTvShow = $fakerFr->realText(60,2);
-                }
+
+
+                $summaryTvShow = $contentTvShow->getPlot();
                 $newMovie->setSummary($summaryTvShow);
-                if (array_key_exists('Country', $contentTvShow)) {
-                    $countryTvShow = $contentTvShow['Country'];
-                } else {
-                    $countryTvShow = $faker->countryCode();
-                }
+
+                $countryTvShow = $contentTvShow->getCountry();
                 $newMovie->setCountry($countryTvShow);
             } else {
                 $titleMovie = $faker->movie();
                 $contentMovie = $this->omdbApi->fetch($titleMovie);
                 $newMovie->setTitle($titleMovie);
-                if (array_key_exists('Poster', $contentMovie)){
-                    $posterMovie = $contentMovie['Poster'];
-                } else {
-                    // il n'y pas de lien pour le poster
-                    // on met une URL par défaut
-                    $posterMovie = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
-                }
+
+                $posterMovie = $contentMovie->getPoster();
                 $newMovie->setPoster($posterMovie);
-                if (array_key_exists('Plot', $contentMovie)) {
-                    $summaryMovie = $contentMovie['Plot'];
-                } else {
-                    $summaryMovie = $fakerFr->realText(60,2);
-                }
+
+                $summaryMovie = $contentMovie->getPlot();
                 $newMovie->setSummary($summaryMovie);
-                if (array_key_exists('Country', $contentMovie)) {
-                    $countryMovie = $contentMovie['Country'];
-                } else {
-                    $countryMovie = $faker->countryCode();
-                }
+
+                $countryMovie = $contentMovie->getCountry();
                 $newMovie->setCountry($countryMovie);
             }
 

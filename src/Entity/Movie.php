@@ -20,7 +20,7 @@ class Movie
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"genre_browse", "movie_read"})
+     * @Groups({"genre_browse", "movie_read", "movie_browse", "review_browse"})
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Movie
      *      message="Le titre du film est obligatoire"
      * )
      * 
-     * @Groups({"genre_browse", "movie_read"})
+     * @Groups({"genre_browse", "movie_read", "movie_browse", "review_browse"})
      */
     private $title;
 
@@ -42,7 +42,7 @@ class Movie
      * @Assert\Positive(
      *      message="Cette valeur ne peut pas être négative."
      * )
-     * @Groups({"movie_read"})
+     * @Groups({"movie_read", "movie_browse"})
      */
     private $duration;
 
@@ -51,6 +51,7 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un avis"
      * )
+     * @Groups({"movie_read", "movie_browse"})
      */
     private $rating;
 
@@ -63,6 +64,7 @@ class Movie
      *      min = 5,
      *      minMessage = "Votre résumé doit contenir un minimum de {{ limit }} caractères. Soyez plus précis svp."
      * )
+     * @Groups({"genre_browse", "movie_browse"})
      * 
      */
     private $summary;
@@ -85,13 +87,13 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci d'indiquer une date"
      * )
-     * @Assert\Type("\DateTimeInterface")
+     * 
      * @Groups({"movie_read"})
      */
     private $releaseDate;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un pays"
      * )
@@ -105,7 +107,7 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de remplir le champs Poster"
      * )
-     * @Groups({"movie_read"})
+     * @Groups({"movie_read", "movie_browse"})
      */
     private $poster;
 
@@ -115,8 +117,9 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un type"
      * )
+     * ? https://symfony.com/doc/5.4/reference/constraints/Count.html
      * 
-     * @Groups({"movie_read"})
+     * @Groups({"movie_read", "movie_browse"})
      */
     private $type;
 
@@ -125,6 +128,7 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un ou plusieurs genres"
      * )
+     *
      */
     private $genres;
 

@@ -1,0 +1,16 @@
+POST http://localhost:8000/api/movies
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODQ4NDg1MDEsImV4cCI6MTY4NDkxMzMwMSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.Iz3PQ1LCldMYosFZIDNcebeo48zwFp_1nnKbHxAaH6H4jWfY9iBmQQx3SS5GLlck-ri_X0GC3OsZsYBWw5DCZeOTuMPsLk12kx6DCNsz18hZ6A2nsiTkO3XvAr6ly8ww1uRmthVAot4h1xx4HPtiylGICqOtR63v8SIkygBXf1Bcqj-aitQndZV_yIsaS4f6n-8AgOaRRPbWAWMxHCGaVIy0i6ZmLuSd2jueBtqb19BbDUvaMJU3aLLvNRFUyVRBVNhQR8gzisf66qLJfghEbzTTR73h9v-pXaQ4eIYAvA4JruJU1kNacQlbgR-VW3qJipuM3OblX-2aDTIJuIh0-Q
+
+{
+  "title" : "Radium Movie III la vengeance",
+  "duration" : 90,
+  "summary" : "lalalalalalalalala",
+  "synopsis": "lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala",
+  "releaseDate" : "2023-05-23",
+  "type": 18,
+  "rating" : 5,
+  "country" : "US",
+  "poster" : "https://comming-soon",
+  "genres" : [231]
+}

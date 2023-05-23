@@ -11,6 +11,19 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            jwt: ~
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -35,6 +48,8 @@ security:
         # pour eviter les boucles infinies de redirection
         # on met toujours la page de login en premier et en public
         - { path: ^/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        
         # Admin : Si ROLE_MANAGER : accès aux pages de "listes" = method GET  movie, genres etc. et pages show (si existantes).
         - { path: ^\/back\/\w+\/\d+$, roles: ROLE_MANAGER, methods: [GET] }
         # Admin : Sécuriser toutes les routes /add /edit /delete avec ROLE_ADMIN.
