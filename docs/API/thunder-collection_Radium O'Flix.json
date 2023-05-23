@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Radium O'Flix",
-    "dateExported": "2023-05-22T11:25:42.208Z",
+    "dateExported": "2023-05-23T15:49:15.620Z",
     "version": "1.1",
     "folders": [
         {
@@ -10,22 +10,264 @@
             "containerId": "",
             "created": "2023-05-22T11:23:30.823Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "bee6c57e-3521-4efe-a7d5-08747f1bf7d2",
+            "name": "Movie",
+            "containerId": "",
+            "created": "2023-05-22T12:39:48.833Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "Review",
+            "containerId": "",
+            "created": "2023-05-23T07:23:59.096Z",
+            "sortNum": 40000
         }
     ],
     "requests": [
         {
-            "_id": "c63b36e6-cb1a-4a8a-aa02-dcd337bafd44",
+            "_id": "442e839a-0fa7-48f0-a934-c819ed250515",
             "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
             "containerId": "eb1e0645-9325-4380-9935-6c514d82ee8b",
-            "name": "http://localhost:8000/api/genres",
+            "name": "/api/genres",
             "url": "http://localhost:8000/api/genres",
             "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-05-22T11:24:09.713Z",
-            "modified": "2023-05-22T11:24:09.713Z",
+            "sortNum": 15000,
+            "created": "2023-05-23T15:37:55.928Z",
+            "modified": "2023-05-23T15:38:04.062Z",
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "93242381-d82b-4859-ac8f-93261ac0c385",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "bee6c57e-3521-4efe-a7d5-08747f1bf7d2",
+            "name": "/api/movies/517",
+            "url": "http://localhost:8000/api/movies/517",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-22T12:40:14.732Z",
+            "modified": "2023-05-22T12:40:14.732Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1f6bc356-0414-4a27-8cb7-a995687d2328",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "eb1e0645-9325-4380-9935-6c514d82ee8b",
+            "name": "/api/genres/231",
+            "url": "http://localhost:8000/api/genres/231",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-23T07:02:54.912Z",
+            "modified": "2023-05-23T07:02:54.912Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7e9ed988-0132-4734-b65a-8b7bafd7ad92",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "bee6c57e-3521-4efe-a7d5-08747f1bf7d2",
+            "name": "/api/movies",
+            "url": "http://localhost:8000/api/movies",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-23T14:59:13.817Z",
+            "modified": "2023-05-23T14:59:37.782Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Supernatural 13\",\n  \"duration\": 180,\n  \"rating\": 2,\n  \"synopsis\": \"Oh! oh! comme vous sur son lit, dans la paume tendue de leurs étuis, et les pays, traverser les obstacles, mordre aux bonheurs les plus furieuses, et l'on entendait des voix de femmes, et s'y.\",\n  \"summary\": \"et oh he oh !\",\n  \"releaseDate\": \"2023-05-23\",\n  \"country\": \"Albanie\",\n  \"poster\": \"https://m.media-amazon.com/images/M/MV5BNzRmZWJhNjUtY2ZkYy00N2MyLWJmNTktOTAwY2VkODVmOGY3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg\",\n  \"type\": 17,\n  \"genres\": [237]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "72931672-c362-4e34-b04a-e6092a65c0cc",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "bee6c57e-3521-4efe-a7d5-08747f1bf7d2",
+            "name": "/api/movies",
+            "url": "http://localhost:8000/api/movies",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-05-23T07:09:44.512Z",
+            "modified": "2023-05-23T14:53:17.264Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Supernatural 12\",\n  \"duration\": 190,\n  \"rating\": 1,\n  \"synopsis\": \"Oh! oh! comme vous sur son lit, dans la paume tendue de leurs étuis, et les pays, traverser les obstacles, mordre aux bonheurs les plus furieuses, et l'on entendait des voix de femmes, et s'y.\",\n  \"summary\": \"et oh he oh !\",\n  \"releaseDate\": \"2023-05-23\",\n  \"country\": \"United States\",\n  \"poster\": \"https://m.media-amazon.com/images/M/MV5BNzRmZWJhNjUtY2ZkYy00N2MyLWJmNTktOTAwY2VkODVmOGY3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg\",\n  \"type\": 17,\n  \"genres\": [236]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b3db9313-4e29-4255-bd9d-049652662cf1",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "/api/reviews",
+            "url": "http://localhost:8000/api/reviews",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-05-23T07:39:10.905Z",
+            "modified": "2023-05-23T07:39:10.905Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "74f03fa0-5d22-4de5-8779-2ecbd297b077",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "/api/reviews/movies/817",
+            "url": "http://localhost:8000/api/reviews/movies/817",
+            "method": "GET",
+            "sortNum": 75000,
+            "created": "2023-05-23T15:28:24.652Z",
+            "modified": "2023-05-23T15:28:31.845Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "be1f19ea-8a33-427b-af7f-2dc140d00297",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "eb1e0645-9325-4380-9935-6c514d82ee8b",
+            "name": "/api/genres",
+            "url": "http://localhost:8000/api/genres",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-05-23T09:39:48.998Z",
+            "modified": "2023-05-23T09:39:48.998Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Radium\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8c9d4aad-5da6-41e5-ab9f-fa09e730a519",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "eb1e0645-9325-4380-9935-6c514d82ee8b",
+            "name": "/api/genres/247",
+            "url": "http://localhost:8000/api/genres/247",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2023-05-23T10:09:12.180Z",
+            "modified": "2023-05-23T10:09:12.180Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Radium V1.0\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e8a115a4-9f6d-4757-8fc1-a0a253c83f50",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "/api/reviews",
+            "url": "http://localhost:8000/api/reviews",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-05-23T15:12:28.975Z",
+            "modified": "2023-05-23T15:12:49.516Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"ozella.schmidt\",\n  \"content\": \"On est de la belle nuit! dit.\",\n  \"rating\": 3,\n  \"watchedAt\": \"2023-05-23\",\n  \"movie\": 817,\n  \"email\": \"ozella@schmidt.com\",\n  \"reactions\": [\"cry\", \"smile\"]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ca96c499-a81e-4d88-94fe-6f7a07204b14",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "eb1e0645-9325-4380-9935-6c514d82ee8b",
+            "name": "/api/genres/247",
+            "url": "http://localhost:8000/api/genres/250",
+            "method": "DELETE",
+            "sortNum": 100000,
+            "created": "2023-05-23T10:20:10.602Z",
+            "modified": "2023-05-23T15:48:02.939Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Radium v2.0\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bbbd98f4-e5b3-4eb5-833e-8ebc98e81b5b",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "/api/reviews/1247",
+            "url": "http://localhost:8000/api/reviews/1247",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2023-05-23T15:25:43.901Z",
+            "modified": "2023-05-23T15:26:03.830Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"ozella.schmidt\",\n  \"content\": \"On est de la belle nuit! dit donc.\",\n  \"rating\": 5,\n  \"watchedAt\": \"2023-05-23\",\n  \"movie\": 817,\n  \"email\": \"ozella@schmidt.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2098413e-f012-45a0-a906-8e1460d9c9c7",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "17aa04af-4234-4046-87e4-44765e24010e",
+            "name": "/api/reviews/1010",
+            "url": "http://localhost:8000/api/reviews/1010",
+            "method": "DELETE",
+            "sortNum": 110000,
+            "created": "2023-05-23T10:24:39.591Z",
+            "modified": "2023-05-23T10:24:39.591Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4d0288b3-c751-42a3-8869-f003bfeb54c7",
+            "colId": "2f0fa363-8cb1-4610-b984-23e54b5952ba",
+            "containerId": "bee6c57e-3521-4efe-a7d5-08747f1bf7d2",
+            "name": "/api/movies/818",
+            "url": "http://localhost:8000/api/movies/818",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2023-05-23T14:58:30.651Z",
+            "modified": "2023-05-23T14:58:30.651Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Supernatural 13\",\n  \"duration\": 180,\n  \"rating\": 2,\n  \"synopsis\": \"Oh! oh! comme vous sur son lit, dans la paume tendue de leurs étuis, et les pays, traverser les obstacles, mordre aux bonheurs les plus furieuses, et l'on entendait des voix de femmes, et s'y.\",\n  \"summary\": \"et oh he oh !\",\n  \"releaseDate\": \"2023-05-23\",\n  \"country\": \"Albanie\",\n  \"poster\": \"https://m.media-amazon.com/images/M/MV5BNzRmZWJhNjUtY2ZkYy00N2MyLWJmNTktOTAwY2VkODVmOGY3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg\",\n  \"type\": 17,\n  \"genres\": [237]\n}",
+                "form": []
+            },
+            "tests": []
         }
-    ]
+    ],
+    "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODQ4NDg1MDEsImV4cCI6MTY4NDkxMzMwMSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.Iz3PQ1LCldMYosFZIDNcebeo48zwFp_1nnKbHxAaH6H4jWfY9iBmQQx3SS5GLlck-ri_X0GC3OsZsYBWw5DCZeOTuMPsLk12kx6DCNsz18hZ6A2nsiTkO3XvAr6ly8ww1uRmthVAot4h1xx4HPtiylGICqOtR63v8SIkygBXf1Bcqj-aitQndZV_yIsaS4f6n-8AgOaRRPbWAWMxHCGaVIy0i6ZmLuSd2jueBtqb19BbDUvaMJU3aLLvNRFUyVRBVNhQR8gzisf66qLJfghEbzTTR73h9v-pXaQ4eIYAvA4JruJU1kNacQlbgR-VW3qJipuM3OblX-2aDTIJuIh0-Q"
+        }
+    }
 }
