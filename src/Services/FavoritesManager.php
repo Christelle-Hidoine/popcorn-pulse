@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class FavoritesManager 
 {
     /** @var SessionInterface $session */
-    private $session;
+    private $request;
 
     /**
      * Injection de dépendance Request pour récupérer la session
@@ -17,7 +17,7 @@ class FavoritesManager
      */
     public function __construct(RequestStack $request)
     {
-        $this->session = $request->getSession();
+        $this->request = $request;
     }
 
 
@@ -26,38 +26,41 @@ class FavoritesManager
     // 1. addFavorites 
     public function addFavorite(Movie $movie)
     {
-        $favoriteSession = $this->session->get("favoris", []);
+        $session=$this->request->getSession();
+        $favoriteSession = $session->get("favoris", []);
         $id = $movie->getId();
         $favoriteSession[$id] = $movie;
-        $this->session->set("favoris", $favoriteSession);
-        
+        $session->set("favoris", $favoriteSession);
     }
 
     // 2. listFavorites
     public function listFavorites()
     {
-        return $this->session->get("favoris", []);
+        $session=$this->request->getSession();
+        return $session->get("favoris", []);
     }
 
     // 3. removeFavorites
     public function removeFavorite(Movie $movie)
     {
-        $favorisList = $this->session->get("favoris", []);
+        $session=$this->request->getSession();
+        $favorisList = $session->get("favoris", []);
 
         if (array_key_exists($movie->getId(), $favorisList)){
             // ? https://www.php.net/manual/en/function.unset.php
             unset($favorisList[$movie->getId()]);
             // met à jour la session
-            $this->session->set("favoris", $favorisList);
+            $session->set("favoris", $favorisList);
         }
     }
 
     public function removeAll()
     {
+        $session=$this->request->getSession();
         // on met un tableau vide pour purger nos favoris
-        $this->session->set("favoris", []);
+        $session->set("favoris", []);
         // version plus bourine qui supprime directement la clé en session
-        $this->session->remove("favoris");
+        $session->remove("favoris");
     }
 
 }

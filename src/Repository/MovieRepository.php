@@ -56,22 +56,6 @@ class MovieRepository extends ServiceEntityRepository
     }
 
     /**
-     * Method to retrieve data from Movie Entity according to search->get()
-     *
-     * @param [string] $search
-     * @return Movie[] Returns an array of Movie objects
-     */
-    public function findByGenre($search): array
-    {
-        return $this->createQueryBuilder('movie')
-            ->andWhere('genre.name LIKE :name')
-            ->setParameter('name', "%$search%")
-            ->orderBy('movie.title', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
      * Method to retrieve rating from Movie Entity
      * 
      * @param [int] $id
@@ -83,6 +67,16 @@ class MovieRepository extends ServiceEntityRepository
             ->select("COUNT(movie.rating)")
             ->andWhere('movie.id LIKE :id')
             ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByGenre($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.genres', 'g')
+            ->where('g.id = :genre_id')
+            ->setParameter('genre_id', $id)
             ->getQuery()
             ->getResult();
     }
