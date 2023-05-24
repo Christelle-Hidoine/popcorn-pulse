@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ThemeManager 
 {
     /** @var SessionInterface $session */
-    private $session;
+    private $request;
 
     /**
      * Injection de dépendance Request pour récupérer la session
@@ -16,23 +16,24 @@ class ThemeManager
      */
     public function __construct(RequestStack $request)
     {
-        $this->session = $request->getSession();
+        $this->request = $request;
     }
 
     public function addThemeSession()
     {
-        if ($this->session->get('theme')) {
-            $theme = $this->session->get('theme');
+        $session = $this->request->getSession();
+        if ($session->get('theme')) {
+            $theme = $session->get('theme');
             if ($theme == 'Netflix') {
                    // j'enregistre en session le thème que l'utilisateur a sélectionné
-                $this->session->set("theme", 'Allocine');
+                $session->set("theme", 'Allocine');
             } else {
-                $this->session->set("theme", 'Netflix');
+                $session->set("theme", 'Netflix');
             }
         } else {
-            $this->session->set("theme", 'Allocine');
+            $session->set("theme", 'Allocine');
         }
 
-        return $this->session->get('theme');
+        return $session->get('theme');
     }
 }

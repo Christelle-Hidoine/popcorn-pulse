@@ -55,6 +55,8 @@ class DoctrineDenormalizer implements DenormalizerInterface
      * @param string $type : le type que l'on veut obtenir (dans notre cas un entity)
      * @param string|null $format
      * @param array $context
+     * 
+     * @return mixed
      */
     public function denormalize($data, string $type, ?string $format = null, array $context = [])
     {

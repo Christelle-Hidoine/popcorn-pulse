@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @Route("/api/genres", name="app_api_genres_")
  */
-class GenreController extends AbstractController
+class GenreController extends CoreApiController
 {
     /**
      * @Route("", name="browse", methods={"GET"})
@@ -30,21 +30,7 @@ class GenreController extends AbstractController
 
         // le serializer est caché derrière la méthode json()
         // on lui donne les objets à serializer en JSON, ainsi qu'un contexte
-        return $this->json(
-            // les données
-            $allGenres, 
-            // le code de retour : 200 par défaut
-            200,
-            // les entêtes HTTP, on ne s'en sert pas : []
-            [],
-            // le contexte de serialisation : les groupes
-            [
-                "groups" => 
-                [
-                    "genre_browse",
-                ]
-            ]
-        );
+        return $this->json200($allGenres, ["genre_browse"]);
     }
 
     /**
@@ -72,22 +58,8 @@ class GenreController extends AbstractController
 
         // le serializer est caché derrière la méthode json()
         // on lui donne les objets à serializer en JSON, ainsi qu'un contexte
-        return $this->json(
-            // les données
-            $genre, 
-            // le code de retour : 200 par défaut
-            200,
-            // les entêtes HTTP, on ne s'en sert pas : []
-            [],
-            // le contexte de serialisation : les groupes
-            [
-                "groups" => 
-                [
-                    "genre_read",
-                    "movie_browse"
-                ]
-            ]
-        );
+        return $this->json200($genre, ["genre_read","movie_browse"]);
+        
     }
 
     /**
@@ -137,24 +109,7 @@ class GenreController extends AbstractController
         $genreRepository->add($newGenre, true);
 
         // TODO : un peu d'UX : on renvoit le bon code de statut : 201
-        return $this->json(
-            // on fournit l'objet créer
-            $newGenre,
-            // le code 201 pour la création
-            Response::HTTP_CREATED,
-            // toujour pas d'entête
-            [],
-            // on oublie pas le contexte car on serialise un objet
-            [
-                "groups" =>
-                [
-                    // j'utilise un groupe déjà existant
-                    "genre_read",
-                    "movie_browse"
-                ]
-            ]
-        );
-
+        return $this->json201($newGenre, ["genre_read","movie_browse"]);
     }
 
     /**
@@ -203,7 +158,7 @@ class GenreController extends AbstractController
         // 4. flush
         $genreRepository->add($genre, true);
 
-        return $this->json($genre, Response::HTTP_OK, [], ["groups" => ["genre_read", "movie_browse"]]);
+        return $this->json200($genre, ["genre_read", "movie_browse"]);
 
     }
 

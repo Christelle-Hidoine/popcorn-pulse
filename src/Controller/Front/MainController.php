@@ -152,22 +152,24 @@ class MainController extends AbstractController
      */
     public function genreShow($id, 
         GenreRepository $genreRepository, 
+        MovieRepository $movieRepository,
         Request $request,
         PaginatorInterface $paginator): Response
     {
         // TODO : récuperer le film avec son id
         $genreById = $genreRepository->find($id);
-        $movieGenre = $genreById->getMovies();
+        $movieGenre = $movieRepository->findByGenre($id);
+        // $movieGenre = $genreById->getMovies();
         $genreList = $genreRepository->findAll();
-        dump($genreById);
+        // dump($genreById);
 
         // ! ERREUR $genreById->getMovies() == null si le film n'a pas été trouvé en BDD
-        if ($genreById->getMovies() === null) {
+        if ($movieGenre === null) {
             throw $this->createNotFoundException("Ce genre n'a pas encore de films");
         }
 
         // TODO : faire la pagination
-        $movieGenre = $paginator->paginate($genreById->getMovies(), $request->query->getInt('page', 1),5);
+        $movieGenre = $paginator->paginate($movieGenre, $request->query->getInt('page', 1),5);
         
         $twigResponse = $this->render("front/main/genre.html.twig",
         [
@@ -175,8 +177,7 @@ class MainController extends AbstractController
             "genreList" => $genreList,
             // TODO fournir les films correspondants à ces genres
             'movieGenre' => $movieGenre,
-            // TODO fournir le data du genre
-            "genreById" => $genreById,
+            'genreById' => $genreById
         ]);
         
         return $twigResponse;

@@ -57,7 +57,7 @@ security:
         # Admin : Si ROLE_MANAGER et ROLE_ADMIN : accès backoffice 
         - { path: ^\/back, roles: ROLE_MANAGER }
         # Front : Si ROLE_USER : ajouter une critique sur un film.
-        - { path: ^\/review\/add\/\d+$, roles: ROLE_USER }
+        # - { path: ^\/review\/add\/\d+$, roles: ROLE_USER }
         # Front : Si ROLE_USER : ajouter un favoris
         - { path: ^\/favoris$, roles: ROLE_USER }
         # Front : Si user ANONYME : page d'accueil + fiche film seulement.

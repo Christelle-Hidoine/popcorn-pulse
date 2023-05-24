@@ -19,17 +19,8 @@ class FavoritesController extends AbstractController
      */
     public function favorites(Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
     {
-        // TODO : récupérer les films de la page favoris
-        $movies = $movieRepository->findAll();
         $moviesFavorites = [];
 
-        // TODO : stocker en session les favoris
-        // * cette façon de faire est utilisée dans plusieurs languages
-        // * cela s'appele l'injection de dépendance
-        
-        $session = $request->getSession();
-        $themeSession = $session->get('theme', []);
-        
         // TODO : récupérer les films favoris
         $moviesFavorites = $favorites->listFavorites();
         
@@ -37,7 +28,6 @@ class FavoritesController extends AbstractController
         // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('front/favorites/index.html.twig', [
             'movies' => $moviesFavorites,
-            'theme' => $themeSession,
         ]);
     }
 

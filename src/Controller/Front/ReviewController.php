@@ -16,7 +16,7 @@ class ReviewController extends AbstractController
 {
     /**
      * 
-     * @Route("/{_locale}/review/add/{id}", name="add_review", requirements={"id"="\d+"})
+     * @Route("/review/add/{id}", name="add_review", requirements={"id"="\d+"})
      */
     public function index($id, Request $request, ReviewRepository $reviewRepository, MovieRepository $movieRepository, EntityManagerInterface $entityManagerInterface): Response
     {
