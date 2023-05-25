@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{# {% dump(app.session.get('favoris')) %} #}
 
     <!-- main -->
     <div class="container-xl bg-light p-5 border-top">
@@ -11,7 +10,7 @@
             <h2 class="text-muted fw-bold mb-4">Ma liste</h2>
 
             {% for movie in movies %}
-                {% dump(app.session.get('favoris')|last) %}
+                {# {% dump(app.session.get('favoris')|last) %} #}
                 
             <div class="col-6">
 
