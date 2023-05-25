@@ -68,7 +68,7 @@ class MainController extends AbstractController
         PaginatorInterface $paginator): Response
     {
         $genres = $genreRepository->findAll();
-
+        
         $search = $request->query->get('search', "");
         $movies = $movieRepository->findByMovieTitle($search);
         // dump($search);
