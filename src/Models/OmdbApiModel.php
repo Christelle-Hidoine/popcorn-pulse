@@ -7,8 +7,11 @@ class OmdbApiModel
 	public const REPONSE_FALSE = "False";
 	public const RESPONSE_TRUE = "True";
 	public const DEFAULT_POSTER = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
-    public const DEFAULT_PLOT = "Texte par défaut";
+    public const DEFAULT_PLOT = "Pas encore de résumé pour ce film";
     public const DEFAULT_COUNTRY = "United States";
+	public const DEFAULT_RELEASED = "2023-01-01"; 
+	public const DEFAULT_RUNTIME = "90"; 
+
 
 	private string $title;
 	private string $year;
@@ -70,12 +73,21 @@ class OmdbApiModel
 
 	public function getReleased(): string
 	{
-		return $this->released;
+		if ($this->response === OmdbApiModel::REPONSE_FALSE)
+        {
+            return OmdbApiModel::DEFAULT_RELEASED;
+        }
+		return date('Y-m-d', strtotime($this->released));
 	}
 
 	public function getRuntime(): string
 	{
-		return $this->runtime;
+		if ($this->response === OmdbApiModel::REPONSE_FALSE)
+        {
+            return OmdbApiModel::DEFAULT_RUNTIME;
+        }
+		$runtimeFormat = str_replace('min', "", $this->runtime);
+		return intval($runtimeFormat);
 	}
 
 	public function getGenre(): string

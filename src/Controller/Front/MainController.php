@@ -129,6 +129,7 @@ class MainController extends AbstractController
         $reviewByMovie = $reviewRepository->findBy(["movie" => $movieById], ["watchedAt" => "DESC"]);
         // dump($reviewByMovie);
         
+        
         $twigResponse = $this->render("front/main/show.html.twig",
         [
             "movieId" => $id,
@@ -166,6 +167,10 @@ class MainController extends AbstractController
         // ! ERREUR $genreById->getMovies() == null si le film n'a pas été trouvé en BDD
         if ($movieGenre === null) {
             throw $this->createNotFoundException("Ce genre n'a pas encore de films");
+        }
+
+        if ($genreById === null) {
+            throw $this->createNotFoundException("Ce genre n'existe pas");
         }
 
         // TODO : faire la pagination

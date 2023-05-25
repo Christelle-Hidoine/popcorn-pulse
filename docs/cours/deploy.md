@@ -129,6 +129,16 @@ nano .env
 APP_ENV=prod
 ```
 
+contexte : je fais une modification sur un template, je push mes modifications sur master et git pull sur server (machine virtuelle)
+je rafraichis ma page
+erreur = mon navigateur n'affiche pas la modification
+pourquoi ?
+en prod le navigateur garde tout en cache, il faut vider le cache
+
+```bash
+sudo APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
+```
+
 ## annexes
 
 ### fatal: could not create work tree dir 'symfo-oflix-JB-oclock': Permission denied

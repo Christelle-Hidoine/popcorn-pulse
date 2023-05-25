@@ -174,13 +174,18 @@ class Oflix extends Fixture
                 $posterTvShow = $contentTvShow->getPoster();
                 $newMovie->setPoster($posterTvShow);
 
-
                 $summaryTvShow = $contentTvShow->getPlot();
                 $newMovie->setSummary($summaryTvShow);
 
                 $countryTvShow = $contentTvShow->getCountry();
                 $newMovie->setCountry($countryTvShow);
+
+                $newMovie->setReleaseDate(new DateTime($contentTvShow->getReleased()));
+
+                $newMovie->setDuration($contentTvShow->getRuntime());
+
             } else {
+
                 $titleMovie = $faker->movie();
                 $contentMovie = $this->omdbApi->fetch($titleMovie);
                 $newMovie->setTitle($titleMovie);
@@ -193,14 +198,16 @@ class Oflix extends Fixture
 
                 $countryMovie = $contentMovie->getCountry();
                 $newMovie->setCountry($countryMovie);
+
+                $newMovie->setReleaseDate(new DateTime($contentMovie->getReleased()));
+
+                $newMovie->setDuration($contentMovie->getRuntime());
             }
 
-            $newMovie->setDuration(mt_rand(10, 360));
+            // $newMovie->setDuration(mt_rand(10, 360));
             $newMovie->setRating(mt_rand(0,50) / 10);
 
             $newMovie->setSynopsis($fakerFr->realText(200,2));
-            // ? https://www.php.net/manual/fr/datetime.construct.php
-            $newMovie->setReleaseDate(new DateTime($faker->date()));
 
             // 3. persist
             $manager->persist($newMovie);
