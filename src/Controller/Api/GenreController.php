@@ -24,12 +24,8 @@ class GenreController extends CoreApiController
      */
     public function browse(GenreRepository $genreRepository): JsonResponse
     {
-        // TODO : lister tout les genres
-        // BDD, Genre : GenreRepository
         $allGenres = $genreRepository->findAll();
 
-        // le serializer est caché derrière la méthode json()
-        // on lui donne les objets à serializer en JSON, ainsi qu'un contexte
         return $this->json200($allGenres, ["genre_browse"]);
     }
 
@@ -39,25 +35,16 @@ class GenreController extends CoreApiController
     public function read($id, GenreRepository $genreRepository): JsonResponse
     {
         // TODO : lister tout les genres
-        // BDD, Genre : GenreRepository
         $genre = $genreRepository->find($id);
-        // gestion 404
         if ($genre === null){
-            // ! on est dans une API donc pas de HTML
-            // throw $this->createNotFoundException();
             return $this->json(
-                // on pense UX : on fournit un message
                 [
                     "message" => "Ce genre n'existe pas"
                 ],
-                // le code de status : 404
                 Response::HTTP_NOT_FOUND
-                // on a pas besoin de preciser les autres arguments
             );
         }
 
-        // le serializer est caché derrière la méthode json()
-        // on lui donne les objets à serializer en JSON, ainsi qu'un contexte
         return $this->json200($genre, ["genre_read","movie_browse"]);
         
     }
@@ -71,30 +58,12 @@ class GenreController extends CoreApiController
      */
     public function add(Request $request, SerializerInterface $serializerInterface, GenreRepository $genreRepository, ValidatorInterface $validatorInterface)
     {
-        // TODO : créer un genre
-        // TODO : récupérer les infos fournies par notre utilisateur
-        // comme dans les formulaires on va chercher les infos dans Request
-        // Request = on veut le contenu
-
-        $jsonContent = $request->getContent();
-        // dd($jsonContent);
-        /* 
-        {
-            "name": "Radium"
-        }
-        */
-        // TODO : tranformer / deserialiser le json en objet
-        // j'utilise le service SerializerInterface pour ça
         try {
             /** @var Genre $newGenre */
             $newGenre = $serializerInterface->deserialize(
-                // les données à transformer/deserializer
-                $jsonContent,
-                // vers quel type d'objet je veux deserialize
+                $request->getContent(),
                 Genre::class,
-                // quel est le format du contenu : json
                 'json',
-                // le paramètre de contexte nous serivra pour les update
             );
         } catch (Exception $exception) {
             return $this->json("JSON Invalide: " . $exception->getMessage(), Response::HTTP_BAD_REQUEST);
@@ -104,11 +73,8 @@ class GenreController extends CoreApiController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // * j'ai un objet Genre, prêt à être envoyé en BDD
-        // BDD, Genre, GenreRepository
         $genreRepository->add($newGenre, true);
 
-        // TODO : un peu d'UX : on renvoit le bon code de statut : 201
         return $this->json201($newGenre, ["genre_read","movie_browse"]);
     }
 
@@ -133,18 +99,12 @@ class GenreController extends CoreApiController
         // TODO : mettre à jour un genre
 
         $genre = $genreRepository->find($id);
-        // 3. Deserializer et mettre à jour l'existant
-        // 3. désérialiser tout en mettant à jour l'objet existant
         try {
             $serializerInterface->deserialize(
-                // les données
                 $request->getContent(),
-                // le type d'objet
                 Genre::class,
-                // le format de donnée
                 'json',
                 // ? https://symfony.com/doc/5.4/components/serializer.html#deserializing-in-an-existing-object
-                // en contexte on précise que l'on veux POPULATE / REMPLIR un objet existant
                 [AbstractNormalizer::OBJECT_TO_POPULATE => $genre]
             );
         } catch (Exception $exception) {
@@ -155,7 +115,6 @@ class GenreController extends CoreApiController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         // * comme on a demandé la màj d'un objet, pas besoin de récupérer la déserialization
-        // 4. flush
         $genreRepository->add($genre, true);
 
         return $this->json200($genre, ["genre_read", "movie_browse"]);

@@ -19,9 +19,6 @@ class Movie1430Voter extends Voter
      */
     protected function supports(string $attribute, $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
-        // si le droit se nomme MOVIE_1430 et le contexte est un objet Movie = return true
         if ($attribute === "MOVIE_2030" && $subject instanceof Movie) {
             return true;
         } else {
@@ -40,15 +37,11 @@ class Movie1430Voter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
         $dateDuJour = new DateTime("now");
-        // ? https://www.php.net/manual/fr/datetime.format.php
-        // $heure =>  810, 1430
         $heure = $dateDuJour->format("Gi");
         if ($heure > 2030){
             return false;

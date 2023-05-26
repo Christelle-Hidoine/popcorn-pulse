@@ -19,11 +19,8 @@ class UserAccessTest extends WebTestCase
     {
         $client = self::createClient();
 
-        // Le Repo des Users
         $userRepository = static::getContainer()->get(UserRepository::class);
-        // On récupère admin@admin.com
         $testUser = $userRepository->findOneByEmail($email);
-        // simulate $testUser being logged in
         $client->loginUser($testUser);
 
         $client->request('GET', $url);
@@ -64,19 +61,4 @@ class UserAccessTest extends WebTestCase
 
     }
 
-    // public function testBackMovie(): void
-    // {
-    //     $client = self::createClient();
-
-    //     // Le Repo des Users
-    //     $userRepository = static::getContainer()->get(UserRepository::class);
-    //     // On récupère admin@admin.com
-    //     $testUser = $userRepository->findOneByEmail('user@user.com');
-    //     // simulate $testUser being logged in
-    //     $client->loginUser($testUser);
-
-    //     $client->request('GET', '/back/movie');
-
-    //     $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
-    // }
 }

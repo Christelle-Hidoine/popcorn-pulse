@@ -41,7 +41,6 @@ class SeasonController extends AbstractController
                 'success',
                 'Bravo, votre nouvelle saison a été enregistrée!'
             );
-            // $this->addFlash() is equivalent to $request->getSession()->getFlashBag()->add()
 
             return $this->redirectToRoute('app_back_season_index', [], Response::HTTP_SEE_OTHER);
         }

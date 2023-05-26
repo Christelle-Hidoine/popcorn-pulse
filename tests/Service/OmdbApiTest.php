@@ -12,13 +12,7 @@ class OmdbApiTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->assertSame('test', $kernel->getEnvironment());
-        
-        // TODO tester le service OmdbApi
-        // 1. on doit récupérer notre service
-        // on est pas dans symfony, on est dans le framework de test
-        // on a donc pas l'injection de dépendance
-        // on va donc utiliser les raccourcies fournit par symfony à PHPUnit (framework de test)
-        // * on demande au conteneur de services de nous fournir notre service
+
         $omdbApi = static::getContainer()->get(OmdbApi::class);
 
         $infosOdmb = $omdbApi->fetch("Stranger Things");
@@ -27,7 +21,6 @@ class OmdbApiTest extends KernelTestCase
         $this->assertEquals($posterExpected, $infosOdmb->getPoster());
 
         $infosOdmb = $omdbApi->fetch("aaaaaaaaaaaa");
-        // dd($infosOdmb);
         $expected = "False";
         $this->assertEquals($expected, $infosOdmb->getResponse());
 

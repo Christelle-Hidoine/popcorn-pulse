@@ -1,0 +1,30 @@
+USER: code_user, email, roles, password, firstname, lastname
+BELONGS TO5, 0N USER, 0N MOVIE
+:
+BELONGS TO3,11 MOVIE,0N TYPE
+TYPE: code_type, name
+
+REVIEW: code_review, reactions, username, email, content, rating, watched_at
+BELONGS TO4, 0N MOVIE, 11 REVIEW
+MOVIE: code_movie, title, duration, rating, summary, synopsis, release_date, country, poster
+BELONGS TO2,0N MOVIE,0N GENRE
+
+:
+BELONGS TO,0N MOVIE,11 SEASON
+HAS,0N MOVIE,11 CASTING
+GENRE: code_genre, name
+
+:
+SEASON: code_season, number, nb_episodes
+CASTING: code_casting, role, credit_order
+:
+
+:
+:
+IS PART OF,0N PERSON,11 CASTING
+:
+
+:
+:
+PERSON: code_actor, firstname, lastname
+:

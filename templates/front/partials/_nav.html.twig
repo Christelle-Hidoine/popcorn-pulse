@@ -3,7 +3,6 @@
 {% if app.session.get('theme') %}
 {% set theme = app.session.get('theme') %}
     
-    {# <nav class="navbar navbar-expand-lg navbar-dark {% if isBackOffice %}bg-warning{% else %}bg-dark{% endif %}"> #}
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'yellow' : 'dark' }}">
         <div class="container-fluid">
             <a href="{{ path('default') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
@@ -39,7 +38,6 @@
 
 {% else %}
         
-        {# <nav class="navbar navbar-expand-lg navbar-dark {% if isBackOffice %}bg-warning{% else %}bg-dark{% endif %}"> #}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{{ path('default') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">

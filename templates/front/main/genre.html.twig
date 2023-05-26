@@ -19,7 +19,6 @@
 
 				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
 
-					{# affichage de la liste des genres par ordre alphabétique #}
 					{% for genre in genreList|sort((a, b) => a.name > b.name) %}
 					<a href="{{ path('app_front_genre_show', {'id': genre.id}) }}" class="btn btn-sm btn-outline-danger mx-1 mb-2"><li>{{ genre.name }}</li></a>
 					{% endfor %}

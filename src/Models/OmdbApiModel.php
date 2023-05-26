@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+
 class OmdbApiModel
 {
-	public const REPONSE_FALSE = "False";
+	public const RESPONSE_FALSE = "False";
 	public const RESPONSE_TRUE = "True";
+	public const RESPONSE_NA = "N/A";
 	public const DEFAULT_POSTER = "https://amc-theatres-res.cloudinary.com/amc-cdn/static/images/fallbacks/DefaultOneSheetPoster.jpg";
     public const DEFAULT_PLOT = "Pas encore de résumé pour ce film";
     public const DEFAULT_COUNTRY = "United States";
@@ -48,10 +50,14 @@ class OmdbApiModel
 
 	public function getPoster(): string
 	{
-		if ($this->response === OmdbApiModel::REPONSE_FALSE)
+		if ($this->response === OmdbApiModel::RESPONSE_FALSE)
         {
             return OmdbApiModel::DEFAULT_POSTER;
-        }
+			
+        } else if ($this->response == OmdbApiModel::RESPONSE_NA)
+		{
+			return OmdbApiModel::DEFAULT_POSTER;
+		}
         return $this->poster;
 	}
 
@@ -73,7 +79,7 @@ class OmdbApiModel
 
 	public function getReleased(): string
 	{
-		if ($this->response === OmdbApiModel::REPONSE_FALSE)
+		if ($this->response === OmdbApiModel::RESPONSE_FALSE)
         {
             return OmdbApiModel::DEFAULT_RELEASED;
         }
@@ -82,7 +88,7 @@ class OmdbApiModel
 
 	public function getRuntime(): string
 	{
-		if ($this->response === OmdbApiModel::REPONSE_FALSE)
+		if ($this->response === OmdbApiModel::RESPONSE_FALSE)
         {
             return OmdbApiModel::DEFAULT_RUNTIME;
         }
@@ -112,7 +118,7 @@ class OmdbApiModel
 
 	public function getPlot(): string
 	{
-        if ($this->response === OmdbApiModel::REPONSE_FALSE)
+        if ($this->response === OmdbApiModel::RESPONSE_FALSE)
         {
             return OmdbApiModel::DEFAULT_PLOT;
         }
@@ -126,7 +132,7 @@ class OmdbApiModel
 
 	public function getCountry(): string
 	{
-        if ($this->response === OmdbApiModel::REPONSE_FALSE)
+        if ($this->response === OmdbApiModel::RESPONSE_FALSE)
         {
             return OmdbApiModel::DEFAULT_COUNTRY;
         }

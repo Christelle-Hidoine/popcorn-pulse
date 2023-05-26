@@ -10,7 +10,6 @@
         <div class="col">
 
             <h2 class="text-muted my-5">Ajouter une critique sur {{ movie.type.name == 'film' ? 'le film ' : 'la série ' }}<span class='badge bg-warning text-dark'>{{ movie.title }}</span></h2>
-            {# désactivation de la validation html5 pour les tests = attr #}
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}
@@ -19,11 +18,9 @@
                 {{ form_row(form.reactions) }}
                 {{ form_row(form.watchedAt) }}
             
-        {# https://symfony.com/doc/5.4/best_practices.html#add-form-buttons-in-templates #}
             <div class="col-12 mt-5 mb-5 d-flex justify-content-end">
                 <button type="submit" class="btn btn-warning">Valider</button>
             </div>
-        {# la méthode form_end() fait le rendu de tous les éléments qui n'ont pas été positionnés #}    
         {{ form_end(form) }}
 
         </div>

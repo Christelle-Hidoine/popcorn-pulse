@@ -117,7 +117,6 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un type"
      * )
-     * ? https://symfony.com/doc/5.4/reference/constraints/Count.html
      * 
      * @Groups({"movie_read", "movie_browse"})
      */
@@ -346,7 +345,6 @@ class Movie
     public function removeSeason(Season $season): self
     {
         if ($this->seasons->removeElement($season)) {
-            // set the owning side to null (unless already changed)
             if ($season->getMovies() === $this) {
                 $season->setMovies(null);
             }

@@ -5,6 +5,8 @@ namespace App\Controller\Front;
 use App\Entity\User;
 use App\Form\Front\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,13 +28,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // ROLE_USER par défaut
             $user->setRoles(['ROLE_USER']);
-            // on récupère le password non hashé du form
             $plaintextPassword = $user->getPassword();
-            // on hash le password
             $passwordHashed = $passwordHasher->hashPassword($user,  $plaintextPassword);
-            // on injecte dans la BDD
             $user->setPassword($passwordHashed);
             $userRepository->add($user, true);
 
@@ -85,14 +83,20 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {        
+
+            $this->container->get('security.token_storage')->setToken(null);
+
+            $userRepository->remove($user, true);
+            
             $this->addFlash(
                 'success',
-                "Votre demande de suppression de compte a été envoyée. Elle sera traitée sous 72h."
+                "Votre compte a bien été supprimé, revenez quand vous voulez."
             );
-            // $userRepository->remove($user, true);
-        }
 
-        return $this->redirectToRoute('default', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('default', [], Response::HTTP_SEE_OTHER);
+        }
+        
+        
     }
 }

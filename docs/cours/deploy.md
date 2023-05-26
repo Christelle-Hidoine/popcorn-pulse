@@ -129,15 +129,26 @@ nano .env
 APP_ENV=prod
 ```
 
+### ERROR : mon navigateur n'affiche pas la modification faite en dev après un push + pull
+
 contexte : je fais une modification sur un template, je push mes modifications sur master et git pull sur server (machine virtuelle)
 je rafraichis ma page
 erreur = mon navigateur n'affiche pas la modification
 pourquoi ?
-en prod le navigateur garde tout en cache, il faut vider le cache
+en prod le navigateur garde tout en cache, il faut vider le cache sur le projet en cours (oflix)
 
 ```bash
 sudo APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
 ```
+
+si vous n'avez pas les droits sur le fichier ./var/cache/prod :
+remonter sur le dossier /var/www/
+
+```bash
+sudo chmod 777 -R html/
+```
+
+**attention** ça donne les permissions à tout le monde
 
 ## annexes
 
@@ -261,4 +272,42 @@ Multiple identities can be used for authentication:
 Choose identity to authenticate as (1-6): 6
 Password:
 ==== AUTHENTICATION COMPLETE ===
+```
+
+## ATTENTION AUX MODIFICATIONS SUR LE SERVER DEV APRES LE DEPLOIEMENT
+
+***WARNING***
+On a rajouté un composer sur le server dev après le déploiement :
+EX:
+
+```bash
+composer require knplabs/knp-paginator-bundle
+```
+
+on fait un push sur le master depuis le server dev, puis un pull depuis le server prod = ERROR
+
+### error: Your local changes to the following files would be overwritten by merge:
+
+```bash
+    composer.json
+    composer.lock
+    config/bundles.php
+    docs/cours/deploy.md
+    src/Controller/Front/MainController.php
+    symfony.lock
+    templates/front/main/home.html.twig
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+POURQUOI ?
+Le server prod ne peut pas récupérer ce composer donc il y a un décalage entre le composer.json / composer.lock du REPO GITHUB et celui du projet en prod
+
+SOLUTION:
+dans notre projet dev : on push toutes les modifications
+dans notre projet prod : on supprime tout et on recommence le deploy 😓
+
+```bash
+cd /var/www/html
+rm -r symfo-oflix-pseudoGithub
 ```

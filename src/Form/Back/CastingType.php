@@ -42,13 +42,7 @@ class CastingType extends AbstractType
                 // * EntityType : choice_label est obligatoire
                 'choice_label' => 'fullName',
                 'label' => "Acteur / Actrice",
-                // TODO : on veu le prénom + nom
-                // 1ere solution faire une function anonyme QUE pour le formulaire
-                // "choice_label" => function ($entity)
-                // {
-                //     /** @var Person $entity */
-                //     return $entity->getFirstname() . " " . $entity->getLastname();
-                // }
+               
                 "query_builder" => function(EntityRepository $er){
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.firstname', 'ASC');

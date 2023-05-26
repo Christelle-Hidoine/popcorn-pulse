@@ -20,12 +20,8 @@ class FavoritesController extends AbstractController
     public function favorites(Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
     {
         $moviesFavorites = [];
-
-        // TODO : récupérer les films favoris
         $moviesFavorites = $favorites->listFavorites();
-        
 
-        // render() renvoie un contenu (résultat du fichier twig)
         return $this->render('front/favorites/index.html.twig', [
             'movies' => $moviesFavorites,
         ]);
@@ -40,16 +36,10 @@ class FavoritesController extends AbstractController
      */
     public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites): Response
     {
-        // TODO : j'ai besoin des informations du film en question
         $movie = $movieRepository->find($id);
 
         if ($movie === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
 
-        // TODO : je veux mettre en session le film pour le garder en favoris
-        // pour accéder à la session, il me faut la requete
-        // on demande à Symfony l'objet Request
-        // * injection de dépendance
-        // $session = $request->getSession();
         $favorites->addFavorite($movie);
         $title = $movie->getTitle();
 
@@ -58,15 +48,6 @@ class FavoritesController extends AbstractController
             "$title a été ajouté à votre liste de favoris"
         );
         
-        // j'enregistre en session le film que l'utilisateur a indiqué comme favoris
-        // dd($session);
-        // $session->set("favoris$id", $movie);
-        
-        // ? je n'ai rien à afficher en particulier
-        // je redirige l'utilisateur vers la page des favoris
-        // càd vers une autre route
-        // la méthode redirectToRoute() me fournit une Response
-        // je renvois de suite cette response
         return $this->redirectToRoute('app_front_movie_favorites');
 
     }

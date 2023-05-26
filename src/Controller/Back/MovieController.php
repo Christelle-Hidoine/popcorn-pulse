@@ -13,8 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * en déclarant la route ici, on préfixe toutes les routes du controller
  * @Route("/back/movie", name="app_back_movie_")
+ * 
  */
 class MovieController extends AbstractController
 {
@@ -33,8 +33,6 @@ class MovieController extends AbstractController
      */
     public function new(Request $request, MovieRepository $movieRepository): Response
     {
-        // TODO : on applique la sécurité
-        // il faut le ROLE_ADMIN pour acceder ici
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
 
         $movie = new Movie();
@@ -60,7 +58,7 @@ class MovieController extends AbstractController
 
     /**
      * @Route("/{id}", name="show", methods={"GET"}, requirements={"id"="\d+"})
-     * rajouter un ? dans les arguments pour autoriser la valeur Null sur l'objet de l'entité
+     * 
      */
     public function show(?Movie $movie): Response
     {

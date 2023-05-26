@@ -44,7 +44,6 @@ class OmdbApi
         $response = $this->client->request(
             'GET',
             'http://www.omdbapi.com/', [
-                // these values are automatically encoded before including them in the URL
                 'query' => [
                     't' => $title,
                     'apiKey' => $this->apiKey,
@@ -52,19 +51,10 @@ class OmdbApi
             ]
         );
 
-        // $statusCode = $response->getStatusCode();
-        // $statusCode = 200
-        // $contentType = $response->getHeaders()['content-type'][0];
-        // $contentType = 'application/json'
         $content = $response->getContent();
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
-        // $content = $response->toArray();
-        // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
         
         /** @var OmdbApiModel $omdbApiModel */
         $omdbApiModel = $this->serializer->deserialize($content, OmdbApiModel::class, 'json');
-
-        // dd($omdbApiModel);
 
         return $omdbApiModel;
     }

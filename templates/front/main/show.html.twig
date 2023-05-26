@@ -34,18 +34,13 @@
 
                             {% include 'front/partials/_stars.html.twig' with {'ratingStars': movie.rating} %}
                             
-                            {# on conditionne la partie saison que pour les série #}
                             {% if movie.type.name == 'série' %}
 
-                                {# on détermine le nombre de saison avec le filter |length + condition pour l'affichage au pluriel #}
                                 <h2>{{ movie.seasons|length }} {{ movie.seasons|length > 1 ? 'Saisons' : 'Saison' }}</h2>
 
                                     <ul class="list-unstyled">
 
-                                    {# on trie les saisons dans l'ordre croissant avec le filter |sort en comparant avec l'opérateur spaceship =
-                                    An int less than, equal to, or greater than zero when $a is less than, equal to, or greater than $b, respectively.#}
                                     {% for season in movie.seasons|sort((a, b) => a.number <=> b.number) %} 
-                                        {# {% dump(season) %} #}
                                         <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
                                     {% endfor %}
                                     </ul>
@@ -57,10 +52,6 @@
                                 <dt class="col-sm-12">Avec</dt>
                                 <dd class="col-sm-12">
 
-                                {# classement des acteurs par ordre de creditOrder #}
-                                {# {% for casting in movieForTwig.castings|sort((a, b) => a.creditOrder <=> b.creditOrder) %} #}
-
-                                {# données déjà triées par creditOrder via MainController méthode show avec findBy() #}
                                 {% for casting in allCasting %}
 
                                     {{ casting.persons.firstname }} {{ casting.persons.lastname }} | ({{ casting.role }})<br>
@@ -81,7 +72,6 @@
                             </div>
                             {% endif %}
 
-                            {# affichage des critiques #}
                             {% for review in reviews %}
                 
                                 <div class="card" style="width: 18rem;">

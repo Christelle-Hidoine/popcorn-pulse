@@ -25,7 +25,6 @@ class ThemeManager
         if ($session->get('theme')) {
             $theme = $session->get('theme');
             if ($theme == 'Netflix') {
-                   // j'enregistre en session le thème que l'utilisateur a sélectionné
                 $session->set("theme", 'Allocine');
             } else {
                 $session->set("theme", 'Netflix');

@@ -39,11 +39,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // on récupère le password non hashé du form
             $plaintextPassword = $user->getPassword();
-            // on hash le password
             $passwordHashed = $passwordHasher->hashPassword($user,  $plaintextPassword);
-            // on injecte dans la BDD
             $user->setPassword($passwordHashed);
             $userRepository->add($user, true);
 
@@ -84,16 +81,9 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // il nous faut le mot de passe : 
-            // * on le récupère depuis la requete car on a désactivé la mise à jour auto par le formulaire
             $plainPassword = $request->request->get("password");
-            // dump($request->request->get('user_edit'));
-            // dd($plainPassword);
-            // si mdp complété = on ne récupère pas le mdp 
             if (!empty($plainPassword)){
-                // je hash le mot de passe
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-                // * j'oublie pas de mettre à jour mon objet
                 $user->setPassword($hashedPassword);     
             }
             

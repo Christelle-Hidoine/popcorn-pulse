@@ -25,18 +25,12 @@ class SeasonType extends AbstractType
                 'min' => 1
             ]])
             ->add('movies', EntityType::class, [
-                // * c'est un ChoiceType : multiple + expanded
                 "multiple" => false,
                 "expanded" => false, 
-                // * EntityType : class est obligatoire
                 "class" => Movie::class,
-                // * EntityType : choice_label est obligatoire
                 'choice_label' => 'title',
                 'label' => "Série",
-                // ? https://symfony.com/doc/5.4/reference/forms/types/entity.html#query-builder
                 "query_builder" => function(EntityRepository $er){
-                    // TODO : requete perso : tri par titre
-                    // TODO : requete perso : que le type série
                     return $er->createQueryBuilder('m')
                         ->join("m.type", "t")
                         ->where("t.name = 'série'")

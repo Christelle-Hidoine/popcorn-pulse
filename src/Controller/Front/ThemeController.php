@@ -21,8 +21,6 @@ class ThemeController extends AbstractController
      */
     public function addTheme(ThemeManager $theme)
     {
-    // TODO : je veux mettre en session le theme pour modifier le css en fonction du thème sélectionné
-    // * utilisation du service ThemeManager
     $theme->addThemeSession();
 
     return $this->redirectToRoute('default');

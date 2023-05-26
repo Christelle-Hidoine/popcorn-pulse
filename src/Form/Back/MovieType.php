@@ -52,27 +52,17 @@ class MovieType extends AbstractType
                 "label" => "Pays"
             ])
             ->add('poster', UrlType::class, ["label" => "Url de l'image", "attr" => ["placeholder" => "http://..."]])
-            // j'ai une relation avec une autre Entité
-            // l'élément HTML désiré : Choix : ChoiceType
-            // on veux un choiceType spécialisé pour les entités : EntityType
-            // ? https://symfony.com/doc/5.4/reference/forms/types/entity.html
             ->add('type', EntityType::class, [
-                // * c'est un ChoiceType : multiple + expanded
                 "multiple" => false,
-                "expanded" => false, // radiobutton
+                "expanded" => false, 
                 "class" => Type::class,
-                // on doit préciser la propriété pour l'affichage
                 'choice_label' => 'name',
 
             ])
             ->add('genres', EntityType::class, [
-                    // * c'est un ChoiceType : multiple + expanded
-                    // ! Genres c'est un tableau : multiple = true
                     "multiple" => true,
-                    "expanded" => true, // checkbox
-                    // * EntityType : class est obligatoire
+                    "expanded" => true, 
                     "class" => Genre::class,
-                    // * EntityType : choice_label est obligatoire
                     'choice_label' => 'name',
                 ]
             )
