@@ -150,11 +150,17 @@ class Movie
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="movies")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();
         $this->castings = new ArrayCollection();
         $this->seasons = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -372,6 +378,33 @@ class Movie
     public function preUpdateCallback()
     {
         $this->updatedAt = new \DateTime("now");
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeMovie($this);
+        }
 
         return $this;
     }

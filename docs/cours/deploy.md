@@ -309,5 +309,5 @@ dans notre projet prod : on supprime tout et on recommence le deploy 😓
 
 ```bash
 cd /var/www/html
-rm -r symfo-oflix-pseudoGithub
+rm -rf symfo-oflix-pseudoGithub 
 ```

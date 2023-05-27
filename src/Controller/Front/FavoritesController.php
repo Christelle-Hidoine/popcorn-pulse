@@ -3,12 +3,16 @@
 namespace App\Controller\Front;
 
 use App\Entity\Movie;
+use App\Entity\User;
 use App\Repository\MovieRepository;
+use App\Repository\UserRepository;
 use App\Services\FavoritesManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class FavoritesController extends AbstractController
 {
@@ -34,7 +38,7 @@ class FavoritesController extends AbstractController
      *
      * @return Response
      */
-    public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites): Response
+    public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites, Security $security, EntityManagerInterface $em): Response
     {
         $movie = $movieRepository->find($id);
 
@@ -42,6 +46,10 @@ class FavoritesController extends AbstractController
 
         $favorites->addFavorite($movie);
         $title = $movie->getTitle();
+
+        $user = $security->getUser();
+        $movie->addUser($user);
+        $em->flush;
 
         $this->addFlash(
             'success',
