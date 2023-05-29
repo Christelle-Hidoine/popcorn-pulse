@@ -5,6 +5,8 @@ namespace App\Controller\Back;
 use App\Entity\Season;
 use App\Form\Back\SeasonType;
 use App\Repository\SeasonRepository;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +20,12 @@ class SeasonController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(SeasonRepository $seasonRepository): Response
-    {
+    public function index(SeasonRepository $seasonRepository, Request $request, PaginatorInterface $paginator): Response
+    {   
+        $seasons = $seasonRepository->findAll();
+        $seasons = $paginator->paginate($seasons, $request->query->getInt('page', 1),10);
         return $this->render('back/season/index.html.twig', [
-            'seasons' => $seasonRepository->findAll(),
+            'seasons' => $seasons,
         ]);
     }
 

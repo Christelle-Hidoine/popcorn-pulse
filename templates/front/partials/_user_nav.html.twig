@@ -2,13 +2,13 @@
     <li class="nav-item dropdown">
         {% if is_granted("IS_AUTHENTICATED_FULLY") %}        
             {% set user = app.user %}
-        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropdown" role="button"
+        <a class="nav-link {{ app.request.get('_route') == 'app_front_user_show' ? 'active' : '' }} dropdown-toggle" href="#" id="navbarDropdown" role="button"
             data-bs-toggle="dropdown">
-            <span>{{ user.userIdentifier }}</span>
+            <span>{{ user.firstname }} {{ user.lastname }}</span>
             <i class="bi bi-person-square"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_USER' ? user.firstname }}</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_USER' ? 'Mon Compte' }}</a></li>
             {% if is_granted('ROLE_MANAGER') %}
                 <li><a class="dropdown-item" href="{{ path('app_front_user_show', {'id': user.id}) }}">{{ user.roles|first == 'ROLE_ADMIN' ? 'Administrateur' : 'Manager' }}</a></li>
             {% endif %}
@@ -28,18 +28,14 @@
     </li>
 </ul>
         {% else %}
-
-        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown">
-            <span>Visiteur</span>
+        
+        <a class="nav-link {{ app.request.get('_route') == 'app_front_user_new' ? 'active' : '' }}" href="{{ path('app_front_user_new') }}" id="navbarDropdown">
+            <span>Inscrivez-vous</span>
             <i class="bi bi-person-square"></i>
         </a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Visiteur</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_front_user_new') }}">S'inscire</a></li>
-        </ul>
+      
     </li>
 </ul>
 
-<button type="button" class="btn btn-danger me-2" onclick="window.location.href = '{{ path('app_login') }}';">Connexion</button>
+<button type="button" class="btn btn-danger mx-2" onclick="window.location.href = '{{ path('app_login') }}';">Connexion</button>
 {% endif %}

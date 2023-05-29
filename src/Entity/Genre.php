@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GenreRepository::class)
@@ -24,6 +25,9 @@ class Genre
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Assert\NotBlank(
+     *      message="Le nom du genre est obligatoire"
+     * )
      * 
      * @Groups({"genre_browse", "genre_read", "movie_read"})
      */

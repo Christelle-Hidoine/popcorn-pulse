@@ -241,9 +241,13 @@
         <source>le mot de passe</source>
         <target>le mot de passe</target>
       </trans-unit>
-       <trans-unit id="7EWhKA4" resname="laisser vide pour ne pas modifier ...">
-        <source>laisser vide pour ne pas modifier ...</source>
-        <target>laisser vide pour ne pas modifier ...</target>
+       <trans-unit id="7EWhKA4" resname="Laissez vide pour ne pas modifier">
+        <source>Laissez vide pour ne pas modifier</source>
+        <target>Laissez vide pour ne pas modifier</target>
+      </trans-unit>
+      <trans-unit id="8EWhKA4" resname="Répétez le mot de passe">
+        <source>Répétez le mot de passe</source>
+        <target>Répétez le mot de passe</target>
       </trans-unit>
     </body>
   </file>

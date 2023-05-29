@@ -150,11 +150,20 @@ class Movie
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favorite")
+     */
+    private $favorites;
+
+  
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();
         $this->castings = new ArrayCollection();
         $this->seasons = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -375,5 +384,34 @@ class Movie
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(User $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(User $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            $favorite->removeFavorite($this);
+        }
+
+        return $this;
+    }
+
+    
 
 }

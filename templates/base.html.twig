@@ -42,7 +42,7 @@
    
     <footer class="container-fluid py-4 border-top text-center">
         <span class="text-muted">O'flix made with &hearts; at O'clock !
-            <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>{{ theme == 'Allocine' ? 'Allociné' : 'Netflix' }}</a></small></a>
+            <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>{{ theme == 'Allocine' ? '<span class="badge bg-warning text-dark">Allociné</span>' : '<span class="badge bg-black text-white">Netflix</span>' }}</a></small></a>
         </span>
     </footer>
 

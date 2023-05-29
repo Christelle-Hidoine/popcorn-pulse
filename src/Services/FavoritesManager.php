@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Movie;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Security;
 
 class FavoritesManager 
 {
@@ -15,7 +16,7 @@ class FavoritesManager
      *
      * @param Request $request
      */
-    public function __construct(RequestStack $request)
+    public function __construct(RequestStack $request, Security $security)
     {
         $this->request = $request;
     }

@@ -1,5 +1,6 @@
-{% if app.session.get('favoris') is not empty %}
-    {% set movieFav = app.session.get('favoris') %}
+
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+    {% set movieFav = app.user.getFavorite %}
     {% set movieFavId = movieFav|map(item => item.id) %}
     {% set pathAddFav = path('app_front_add_favorites', {'id': movie.id})  %}
     {% set pathDeleteFav = path('app_front_delete_favorites_id', {'id': movie.id}) %}

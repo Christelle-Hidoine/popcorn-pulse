@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,23 +32,33 @@ class UserType extends AbstractType
 
                 if ($user->getId() !== null) {
                     // * mode Edition
-                    $builder->add('password', PasswordType::class, [
-                            "mapped" => false,
-                            "label" => "le mot de passe",
-                            "attr" => [
-                                "placeholder" => "laisser vide pour ne pas modifier ..."
+                    $builder->add('password', RepeatedType::class,[ 
+                        'type' => PasswordType::class, 
+                        "mapped" => false,
+                        'invalid_message' => 'Les 2 mots de passe doivent être identiques',
+                        'options' => ['attr' => ['class' => 'password-field']],
+                        'first_options' => [ 
+                                "label" => "Mot de passe",
+                                "attr" => ["placeholder" => "Laissez vide pour ne pas modifier"],
+                                'constraints' => [
+                                    new Regex(
+                                        "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                                        "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
+                                    ),
+                                ],
                             ],
-                            'constraints' => [
-                                new Regex(
-                                    "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                                    "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
-                                ),
+                        'second_options' => [
+                            'label' => 'Répétez le mot de passe',
+                            "attr" => ["placeholder" => "Laissez vide pour ne pas modifier"],
                             ],
                         ])
                     ;
                 } else {
                     // * mode Création : New
-                    $builder->add('password', PasswordType::class, [
+                    $builder->add('password', RepeatedType::class,[
+                        'type' => PasswordType::class, 
+                        'options' => ['attr' => ['class' => 'password-field']],
+                        'first_options' => [ 
                                 "label" => "Mot de passe",
                                 'constraints' => [
                                     new NotBlank(),
@@ -56,7 +67,12 @@ class UserType extends AbstractType
                                         "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
                                     ),
                                 ],
-                            ])
+                            ],
+                        'second_options' => [
+                            'label' => 'Répétez le mot de passe',
+                            ],
+                        'invalid_message' => 'Les 2 mots de passe doivent être identiques'
+                        ])
                     ;
                 }
             });

@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Casting;
 use App\Form\Back\CastingType;
 use App\Repository\CastingRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class CastingController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(CastingRepository $castingRepository): Response
+    public function index(CastingRepository $castingRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $castings = $castingRepository->findAll();
+        $castings = $paginator->paginate($castings, $request->query->getInt('page', 1),10);
         return $this->render('back/casting/index.html.twig', [
-            'castings' => $castingRepository->findAll(),
+            'castings' => $castings,
         ]);
     }
 
