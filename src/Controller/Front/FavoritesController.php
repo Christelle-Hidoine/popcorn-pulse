@@ -21,14 +21,19 @@ class FavoritesController extends AbstractController
      * 
      * @Route("/favoris", name="app_front_movie_favorites")
      */
-    public function favorites(Request $request, FavoritesManager $favorites, MovieRepository $movieRepository): Response
+    public function favorites(): Response
     {
-        $moviesFavorites = [];
-        $moviesFavorites = $favorites->listFavorites();
+        // $moviesFavorites = [];
+        // $moviesFavorites = $favorites->listFavorites();
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $moviesFavorites = $user->getFavorite();
 
         return $this->render('front/favorites/index.html.twig', [
             'movies' => $moviesFavorites,
-        ]);
+        ]); 
     }
 
     /**
@@ -38,26 +43,30 @@ class FavoritesController extends AbstractController
      *
      * @return Response
      */
-    public function add($id, MovieRepository $movieRepository, Request $request, FavoritesManager $favorites, Security $security, EntityManagerInterface $em): Response
+    public function add($id, MovieRepository $movieRepository, EntityManagerInterface $em): Response
     {
+        /** @var App\Entity\User $user*/
+        $user = $this->getUser();
+
         $movie = $movieRepository->find($id);
 
         if ($movie === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
+        if (!$user) {
+            $this->redirectToRoute('app_login');
+        } else {
+            $movie->addFavorite($this->getUser());
+            $title = $movie->getTitle();
 
-        $favorites->addFavorite($movie);
-        $title = $movie->getTitle();
+            $em->persist($movie);
+            $em->flush();
 
-        $user = $security->getUser();
-        $movie->addUser($user);
-        $em->flush;
+            $this->addFlash(
+                'success',
+                "$title a été ajouté à votre liste de favoris"
+            );
+        }
 
-        $this->addFlash(
-            'success',
-            "$title a été ajouté à votre liste de favoris"
-        );
-        
         return $this->redirectToRoute('app_front_movie_favorites');
-
     }
 
     /**
@@ -69,13 +78,17 @@ class FavoritesController extends AbstractController
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
      */
-    public function remove($id, FavoritesManager $favorites, MovieRepository $movieRepository): Response
+    public function remove($id, MovieRepository $movieRepository, EntityManagerInterface $em): Response
     {
         $movie = $movieRepository->find($id);
         if ($movie === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
+
+        $movie->removeFavorite($this->getUser());
         
-        $favorites->removeFavorite($movie);
+
         $title = $movie->getTitle();
+        $em->persist($movie);
+        $em->flush();
 
         $this->addFlash(
             'success',
@@ -93,9 +106,19 @@ class FavoritesController extends AbstractController
      * @param Request $request injection de dépendance pour récupérer la session
      * @return Response
      */
-    public function removeAll(FavoritesManager $favorite): Response
+    public function removeAll(EntityManagerInterface $em): Response
     {
-        $favorite->removeAll();
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $moviesFavorites = $user->getFavorite();
+        if ($moviesFavorites === null){ throw $this->createNotFoundException("ce favoris n'existe pas.");}
+
+        foreach ($moviesFavorites as $movieFavorite) {
+            $movieFavorite->removeFavorite($user);
+            $em->persist($movieFavorite);
+            $em->flush();
+        }
         
         $this->addFlash(
             'success',

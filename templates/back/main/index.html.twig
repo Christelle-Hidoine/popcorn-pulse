@@ -18,6 +18,7 @@
             {% if is_granted('ROLE_MANAGER') %}
                 {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'movie' } %}
             {% endif %}
+            {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'genre' } %}
             
             {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'casting' } %}
             {% include 'back/partials/_card_link.html.twig' with { 'entity' : 'person' } %}

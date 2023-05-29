@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genre index{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-5 ">
+    <div class="my-5 py-5 text-center">
+        <h1 class="text-muted my-2">Genre index</h1>
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <a href="{{ path('app_back_genre_new') }}" class="btn btn-success btn-lg mb-2" role="button" aria-disabled="true">Create new</a>
+            </div>
+
+                <div class="table-responsive ms-auto">
+
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for genre in genres %}
+                            <tr>
+                                <td  class ="align-middle" scope="row">{{ genre.id }}</td>
+                                <td class ="align-middle fw-bolder">{{ genre.name }}</td>
+                                <td>
+                                    <a href="{{ path('app_back_genre_show', {'id': genre.id}) }}" class="btn btn-outline-dark btn-md mb-2">show</a>
+                                    <a href="{{ path('app_back_genre_edit', {'id': genre.id}) }}" class="btn btn-secondary btn-md mb-2">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="navigation d-flex justify-content-center">
+                    {{ knp_pagination_render(genres) }}
+                </div>
+    </div>    
+</div>
+                
+{% endblock %}

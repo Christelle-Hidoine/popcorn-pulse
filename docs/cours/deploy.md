@@ -311,3 +311,13 @@ dans notre projet prod : on supprime tout et on recommence le deploy 😓
 cd /var/www/html
 rm -rf symfo-oflix-pseudoGithub 
 ```
+
+S'il y a un conflit (error de synchro) entre les fichiers dev et prod, c'est qu'on a fait une modif sur le dossier du server prod qu'on n'aurait pas dû faire.
+Ex: un composer require (à ne jamais faire sur le dossier en prod directement)
+Dans tous les cas, les bonnes pratiques sont :
+
+* Créer une branche pour les modifications en dev
+* Une fois les modif correctement validées et testées, les push sur le master
+* Faire un git pull sur le server de prod pour récupérer les dernières mises à jour fonctionnelles
+
+[https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow]
