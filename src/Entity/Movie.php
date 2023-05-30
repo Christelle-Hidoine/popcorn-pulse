@@ -127,7 +127,8 @@ class Movie
      * @Assert\NotBlank(
      *      message="Merci de sélectionner un ou plusieurs genres"
      * )
-     *
+     * 
+     * @Groups({"movie_read"})
      */
     private $genres;
 

@@ -117,8 +117,9 @@ class FavoritesController extends AbstractController
         foreach ($moviesFavorites as $movieFavorite) {
             $movieFavorite->removeFavorite($user);
             $em->persist($movieFavorite);
-            $em->flush();
         }
+        
+        $em->flush();
         
         $this->addFlash(
             'success',
