@@ -23,6 +23,7 @@
         "symfony/framework-bundle": "5.4.*",
         "symfony/http-client": "5.4.*",
         "symfony/intl": "5.4.*",
+        "symfony/polyfill-intl-messageformatter": "^1.27",
         "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
         "symfony/security-csrf": "5.4.*",
