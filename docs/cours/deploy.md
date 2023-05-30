@@ -309,7 +309,7 @@ dans notre projet prod : on supprime tout et on recommence le deploy 😓
 
 ```bash
 cd /var/www/html
-rm -rf symfo-oflix-pseudoGithub 
+sudo rm -rf symfo-oflix-pseudoGithub 
 ```
 
 S'il y a un conflit (error de synchro) entre les fichiers dev et prod, c'est qu'on a fait une modif sur le dossier du server prod qu'on n'aurait pas dû faire.
