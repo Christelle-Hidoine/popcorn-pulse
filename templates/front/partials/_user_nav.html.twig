@@ -14,7 +14,7 @@
             {% endif %}
             {% set route = app.request.get('_route') %}
             {% if 'app_back' in route %}
-                <li><a class="dropdown-item" href="{{ path('default')}}">Oflix</a></li>
+                <li><a class="dropdown-item" href="{{ path('default')}}">PopCorn Pulse</a></li>
             {% else %}
             {% if is_granted('ROLE_MANAGER') %}
                 <li><a class="dropdown-item" href="{{ path('app_back_default')}}">Backoffice</a></li>

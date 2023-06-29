@@ -8,7 +8,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="{{ asset('css/oflix.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
         <title>{% block title %}O'flix{% endblock %}</title>
     </head>
@@ -28,7 +28,7 @@
 
     {% if 'app_back' in app.request.get('_route') %}    
     <footer class="container-fluid py-4 border-top text-center">
-        <span class="text-muted">O'flix made with &hearts; at O'clock !
+        <span class="text-muted">O'flix made with &hearts; !
             <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>Netflix</a></small></a>
         </span>
     </footer>
@@ -41,7 +41,7 @@
     {% set theme = app.session.get('theme') %}
    
     <footer class="container-fluid py-4 border-top text-center">
-        <span class="text-muted">O'flix made with &hearts; at O'clock !
+        <span class="text-muted">O'flix made with &hearts; !
             <br><small>Thème :<a href="{{ path('add_theme') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>{{ theme == 'Allocine' ? '<span class="badge bg-warning text-dark">Allociné</span>' : '<span class="badge bg-black text-white">Netflix</span>' }}</a></small></a>
         </span>
     </footer>
