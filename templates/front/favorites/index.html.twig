@@ -3,15 +3,15 @@
 {% block body %}
 
     <!-- main -->
-    <div class="container-xl bg-light p-5 border-top">
+    <div class="movies container-xl bg-light p-md-5 p-sm-1 border-top">
 
         <div class="row mb-2">
 
-            <h2 class="text-muted fw-bold mb-4">Ma liste</h2>
+            <h2 class="text-muted fw-bold my-4">Ma liste</h2>
 
             {% for movie in movies %}
                 
-            <div class="col-6">
+            <div class="col-md-6">
 
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
                     <div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col">
-            <a href="{{ path('app_front_delete_favorites') }}" class="btn btn-danger btn-sm" onclick="return confirm('Vider votre liste de favoris ?');">Vider la liste</a>
+            <a href="{{ path('app_front_delete_favorites') }}" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Vider votre liste de favoris ?');">Vider la liste</a>
         </div>
 
     </div>

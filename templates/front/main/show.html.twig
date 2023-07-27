@@ -22,7 +22,7 @@
                         <h3 class="mb-1">{{ movie.title }}</h3>
                             <div class="mb-1 text-muted">{{ movie.duration }} min</div>
 
-                            <p>
+                            <p class="genre">
                             {% for genre in movie.genres %}
 
                                 <span class="badge bg-warning text-dark">{{ genre.name }}</span>
@@ -41,7 +41,7 @@
                                     <ul class="list-unstyled">
 
                                     {% for season in movie.seasons|sort((a, b) => a.number <=> b.number) %} 
-                                        <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
+                                        <li class="d-flex flex-wrap mb-2"><span class="badge bg-danger fs-6">Saison {{ season.number }}</span><small class="ms-1">({{ season.nbEpisodes }} épisodes)</small></li>
                                     {% endfor %}
                                     </ul>
 
@@ -68,19 +68,19 @@
                             {% if is_granted('ROLE_USER') %}
 
                             <div class="d-grid gap-2 d-md-flex mb-5 me-5 justify-content-md-end">
-                                <a href="{{ path('add_review', {'id': movieId }) }}" class="btn btn-warning btn-lg" role="button" aria-disabled="false">Ajouter une critique</a>
+                                <a href="{{ path('add_review', {'id': movieId }) }}" class="btn btn-warning btn-lg review-btn" role="button" aria-disabled="false">Ajouter une critique</a>
                             </div>
                             {% endif %}
 
                             {% for review in reviews %}
                 
-                                <div class="card" style="width: 18rem;">
+                                <div class="card review">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mb-2 text-muted">{{ review.username }}</h6>
 
                                          {% include 'front/partials/_stars.html.twig' with {'ratingStars': review.rating} %}
 
-                                        <em><p class="card-text">{{ review.content}}</p>
+                                        <em><p class="card-text">{{ review.content }}</p>
                                         <p class="card-subtitle mb-2 text-muted">Vu le {{ review.watchedAt|date('d-m-Y') }}<p></em>
 
                                     </div>
@@ -88,7 +88,7 @@
 
                             {% else %}
 
-                                <div class="card" style="width: 18rem;">
+                                <div class="card review">
                                     <div class="card-body">
                                         <em><p><span class="ps-1">Ce film n'a pas encore de critique<p></span></em>
                                     </div>

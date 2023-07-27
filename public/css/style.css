@@ -7,7 +7,6 @@ html {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0 0.8em 0 0.3em;
-    text-transform: uppercase;
 }
 
 .h-md-300 {
@@ -42,4 +41,52 @@ html {
 
 .nav-link#allocine {
     color:#6C757D;
+}
+.review {
+    width: 50%;
+}
+@media screen and (max-width: 400px) {
+    .pagination {
+        font-size: 0.6rem;
+    }
+    .review-btn {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+    .review {
+        width: 100%;
+    }
+    .genre {
+        display: flex;
+        flex-direction: column;
+        width: 6rem;
+    }
+    p.genre * {
+        margin-bottom: 0.5rem;
+    }
+    .table-list {
+        font-size: 0.7rem;
+    }
+}
+
+
+@media screen and (min-width: 401px) and (max-width: 600px) {
+    .pagination {
+        font-size: 0.8rem;
+    }
+    .review {
+        width: 100%;
+    }  
+    .table-list {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 991.5px) {
+    .login {
+        margin-bottom: 0.5rem;
+    }
+    .review {
+        width: 100%;
+    }
 }

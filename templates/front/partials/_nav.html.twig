@@ -6,15 +6,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme == 'Allocine' ? 'yellow' : 'dark' }}">
         <div class="container-fluid">
             <a href="{{ path('default') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
-                <img src="{{ asset('favicon.png') }}" height="24" alt="Logo O'flix">
-                <span class="header-logo__title {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}">O'flix</span>
+                <img src="{{ asset('favicon.png') }}" height="24" alt="Logo PopCorn Pulse">
+                <span class="header-logo__title {{ theme == 'Allocine' ? 'text-dark' : 'text-white' }}">PopCorn Pulse</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="{{ theme == 'Allocine' ? 'allocineText' : 'netflix' }}">
+                <ul class="navbar-nav me-auto mb-1 mb-lg-0" id="{{ theme == 'Allocine' ? 'allocineText' : 'netflix' }}">
                     <li class="nav-item">
                         <a class="nav-link {{ app.request.get('_route') == 'default' ? 'active' : '' }}" href="{{ path('default') }}" id="{{ theme == 'Allocine' ? 'allocine' : 'netflix' }}">Accueil</a>                        
                     </li>
@@ -41,15 +41,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{{ path('default') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
-                <img src="{{ asset('favicon.png') }}" height="24" alt="Logo O'flix">
-                <span class="header-logo__title text-white">O'flix</span>
+                <img src="{{ asset('favicon.png') }}" height="24" alt="Logo PopCorn Pulse">
+                <span class="header-logo__title text-white">PopCorn Pulse</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-1 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ app.request.get('_route') == 'default' ? 'active' : '' }}" href="{{ path('default') }}">Accueil</a>                        
                     </li>

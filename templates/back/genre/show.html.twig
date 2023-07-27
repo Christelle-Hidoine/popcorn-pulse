@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="container my-4">
+<div class="container-fluide">
     <div class="my-2 py-2 text-center">
 
     <h1>Genre</h1>
@@ -24,8 +24,8 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center gap-3">
-            <a href="{{ path('app_back_genre_index') }}" class="btn btn-warning btn-lg mb-2">back to list</a>
-            <a href="{{ path('app_back_genre_edit', {'id': genre.id}) }}" class="btn btn-secondary btn-lg mb-2">edit</a>
+            <a href="{{ path('app_back_genre_index') }}" class="btn btn-warning btn-md review-btn mb-2">back to list</a>
+            <a href="{{ path('app_back_genre_edit', {'id': genre.id}) }}" class="btn btn-secondary btn-md review-btn mb-2">edit</a>
 
             {{ include('back/genre/_delete_form.html.twig') }}
         </div>

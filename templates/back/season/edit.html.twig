@@ -9,11 +9,11 @@
 
             <h1 class="text-muted my-5">Edit Season</h1>
 
-            <div class="col-6">
+            <div class="col-8">
                 {{ include('back/season/_form.html.twig', {'button_label': 'Update'}) }}
 
-                <div class="d-flex justify-content-start gap-3 mb-5 mt-3">
-                    <a href="{{ path('app_back_season_index') }}" class="btn btn-warning btn-lg mb-2" role="button" aria-disabled="true">Back to list</a>
+                <div class="d-flex justify-content-end gap-3 mb-5 mt-3">
+                    <a href="{{ path('app_back_season_index') }}" class="btn btn-warning btn-md review-btn mb-2" role="button" aria-disabled="true">Back to list</a>
                     {{ include('back/season/_delete_form.html.twig') }}
                 </div> 
             </div>           

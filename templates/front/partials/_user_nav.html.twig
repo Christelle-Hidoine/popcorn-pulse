@@ -1,4 +1,4 @@
-<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<ul class="navbar-nav ms-auto mb-1 mb-lg-0">
     <li class="nav-item dropdown">
         {% if is_granted("IS_AUTHENTICATED_FULLY") %}        
             {% set user = app.user %}
@@ -30,12 +30,11 @@
         {% else %}
         
         <a class="nav-link {{ app.request.get('_route') == 'app_front_user_new' ? 'active' : '' }}" href="{{ path('app_front_user_new') }}" id="navbarDropdown">
-            <span>Inscrivez-vous</span>
-            <i class="bi bi-person-square"></i>
+            <i class="bi bi-person-square" style="font-size: 1.5em;"></i>
         </a>
       
     </li>
 </ul>
 
-<button type="button" class="btn btn-danger mx-2" onclick="window.location.href = '{{ path('app_login') }}';">Connexion</button>
+<button type="button" class="btn btn-danger login mx-mb-2 me-lg-2" onclick="window.location.href = '{{ path('app_login') }}';">Connexion</button>
 {% endif %}
